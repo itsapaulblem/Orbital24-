@@ -686,7 +686,13 @@ PlayerSettings:
   XboxOneOverrideIdentityName: 
   XboxOneOverrideIdentityPublisher: 
   vrEditorSettings: {}
-  cloudServicesEnabled: {}
+  cloudServicesEnabled:
+    Build: 0
+    Game Performance: 0
+    Legacy Analytics: 0
+    Purchasing: 0
+    UDP: 0
+    Unity Ads: 0
   luminIcon:
     m_Name: 
     m_ModelFolderPath: 
@@ -706,11 +712,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: 0414ab1c-752d-44f4-9a61-9a18f8480e2c
+  cloudProjectId: d7079e5a-f88a-40f5-b847-465efcc0c857
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Orbital24- 2024-05-15_13-55-13
-  organizationId: k-hian
+  projectName: Orbital24-
+  organizationId: paulchelseafan
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}
