@@ -7,7 +7,6 @@ public class MainMenu : MonoBehaviour
 {
     public void PlayGame()
     {
-        // Assuming "LevelOne" is the name of your scene
         SceneManager.LoadSceneAsync("LevelOne");
     }
 }
