@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float movementSpeed = 1f;
 
@@ -17,6 +17,10 @@ public class NewBehaviourScript : MonoBehaviour
 
     private void OnEnable() {
         playerControls.Enable();
+    }
+
+    private void OnDisable(){
+        playerControls.Disable();
     }
 
     private void Update() {
