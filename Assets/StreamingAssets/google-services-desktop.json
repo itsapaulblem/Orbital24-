@@ -1,0 +1,31 @@
+{
+  "project_info": {
+    "project_number": "641063245882",
+    "project_id": "orbital24-d61c7",
+    "storage_bucket": "orbital24-d61c7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:641063245882:ios:6bd8b9be26f53814e7fd03",
+        "android_client_info": {
+          "package_name": "paul"
+        }
+      },
+      "api_key": [
+        {
+          "current_key": "AIzaSyCd4WYPZKYAhgHNGXguMDT7XXK59WfzDK0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 0
+        },
+        "appinvite_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
