@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f4f2d55fab2154bc3a1a44ce7cf9c903
+guid: 960f72231264f407996531f368f7c235
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spr_bob_walk_right_0
+      name: spr_seagrass_1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,14 +124,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7c9e543c1972f434da0e03aef161f4e4
-      internalID: 1886003196
+      spriteID: 1185e1266a9c6443abf6a6eda4251f2e
+      internalID: -1206464757
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_bob_walk_right_1
+      name: spr_seagrass_1_1
       rect:
         serializedVersion: 2
         x: 64
@@ -145,92 +145,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 97db3f889c93c4be4baae3aa1f1deceb
-      internalID: -2038900263
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: spr_bob_walk_right_2
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 0
-        width: 64
-        height: 64
-      alignment: 9
-      pivot: {x: 0.5, y: 0.4}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9aee4190aa99447f0a59469f8ea1a13c
-      internalID: -1640319713
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: spr_bob_walk_right_3
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 0
-        width: 64
-        height: 64
-      alignment: 9
-      pivot: {x: 0.5, y: 0.4}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ebd34b1b76d34445d84792bed8da4b17
-      internalID: -1923413171
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: spr_bob_walk_right_4
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 0
-        width: 64
-        height: 64
-      alignment: 9
-      pivot: {x: 0.5, y: 0.4}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9b4a3878cc37e4ee28399e5bbfe1813d
-      internalID: 749430864
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: spr_bob_walk_right_5
-      rect:
-        serializedVersion: 2
-        x: 320
-        y: 0
-        width: 64
-        height: 64
-      alignment: 9
-      pivot: {x: 0.5, y: 0.4}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: da0b10ae023d348908aed126e45ef4c7
-      internalID: 32523167
+      spriteID: 52706dedce3584ba299a98a4e19f125c
+      internalID: -1780941215
       vertices: []
       indices: 
       edges: []
@@ -246,12 +162,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      spr_bob_walk_right_0: 1886003196
-      spr_bob_walk_right_1: -2038900263
-      spr_bob_walk_right_2: -1640319713
-      spr_bob_walk_right_3: -1923413171
-      spr_bob_walk_right_4: 749430864
-      spr_bob_walk_right_5: 32523167
+      spr_seagrass_1_0: -1206464757
+      spr_seagrass_1_1: -1780941215
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
