@@ -6,6 +6,7 @@ using Firebase.Auth;
 using TMPro;
 using System.Threading.Tasks;
 using TMPro.EditorUtilities;
+using UnityEngine.SceneManagement;
 public class AuthManager : MonoBehaviour
 {
     [Header("Firebase")]
@@ -19,12 +20,13 @@ public class AuthManager : MonoBehaviour
     public TMP_Text warningLoginText; 
     public TMP_Text confirmLoginText; 
 
-    [Header("Register")]
+   /* [Header("Register")]
     public TMP_InputField usernameRegisterField;
     public TMP_InputField emailRegisterField; 
     public TMP_InputField passwordRegisterField;
     public TMP_InputField passwordRegisterVerifyField; 
     public TMP_Text warningRegisterText; 
+    */
 
     public void Awake(){
         FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
@@ -51,10 +53,12 @@ public class AuthManager : MonoBehaviour
         StartCoroutine(Login(emailLoginField.text, passwordLoginField.text));
     }
 
-    //function for the register button 
+    /* function for the register button 
     public void RegisterButton(){
         StartCoroutine(Register(emailRegisterField.text, passwordRegisterField.text, usernameRegisterField.text));
     }
+
+    */
 
     private IEnumerator Login(string _email, string _password){
         var LoginTask = auth.SignInWithEmailAndPasswordAsync(_email, _password);
@@ -98,8 +102,10 @@ public class AuthManager : MonoBehaviour
             Debug.LogFormat("User signed in successfully: {0} ({1})", user.DisplayName, user.Email);
             warningLoginText.text = "";
             confirmLoginText.text = "Logged in";
+            SceneManager.LoadSceneAsync("BaseLevel");
         }
     }
+    /*
 
     private IEnumerator Register(string _email, string _password, string _username){
         if (_username == ""){
@@ -160,8 +166,9 @@ public class AuthManager : MonoBehaviour
                     }
                 }
             }
+            */
 
-        }
-    }
+        
+    
 
 }
