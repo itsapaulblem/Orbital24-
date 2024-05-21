@@ -8,6 +8,7 @@ public class VolumeSettings : MonoBehaviour
 {
     [SerializeField] private AudioMixer myAudio;
     [SerializeField] private Slider musicSlider;
+    
     // Start is called before the first frame update
     private void Start(){
         if (PlayerPrefs.HasKey("musicVolume")){
