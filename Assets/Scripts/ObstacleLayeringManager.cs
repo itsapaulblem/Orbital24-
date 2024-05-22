@@ -6,8 +6,10 @@ public class ObstacleLayeringManager : MonoBehaviour
 {
     static ObstacleLayeringManager instance;
 
-    public static ObstacleLayeringManager Instance {
-        get {
+    public static ObstacleLayeringManager Instance 
+    {
+        get 
+        {
             if (instance == null) {
                 instance = (ObstacleLayeringManager)FindObjectOfType(typeof(ObstacleLayeringManager));
             }
