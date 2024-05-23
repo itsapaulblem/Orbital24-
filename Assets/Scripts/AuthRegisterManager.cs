@@ -13,12 +13,6 @@ public class AuthRegisterManager : MonoBehaviour
     public FirebaseAuth auth; 
     public FirebaseUser user; 
 
-   /* [Header("Login")]
-    public TMP_InputField emailLoginField; 
-    public TMP_InputField passwordLoginField;
-    public TMP_Text warningLoginText; 
-    public TMP_Text confirmLoginText; 
-*/
     [Header("Register")]
     public TMP_InputField usernameRegisterField;
     public TMP_InputField emailRegisterField; 
@@ -46,64 +40,11 @@ public class AuthRegisterManager : MonoBehaviour
         // set the authentication instance object 
         auth = FirebaseAuth.DefaultInstance;
     }
-
-    /* function for the login button 
-    public void LoginButton(){
-        StartCoroutine(Login(emailLoginField.text, passwordLoginField.text));
-    }
-*/
     // function for the register button 
     public void RegisterButton(){
         StartCoroutine(Register(emailRegisterField.text, passwordRegisterField.text, usernameRegisterField.text));
     }
 
-
-    /*
-    private IEnumerator Login(string _email, string _password){
-        var LoginTask = auth.SignInWithEmailAndPasswordAsync(_email, _password);
-
-        yield return new WaitUntil(predicate : () => LoginTask.IsCompleted);
-
-        if (LoginTask.Exception != null){
-            Debug.LogWarning(message : $"Failed to register task with {LoginTask.Exception}");
-            FirebaseException firebaseEx = LoginTask.Exception.GetBaseException() as FirebaseException;
-            AuthError errorCode = (AuthError) firebaseEx.ErrorCode;
-
-            string message = "Login Failed";
-            switch (errorCode)
-            {
-                case AuthError.MissingEmail:
-                    message = "Missing Email";
-                    break; 
-
-                case AuthError.MissingPassword:
-                    message = "Missing password";
-                    break; 
-                
-                case AuthError.WrongPassword: 
-                    message = "Wrong password";
-                    break;
-
-                case AuthError.InvalidEmail: 
-                    message = "Invalid Email";
-                    break;  
-
-                case AuthError.UserNotFound:
-                    message = "Account does not exist";
-                    break; 
-            }
-            warningLoginText.text = message ; 
-        }
-        else
-        {
-            AuthResult result = LoginTask.Result; 
-            user = result.User; 
-            Debug.LogFormat("User signed in successfully: {0} ({1})", user.DisplayName, user.Email);
-            warningLoginText.text = "";
-            confirmLoginText.text = "Logged in";
-        }
-     }
-    */
 
     private IEnumerator Register(string _email, string _password, string _username){
         if (_username == ""){

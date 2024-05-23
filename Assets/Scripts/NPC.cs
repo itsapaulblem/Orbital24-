@@ -16,8 +16,9 @@ public class NPC : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && playerIsClose)
+        if (Input.GetKeyDown(KeyCode.E) || playerIsClose)
         {
+            Debug.Log("E key pressed and player is close");
             if (dialoguePanel.activeInHierarchy)
             {
                 NextLine();
@@ -89,6 +90,7 @@ public class NPC : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            Debug.Log("Player entered trigger area");
             playerIsClose = true;
         }
     }
@@ -97,6 +99,7 @@ public class NPC : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            Debug.Log("Player exited trigger area");
             playerIsClose = false;
             zeroText();
         }

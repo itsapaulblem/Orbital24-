@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - 'dialoguePanel '
+  - dialogueText
+  - 'continueButton '
   layers:
   - Default
   - TransparentFX
@@ -43,4 +46,7 @@ TagManager:
     locked: 0
   - name: Timeline
     uniqueID: 1667723809
+    locked: 0
+  - name: 'Ocean '
+    uniqueID: 108591547
     locked: 0

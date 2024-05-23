@@ -131,7 +131,7 @@ public class AuthManager : MonoBehaviour
             // Load the next scene on the main thread
             UnityMainThreadDispatcher.Instance().Enqueue(() =>
             {
-                SceneManager.LoadSceneAsync("BaseLevel");
+                SceneManager.LoadSceneAsync("Cutscene1");
             });
         }
     }
