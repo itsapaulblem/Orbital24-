@@ -123,6 +123,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+<<<<<<< HEAD
 --- !u!1 &94568171
 GameObject:
   m_ObjectHideFlags: 0
@@ -1372,6 +1373,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+=======
+>>>>>>> player-features
 --- !u!1 &2127945405
 GameObject:
   m_ObjectHideFlags: 0
@@ -1458,7 +1461,11 @@ Transform:
   m_GameObject: {fileID: 2127945405}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+<<<<<<< HEAD
   m_LocalPosition: {x: 0, y: -0.4, z: 0}
+=======
+  m_LocalPosition: {x: 0, y: 0, z: -10}
+>>>>>>> player-features
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1469,6 +1476,9 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 2127945408}
+<<<<<<< HEAD
   - {fileID: 399516001}
   - {fileID: 1941102005}
   - {fileID: 1892017304}
+=======
+>>>>>>> player-features

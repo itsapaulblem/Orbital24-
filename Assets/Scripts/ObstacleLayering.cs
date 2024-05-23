@@ -13,19 +13,22 @@ public class ObstacleLayering : MonoBehaviour
     const int IN_BACK = -1;
 
 
-    void Awake() {
+    void Awake() 
+    {
         obstacleRenderer = GetComponent<SpriteRenderer>();
         player = ObstacleLayeringManager.Instance.Player;
         SetSortOrder();
     }
 
 
-    void SetSortOrder() {
+    void SetSortOrder() 
+    {
         obstacleRenderer.sortingOrder = currentSortOrder;
     }
 
 
-    void Update() {
+    void Update() 
+    {
         int order = (player.transform.position.y < transform.position.y) ? IN_BACK : IN_FRONT;
         if (order != currentSortOrder)
         {
