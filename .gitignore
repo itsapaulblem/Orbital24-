@@ -136,6 +136,7 @@ crashlytics-build.properties
 /Assets/Parse/
 /Assets/Parse.meta
 /remote_config_data
+/Assets/Firebase/
 
 # Android SDK
 Assets/Plugins/Android/com.google.firebase.*
