@@ -22,7 +22,9 @@ public class UISpriteAnimation : MonoBehaviour
     public void Func_PlayUIAnim()
     {
         isDone = false;
-        StartCoroutine(Func_PlayAnimUI());
+        m_IndexSprite = 0 ;
+        m_CoroutineAnim = StartCoroutine(Func_PlayAnimUI());
+        //StartCoroutine(Func_PlayAnimUI());
     }
 
     public void Func_StopUIAnim()
