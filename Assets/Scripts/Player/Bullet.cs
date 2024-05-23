@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
 
+
 public class Bullet : MonoBehaviour
 {
     public SpriteLibrary spriteLibrary;
+    private SpriteResolver spriteResolver;
     private Animator bulletAnimator;
     private Vector2 origin;
     private float bulletLife = 200f;
@@ -13,6 +15,7 @@ public class Bullet : MonoBehaviour
     void Start()
     {
         spriteLibrary = GetComponent<SpriteLibrary>();
+        spriteResolver = GetComponent<SpriteResolver>();
         bulletAnimator = GetComponent<Animator>();
         origin = transform.position;
         if (spriteLibrary.spriteLibraryAsset == null)
@@ -45,9 +48,11 @@ public class Bullet : MonoBehaviour
     {
         GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
         bulletAnimator.SetTrigger("destroy");
-        spriteLibrary.spriteLibraryAsset = Resources.Load<SpriteLibraryAsset>("Sprites/Player/Bullets/splat_main");
-        yield return new WaitForSeconds(1.5f);
+        spriteResolver.SetCategoryAndLabel("Splat_2","New Label");
+        Debug.Log(spriteResolver.GetCategory());
+        yield return new WaitForSeconds(1f);
         
         Destroy(gameObject);
+        yield break;
     }
 }

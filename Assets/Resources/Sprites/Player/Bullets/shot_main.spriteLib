@@ -29,6 +29,22 @@ MonoBehaviour:
       m_SpriteOverride: {fileID: 1624641414, guid: 84101fa43b2414f73a54c832638e7962, type: 3}
     m_FromMain: 0
     m_EntryOverrideCount: 2
+  - m_Name: Splat_2
+    m_Hash: 1026030376
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: New Label
+      m_Hash: 259326342
+      m_Sprite: {fileID: 1641029427, guid: ecf6b169a076542ea89091658c5b2804, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1641029427, guid: ecf6b169a076542ea89091658c5b2804, type: 3}
+    - m_Name: New Label_0
+      m_Hash: 16589798
+      m_Sprite: {fileID: -1088294761, guid: ecf6b169a076542ea89091658c5b2804, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1088294761, guid: ecf6b169a076542ea89091658c5b2804, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 2
   m_PrimaryLibraryGUID: 
-  m_ModificationHash: 638519736200903370
+  m_ModificationHash: 638520750988640580
   m_Version: 1
