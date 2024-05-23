@@ -7,20 +7,18 @@ using UnityEngine.U2D.Animation;
 public class Bullet : MonoBehaviour
 {
     public SpriteLibrary spriteLibrary;
-    private SpriteResolver spriteResolver;
     private Animator bulletAnimator;
     private Vector2 origin;
     private float bulletLife = 200f;
+    private bool active = true;
     // Start is called before the first frame update
     void Start()
     {
         spriteLibrary = GetComponent<SpriteLibrary>();
-        spriteResolver = GetComponent<SpriteResolver>();
         bulletAnimator = GetComponent<Animator>();
         origin = transform.position;
         if (spriteLibrary.spriteLibraryAsset == null)
         {
-            Debug.Log(Resources.Load<SpriteLibraryAsset>("Sprites/Player/Bullets/shot_main"));
             spriteLibrary.spriteLibraryAsset = Resources.Load<SpriteLibraryAsset>("Sprites/Player/Bullets/shot_main");
         }
         
@@ -38,9 +36,10 @@ public class Bullet : MonoBehaviour
     private void Update()
     {
         float dist = Vector2.Distance(origin,transform.position);
-        if (dist > bulletLife) 
+        if (dist > bulletLife && active) 
         {
             StartCoroutine(End());
+            active = false;
         }
     }
 
@@ -48,8 +47,7 @@ public class Bullet : MonoBehaviour
     {
         GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
         bulletAnimator.SetTrigger("destroy");
-        spriteResolver.SetCategoryAndLabel("Splat_2","New Label");
-        Debug.Log(spriteResolver.GetCategory());
+        transform.Rotate(0, 0, Random.Range(0f, 360f));
         yield return new WaitForSeconds(1f);
         
         Destroy(gameObject);
