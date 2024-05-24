@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement; // Added for scene management
+using UnityEngine.UI;
 
 public class NPC_Mermaid : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class NPC_Mermaid : MonoBehaviour
 
     private Coroutine typingCoroutine;
     public GameObject continueButton;
+    public GameObject instructions; 
 
     void Update()
     {
@@ -34,6 +36,7 @@ public class NPC_Mermaid : MonoBehaviour
         if (dialogueText.text == dialogue[index] && continueButton != null)
         {
             continueButton.SetActive(true);
+          //  instructions.SetActive(true);
         }
     }
 
@@ -84,7 +87,13 @@ public class NPC_Mermaid : MonoBehaviour
         else
         {
             zeroText();
-           // LoadNextScene(); // Call the method to load the next scene
+            activateInstructions();
+        }
+    }
+
+    public void activateInstructions(){
+        if (instructions != null){
+            instructions.SetActive(true);
         }
     }
 
