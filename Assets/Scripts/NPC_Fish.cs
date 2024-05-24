@@ -1,8 +1,9 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement; // Added for scene management
 
-public class NPC : MonoBehaviour
+public class NPC_Fish : MonoBehaviour
 {
     public GameObject dialoguePanel;
     public TMP_Text dialogueText; // Updated for TextMeshPro
@@ -83,6 +84,7 @@ public class NPC : MonoBehaviour
         else
         {
             zeroText();
+            LoadNextScene(); // Call the method to load the next scene
         }
     }
 
@@ -103,5 +105,11 @@ public class NPC : MonoBehaviour
             playerIsClose = false;
             zeroText();
         }
+    }
+
+    // Method to load the next scene
+    private void LoadNextScene()
+    {
+        SceneManager.LoadScene("Cutscene2"); 
     }
 }

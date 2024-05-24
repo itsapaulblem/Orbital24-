@@ -319,10 +319,11 @@ MonoBehaviour:
   dialogueText: {fileID: 1827495328}
   dialogue:
   - Goood Morning! How was your sleep?
-  - How terrible ! It must be that wicked <field boss name> deed
+  - How terrible ! It must be that wicked fish, Poseidon's, deed
   - that explains all the broken pots and trashed coral gardens
   - You want to go and retrieve your treasure?
   - Then you must gear up, no point losing a tentacle with no reason, right?
+  - Follow me!
   wordSpeed: 0.06
   playerIsClose: 0
   continueButton: {fileID: 1052573897}
@@ -343,7 +344,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &234429293
 RectTransform:
   m_ObjectHideFlags: 0
@@ -353,7 +354,7 @@ RectTransform:
   m_GameObject: {fileID: 234429292}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.0125, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1444587741}
@@ -679,7 +680,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 354, y: -65.23999}
+  m_AnchoredPosition: {x: 350, y: -65.23999}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1052573899
@@ -811,7 +812,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -341.7, y: 0}
+  m_AnchoredPosition: {x: -447, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1444587742
@@ -909,7 +910,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press 'E' to interact with Goldie!
+  m_text: Press 'E' to ask what happened!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1013,14 +1014,14 @@ RectTransform:
   m_GameObject: {fileID: 1827495326}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.1625, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 234429293}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 19.5, y: 1.73}
+  m_AnchoredPosition: {x: -72, y: 1.73}
   m_SizeDelta: {x: 544.49, y: 129.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1827495328
