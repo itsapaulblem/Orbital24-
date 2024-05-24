@@ -1546,15 +1546,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1510415483}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 018ed8b05dcae744b85657bbf49d0d5f, type: 3}
+  m_Script: {fileID: 11500000, guid: 08ecabc77271c0c4db2ba259f94234e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dialoguePanel: {fileID: 2048441171}
   dialogueText: {fileID: 582118354}
   dialogue:
-  - 'There you are Bob! I was on my way to harvest some Sea Shillings! '
-  - But I was blocked by this ugly angler fish... Could you help me ?
-  wordSpeed: 0
+  - 
+  - 
+  wordSpeed: 0.06
   playerIsClose: 0
   continueButton: {fileID: 2105159453}
 --- !u!1 &1722395997
