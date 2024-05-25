@@ -56,4 +56,11 @@ public class PlayerShoot : MonoBehaviour
             shootSingle = true;
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision){
+        if (collision.GetComponent<EnemyAI>()){
+            Destroy(collision.gameObject);
+            Destroy(gameObject);
+        }
+    }
 }
