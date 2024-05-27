@@ -11,28 +11,34 @@ public class NPC_Mermaid : MonoBehaviour
     public string[] dialogue;
     private int index;
     public float wordSpeed;
-    public bool playerIsClose;
 
     private Coroutine typingCoroutine;
     public GameObject continueButton;
-    public GameObject SpeechBubble; 
+    public GameObject SpeechBubble;
 
-    public void Start(){
+    private bool dialogueCompleted = false; // Flag to check if dialogue is completed
+
+    public void Start()
+    {
         SpeechBubble.SetActive(false);
     }
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) || playerIsClose)
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            Debug.Log("E key pressed and player is close");
-            if (dialoguePanel.activeInHierarchy)
-            {
-                NextLine();
-            }
-            else
+           // Debug.Log("E key pressed and player is close");
+            if (!dialoguePanel.activeInHierarchy && !dialogueCompleted) // Show dialogue panel only if it's not already active and dialogue isn't completed
             {
                 dialoguePanel.SetActive(true);
                 StartTyping();
+            }
+            else if (dialoguePanel.activeInHierarchy && !dialogueCompleted) // If dialogue panel is already active and dialogue isn't completed, proceed to next line
+            {
+                NextLine();
+            }
+            else if (dialogueCompleted){
+                dialoguePanel.SetActive(false);
             }
         }
 
@@ -56,7 +62,10 @@ public class NPC_Mermaid : MonoBehaviour
         dialogueText.text = "";
         index = 0;
         dialoguePanel.SetActive(false);
-        continueButton.SetActive(false);
+        if (continueButton != null)
+        {
+            continueButton.SetActive(false);
+        }
 
         if (typingCoroutine != null)
         {
@@ -90,6 +99,7 @@ public class NPC_Mermaid : MonoBehaviour
         {
             zeroText();
             activateInstructions();
+            dialogueCompleted = true; // Set flag to true when dialogue is completed
         }
     }
 
@@ -107,7 +117,7 @@ public class NPC_Mermaid : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("Player entered trigger area");
-            playerIsClose = true;
+           
         }
     }
 
@@ -116,7 +126,7 @@ public class NPC_Mermaid : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("Player exited trigger area");
-            playerIsClose = false;
+          
             zeroText();
         }
     }

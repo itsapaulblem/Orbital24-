@@ -4,9 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - 'dialoguePanel '
-  - dialogueText
-  - 'continueButton '
+  - Enemy
   layers:
   - Default
   - TransparentFX

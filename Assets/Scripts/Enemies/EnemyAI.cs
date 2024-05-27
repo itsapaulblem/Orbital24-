@@ -13,10 +13,10 @@ public class EnemyAI : MonoBehaviour
     private EnemyPathfinding enemyPathfinding;
     private GameObject player;
     private Rigidbody2D rb;
-    private Camera camera;
-
+    private new Camera camera;
     [SerializeField] private float sight = 20f;
     [SerializeField] private float screenBorder;
+    [SerializeField] private int health = 100; // Added health variable
 
     private void Awake()
     {
@@ -71,15 +71,29 @@ public class EnemyAI : MonoBehaviour
     private void HandleEnemyOffScreen()
     {
         Vector3 screenPosition = camera.WorldToScreenPoint(transform.position);
-        Vector2 targetDirection = Vector2.zero;
 
-        if ((screenPosition.x < screenBorder && rb.velocity.x < 0) || (screenPosition.x > camera.pixelWidth - screenBorder && rb.velocity.x > 0))
-        {
-            targetDirection = new Vector2(0, rb.velocity.y);
-        }
-        if ((screenPosition.y < screenBorder && rb.velocity.y < 0) || (screenPosition.y > camera.pixelHeight - screenBorder && rb.velocity.y > 0))
-        {
-            rb.velocity = new Vector2(rb.velocity.x, 0);
+        // Get the screen boundaries
+        float minX = screenBorder;
+        float maxX = camera.pixelWidth - screenBorder;
+        float minY = screenBorder;
+        float maxY = camera.pixelHeight - screenBorder;
+
+        // Clamp the enemy's position to stay within the screen boundaries
+        float clampedX = Mathf.Clamp(screenPosition.x, minX, maxX);
+        float clampedY = Mathf.Clamp(screenPosition.y, minY, maxY);
+        Vector3 clampedPosition = camera.ScreenToWorldPoint(new Vector3(clampedX, clampedY, screenPosition.z));
+
+        // Update the enemy's position
+        transform.position = clampedPosition;
+    }
+
+    public void OnCollisionEnter2D(Collision2D collision){
+        if (collision.gameObject.CompareTag("Bullet")){
+            health -= 10;
+            if (health <= 0){
+                Destroy(gameObject);
+                
+            }
         }
     }
 }

@@ -63,7 +63,7 @@ public class AuthManager : MonoBehaviour
     {
         if (auth == null)
         {
-            Debug.LogError("FirebaseAuth is not initialized.");
+           // Debug.LogError("FirebaseAuth is not initialized.");
             yield break;
         }
 
