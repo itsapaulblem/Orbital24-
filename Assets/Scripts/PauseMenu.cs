@@ -1,47 +1,73 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Cinemachine;
 
 public class PauseMenu : MonoBehaviour
 {
-    public GameObject pauseMenu; 
-    public bool isPaused; 
-    // Start is called before the first frame update
+    public GameObject pauseMenu;
+    public bool isPaused;
+
     void Start()
     {
         pauseMenu.SetActive(false);
     }
 
-    // Update is called once per frame
-    public void Update()
+    void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P)){
-            if (isPaused){
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            if (isPaused)
+            {
                 ResumeGame();
             }
-            else{
+            else
+            {
                 PauseGame();
             }
         }
-    }
-    public void PauseGame(){
-        pauseMenu.SetActive(true);
-        Time.timeScale = 0f; 
-        isPaused = true; 
+
+        // Manually update Cinemachine virtual cameras if the game is paused
+        if (isPaused)
+        {
+            UpdateCinemachineCameras();
+        }
     }
 
-    public void ResumeGame(){
+    public void PauseGame()
+    {
+        pauseMenu.SetActive(true);
+        Time.timeScale = 0f;
+        isPaused = true;
+    }
+
+    public void ResumeGame()
+    {
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
-        isPaused = false; 
+        isPaused = false;
     }
 
-    public void Quit(){
-        Time.timeScale = 1f; 
+    public void Quit()
+    {
+        Time.timeScale = 1f;
         SceneManager.LoadScene("Start");
     }
 
-    public void RestartGame(){
-        Time.timeScale = 1f; 
+    public void RestartGame()
+    {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void UpdateCinemachineCameras()
+    {
+        // Find all active Cinemachine virtual cameras in the scene
+        var virtualCameras = FindObjectsOfType<CinemachineVirtualCamera>();
+
+        // Update each Cinemachine virtual camera manually
+        foreach (var vCam in virtualCameras)
+        {
+            vCam.UpdateCameraState(Vector3.zero, Time.unscaledDeltaTime);
+        }
     }
 }

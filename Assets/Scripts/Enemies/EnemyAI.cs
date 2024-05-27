@@ -1,8 +1,13 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class EnemyAI : MonoBehaviour
 {
+    public Image healthBar;
+
+    private NPC_Mermaid npcMermaid;
     private enum State
     {
         Roaming,
@@ -15,7 +20,10 @@ public class EnemyAI : MonoBehaviour
     private Rigidbody2D rb;
     private new Camera camera;
     [SerializeField] private float sight = 20f;
-    [SerializeField] private int health = 100; // Added health variable
+    [SerializeField] private int maxHealth = 100; // Added maxHealth variable
+    private int currentHealth; // Current health of the enemy
+
+    private bool canMove = false; // Flag to control enemy movement
 
     private void Awake()
     {
@@ -24,6 +32,10 @@ public class EnemyAI : MonoBehaviour
         player = GameObject.Find("Player");
         rb = GetComponent<Rigidbody2D>();
         camera = Camera.main;
+
+    
+        // Initialize current health
+        currentHealth = maxHealth;
     }
 
     private void Start()
@@ -40,7 +52,7 @@ public class EnemyAI : MonoBehaviour
                 Vector2 roamPos = GetRoamingPosition();
                 enemyPathfinding.MoveTo(roamPos);
             }
-            yield return new WaitForSeconds(2f);
+        
         }
     }
 
@@ -64,13 +76,18 @@ public class EnemyAI : MonoBehaviour
             Vector2 roamPos = GetSeekingPosition();
             enemyPathfinding.MoveTo(roamPos);
         }
-    
     }
 
-    public void TakeDamage(int damage){
-        health -= damage; 
-        if (health <= 0 ){
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        float fillAmount = (float)currentHealth / maxHealth; // Calculate fill amount based on current health
+        healthBar.fillAmount = fillAmount;
+
+        if (currentHealth <= 0)
+        {
             Destroy(gameObject);
+            // add reward scene
         }
     }
 }

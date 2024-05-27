@@ -112,6 +112,13 @@ public class NPC_Mermaid : MonoBehaviour
         }
     }
 
+    public void ActivateDialoguePanel(){
+        if (dialoguePanel != null && dialogueText != null){
+            dialoguePanel.SetActive(true);
+            StartTyping();
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
