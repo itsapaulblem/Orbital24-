@@ -10,45 +10,56 @@ public class NPC_Mermaid : MonoBehaviour
     public TMP_Text dialogueText; // Updated for TextMeshPro
     public string[] dialogue;
     private int index;
-    public float wordSpeed;
+    public float wordSpeed = 0.1f; // Ensure a default value for wordSpeed
 
     private Coroutine typingCoroutine;
     public GameObject continueButton;
     public GameObject SpeechBubble;
 
-    private bool dialogueCompleted = false; // Flag to check if dialogue is completed
-
-    public void Start()
+    private void Start()
     {
-        SpeechBubble.SetActive(false);
+        if (SpeechBubble != null)
+        {
+            SpeechBubble.SetActive(false);
+        }
+        else
+        {
+            Debug.LogError("SpeechBubble is not assigned!");
+        }
+
+        if (dialoguePanel == null || dialogueText == null)
+        {
+            Debug.LogError("DialoguePanel or DialogueText is not assigned!");
+        }
+
+        if (continueButton != null)
+        {
+            continueButton.SetActive(false);
+        }
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-           // Debug.Log("E key pressed and player is close");
-            if (!dialoguePanel.activeInHierarchy && !dialogueCompleted) // Show dialogue panel only if it's not already active and dialogue isn't completed
+            if (dialoguePanel != null && !dialoguePanel.activeInHierarchy)
             {
                 dialoguePanel.SetActive(true);
                 StartTyping();
             }
-            else if (dialoguePanel.activeInHierarchy && !dialogueCompleted) // If dialogue panel is already active and dialogue isn't completed, proceed to next line
+            else if (dialoguePanel != null && dialoguePanel.activeInHierarchy)
             {
                 NextLine();
             }
-            else if (dialogueCompleted){
-                dialoguePanel.SetActive(false);
-            }
         }
 
-        if (dialogueText.text == dialogue[index] && continueButton != null)
+        if (dialogueText != null && dialogueText.text == dialogue[index] && continueButton != null)
         {
             continueButton.SetActive(true);
         }
     }
 
-    void StartTyping()
+    private void StartTyping()
     {
         if (typingCoroutine != null)
         {
@@ -57,11 +68,19 @@ public class NPC_Mermaid : MonoBehaviour
         typingCoroutine = StartCoroutine(Typing());
     }
 
-    public void zeroText()
+    public void ZeroText()
     {
-        dialogueText.text = "";
+        if (dialogueText != null)
+        {
+            dialogueText.text = "";
+        }
         index = 0;
-        dialoguePanel.SetActive(false);
+
+        if (dialoguePanel != null)
+        {
+            dialoguePanel.SetActive(false);
+        }
+
         if (continueButton != null)
         {
             continueButton.SetActive(false);
@@ -74,22 +93,27 @@ public class NPC_Mermaid : MonoBehaviour
         }
     }
 
-    IEnumerator Typing()
+    private IEnumerator Typing()
     {
-        dialogueText.text = ""; // Clear text before typing starts
-        foreach (char letter in dialogue[index].ToCharArray())
+        if (dialogueText != null)
         {
-            dialogueText.text += letter;
-            yield return new WaitForSeconds(wordSpeed);
+            dialogueText.text = ""; // Clear text before typing starts
+            foreach (char letter in dialogue[index].ToCharArray())
+            {
+                dialogueText.text += letter;
+                yield return new WaitForSeconds(wordSpeed);
+            }
+            typingCoroutine = null; // Reset the coroutine reference
         }
-
-        // Allow the player to proceed to the next line after typing is done
-        typingCoroutine = null;
     }
 
     public void NextLine()
     {
-        continueButton.SetActive(false);
+        if (continueButton != null)
+        {
+            continueButton.SetActive(false);
+        }
+
         if (index < dialogue.Length - 1)
         {
             index++;
@@ -97,34 +121,16 @@ public class NPC_Mermaid : MonoBehaviour
         }
         else
         {
-            zeroText();
-            activateInstructions();
-            dialogueCompleted = true; // Set flag to true when dialogue is completed
+            ZeroText();
+            ActivateInstructions();
         }
     }
 
-    public void activateInstructions()
+    public void ActivateInstructions()
     {
         if (SpeechBubble != null)
         {
-            //Debug.Log("Activating speech bubble");
             SpeechBubble.SetActive(true);
-        }
-    }
-
-    public void ActivateDialoguePanel(){
-        if (dialoguePanel != null && dialogueText != null){
-            dialoguePanel.SetActive(true);
-            StartTyping();
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            Debug.Log("Player entered trigger area");
-           
         }
     }
 
@@ -132,9 +138,16 @@ public class NPC_Mermaid : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Player exited trigger area");
-          
-            zeroText();
+            ZeroText();
+        }
+    }
+
+    public void ActivateDialoguePanel()
+    {
+        if (dialoguePanel != null && dialogueText != null)
+        {
+            dialoguePanel.SetActive(true);
+            StartTyping();
         }
     }
 }

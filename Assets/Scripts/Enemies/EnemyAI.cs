@@ -23,17 +23,33 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private int maxHealth = 100; // Added maxHealth variable
     private int currentHealth; // Current health of the enemy
 
-    private bool canMove = false; // Flag to control enemy movement
-
     private void Awake()
     {
         enemyPathfinding = GetComponent<EnemyPathfinding>();
+        if (enemyPathfinding == null)
+        {
+            Debug.LogError("EnemyPathfinding component not found!");
+        }
+
         state = State.Roaming;
         player = GameObject.Find("Player");
-        rb = GetComponent<Rigidbody2D>();
-        camera = Camera.main;
+        if (player == null)
+        {
+            Debug.LogError("Player GameObject not found!");
+        }
 
-    
+        rb = GetComponent<Rigidbody2D>();
+        if (rb == null)
+        {
+            Debug.LogError("Rigidbody2D component not found!");
+        }
+
+        camera = Camera.main;
+        if (camera == null)
+        {
+            Debug.LogError("Main Camera not found!");
+        }
+
         // Initialize current health
         currentHealth = maxHealth;
     }
@@ -52,7 +68,8 @@ public class EnemyAI : MonoBehaviour
                 Vector2 roamPos = GetRoamingPosition();
                 enemyPathfinding.MoveTo(roamPos);
             }
-        
+
+            yield return new WaitForSeconds(2f); // Add a delay to prevent infinite loop
         }
     }
 
@@ -71,6 +88,7 @@ public class EnemyAI : MonoBehaviour
         state = Vector2.Distance(player.transform.position, rb.position) <= sight
             ? State.Seeking
             : State.Roaming;
+
         if (state == State.Seeking)
         {
             Vector2 roamPos = GetSeekingPosition();
@@ -82,7 +100,14 @@ public class EnemyAI : MonoBehaviour
     {
         currentHealth -= damage;
         float fillAmount = (float)currentHealth / maxHealth; // Calculate fill amount based on current health
-        healthBar.fillAmount = fillAmount;
+        if (healthBar != null)
+        {
+            healthBar.fillAmount = fillAmount;
+        }
+        else
+        {
+            Debug.LogError("Health bar Image is not assigned!");
+        }
 
         if (currentHealth <= 0)
         {
