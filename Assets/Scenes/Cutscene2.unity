@@ -582,8 +582,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: NPC, Assembly-CSharp
+      - m_Target: {fileID: 2135407378}
+        m_TargetAssemblyTypeName: NPC_Crab, Assembly-CSharp
         m_MethodName: NextLine
         m_Mode: 1
         m_Arguments:

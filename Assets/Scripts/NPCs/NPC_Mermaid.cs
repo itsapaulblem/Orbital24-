@@ -15,8 +15,11 @@ public class NPC_Mermaid : MonoBehaviour
 
     private Coroutine typingCoroutine;
     public GameObject continueButton;
-    public GameObject instructions; 
+    public GameObject SpeechBubble; 
 
+    public void Start(){
+        SpeechBubble.SetActive(false);
+    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E) || playerIsClose)
@@ -36,7 +39,6 @@ public class NPC_Mermaid : MonoBehaviour
         if (dialogueText.text == dialogue[index] && continueButton != null)
         {
             continueButton.SetActive(true);
-          //  instructions.SetActive(true);
         }
     }
 
@@ -91,9 +93,12 @@ public class NPC_Mermaid : MonoBehaviour
         }
     }
 
-    public void activateInstructions(){
-        if (instructions != null){
-            instructions.SetActive(true);
+    public void activateInstructions()
+    {
+        if (SpeechBubble != null)
+        {
+            //Debug.Log("Activating speech bubble");
+            SpeechBubble.SetActive(true);
         }
     }
 
@@ -115,6 +120,4 @@ public class NPC_Mermaid : MonoBehaviour
             zeroText();
         }
     }
-
-   
 }
