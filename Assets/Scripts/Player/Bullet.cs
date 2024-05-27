@@ -1,8 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
-
 
 public class Bullet : MonoBehaviour
 {
@@ -11,6 +9,8 @@ public class Bullet : MonoBehaviour
     private Vector2 origin;
     private float bulletLife = 200f;
     private bool active = true;
+    public int damage = 10;  // Damage variable
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,22 +21,22 @@ public class Bullet : MonoBehaviour
         {
             spriteLibrary.spriteLibraryAsset = Resources.Load<SpriteLibraryAsset>("Sprites/Player/Bullets/shot_main");
         }
-        
     }
-    
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<EnemyAI>())
+        EnemyAI enemy = collision.GetComponent<EnemyAI>();
+        if (enemy != null)
         {
-            collision.GetComponent<EnemyAI>();
+            enemy.TakeDamage(damage);
             StartCoroutine(End());
         }
     }
 
     private void Update()
     {
-        float dist = Vector2.Distance(origin,transform.position);
-        if (dist > bulletLife && active) 
+        float dist = Vector2.Distance(origin, transform.position);
+        if (dist > bulletLife && active)
         {
             StartCoroutine(End());
             active = false;
@@ -45,12 +45,11 @@ public class Bullet : MonoBehaviour
 
     private IEnumerator End()
     {
-        GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+        GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         bulletAnimator.SetTrigger("destroy");
         transform.Rotate(0, 0, Random.Range(0f, 360f));
         yield return new WaitForSeconds(1f);
-        
+
         Destroy(gameObject);
-        yield break;
     }
 }

@@ -15,7 +15,6 @@ public class EnemyAI : MonoBehaviour
     private Rigidbody2D rb;
     private new Camera camera;
     [SerializeField] private float sight = 20f;
-    [SerializeField] private float screenBorder;
     [SerializeField] private int health = 100; // Added health variable
 
     private void Awake()
@@ -65,35 +64,13 @@ public class EnemyAI : MonoBehaviour
             Vector2 roamPos = GetSeekingPosition();
             enemyPathfinding.MoveTo(roamPos);
         }
-        HandleEnemyOffScreen();
+    
     }
 
-    private void HandleEnemyOffScreen()
-    {
-        Vector3 screenPosition = camera.WorldToScreenPoint(transform.position);
-
-        // Get the screen boundaries
-        float minX = screenBorder;
-        float maxX = camera.pixelWidth - screenBorder;
-        float minY = screenBorder;
-        float maxY = camera.pixelHeight - screenBorder;
-
-        // Clamp the enemy's position to stay within the screen boundaries
-        float clampedX = Mathf.Clamp(screenPosition.x, minX, maxX);
-        float clampedY = Mathf.Clamp(screenPosition.y, minY, maxY);
-        Vector3 clampedPosition = camera.ScreenToWorldPoint(new Vector3(clampedX, clampedY, screenPosition.z));
-
-        // Update the enemy's position
-        transform.position = clampedPosition;
-    }
-
-    public void OnCollisionEnter2D(Collision2D collision){
-        if (collision.gameObject.CompareTag("Bullet")){
-            health -= 10;
-            if (health <= 0){
-                Destroy(gameObject);
-                
-            }
+    public void TakeDamage(int damage){
+        health -= damage; 
+        if (health <= 0 ){
+            Destroy(gameObject);
         }
     }
 }
