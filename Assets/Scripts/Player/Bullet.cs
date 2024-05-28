@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour
     public SpriteLibrary spriteLibrary;
     private Animator bulletAnimator;
     private Vector2 origin;
-    private float bulletLife = 200f;
+    private float bulletLife = 12f;
     private bool active = true;
     public int damage = 10;  // Damage variable
 

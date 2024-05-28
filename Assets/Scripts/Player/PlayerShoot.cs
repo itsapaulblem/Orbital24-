@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerShoot : MonoBehaviour
 {
     [SerializeField] private GameObject bulletPrefab;
-    private float bulletSpeed = 120f;
+    private float bulletSpeed = 6f;
     private bool shootContinuous;
     private bool shootSingle;
     private float timeBetweenShots = 0.9f;

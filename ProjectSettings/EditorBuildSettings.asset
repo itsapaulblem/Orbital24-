@@ -29,7 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/RewardScene.unity
     guid: 5f0d768f164376e4fa73480e275bf178
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/UserData.unity
     guid: 1b30eef687906e54f93f5cd24c5a3230
   m_configObjects: {}
