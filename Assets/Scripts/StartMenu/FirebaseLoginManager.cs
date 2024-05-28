@@ -42,6 +42,10 @@ public class FirebaseLoginManager : MonoBehaviour
                 Debug.LogError("Could not resolve all Firebase dependencies: " + dependencyStatus);
             }
         });
+        if (PlayerPrefs.GetInt("ShowUserDataUI", 0) == 1){
+            ShowUserDataUI();
+            PlayerPrefs.SetInt("ShowUserDataUI", 0); 
+        }
     }
 
     private void InitializeFirebase()
@@ -155,6 +159,8 @@ public class FirebaseLoginManager : MonoBehaviour
             UserData_UI.SetActive(true);
             LoginScreen.SetActive(false);
             ClearLoginFields();
+            
+            SceneManager.LoadScene("CutScene1");
         }
     }
 
@@ -240,5 +246,9 @@ public class FirebaseLoginManager : MonoBehaviour
             deathField.ForceLabelUpdate();
             timeField.ForceLabelUpdate();
         }
+    }
+    private void ShowUserDataUI(){
+        UserData_UI.SetActive(true);
+        LoginScreen.SetActive(false);
     }
 }
