@@ -8,6 +8,7 @@ public class NPC_Mermaid : MonoBehaviour
 {
     public GameObject dialoguePanel;
     public TMP_Text dialogueText; // Updated for TextMeshPro
+    public TMP_Text instructionsText; // New TextMeshPro text for instructions
     public string[] dialogue;
     private int index;
     public float wordSpeed = 0.1f; // Ensure a default value for wordSpeed
@@ -15,6 +16,9 @@ public class NPC_Mermaid : MonoBehaviour
     private Coroutine typingCoroutine;
     public GameObject continueButton;
     public GameObject SpeechBubble;
+
+    private bool dialogueActivated = false; // Flag to check if dialogue has been activated
+    private bool instructionsDeactivated = false; // Flag to check if instructions have been deactivated
 
     private void Start()
     {
@@ -32,6 +36,11 @@ public class NPC_Mermaid : MonoBehaviour
             Debug.LogError("DialoguePanel or DialogueText is not assigned!");
         }
 
+        if (instructionsText == null)
+        {
+            Debug.LogError("InstructionsText is not assigned!");
+        }
+
         if (continueButton != null)
         {
             continueButton.SetActive(false);
@@ -40,11 +49,17 @@ public class NPC_Mermaid : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && !dialogueActivated)
         {
             if (dialoguePanel != null && !dialoguePanel.activeInHierarchy)
             {
                 dialoguePanel.SetActive(true);
+                dialogueActivated = true; // Set the flag to true when dialogue is activated
+                if (instructionsText != null && !instructionsDeactivated)
+                {
+                    instructionsText.gameObject.SetActive(false); // Deactivate instructionsText when dialogue starts
+                    instructionsDeactivated = true; // Set the flag to true when instructions are deactivated
+                }
                 StartTyping();
             }
             else if (dialoguePanel != null && dialoguePanel.activeInHierarchy)

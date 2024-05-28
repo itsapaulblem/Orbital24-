@@ -4,24 +4,18 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class EnemyAI : MonoBehaviour
-{
-    public Image healthBar;
-
-    private NPC_Mermaid npcMermaid;
-    private enum State
-    {
-        Roaming,
-        Seeking
-    }
-
+{    
+    [SerializeField] private float sight = 20f;
     private State state;
     private EnemyPathfinding enemyPathfinding;
     private GameObject player;
     private Rigidbody2D rb;
     private new Camera camera;
-    [SerializeField] private float sight = 20f;
-    [SerializeField] private int maxHealth = 100; // Added maxHealth variable
-    private int currentHealth; // Current health of the enemy
+    private enum State
+    {
+        Roaming,
+        Seeking
+    }
 
     private void Awake()
     {
@@ -49,9 +43,6 @@ public class EnemyAI : MonoBehaviour
         {
             Debug.LogError("Main Camera not found!");
         }
-
-        // Initialize current health
-        currentHealth = maxHealth;
     }
 
     private void Start()
@@ -96,23 +87,5 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage)
-    {
-        currentHealth -= damage;
-        float fillAmount = (float)currentHealth / maxHealth; // Calculate fill amount based on current health
-        if (healthBar != null)
-        {
-            healthBar.fillAmount = fillAmount;
-        }
-        else
-        {
-            Debug.LogError("Health bar Image is not assigned!");
-        }
 
-        if (currentHealth <= 0)
-        {
-            Destroy(gameObject);
-            // add reward scene
-        }
-    }
 }
