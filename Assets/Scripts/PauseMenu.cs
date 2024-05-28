@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Cinemachine;
 
+
 public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenu;
@@ -49,7 +50,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Quit()
     {
-        Time.timeScale = 1f;
+        Time.timeScale = 1f;  
         SceneManager.LoadScene("Start");
     }
 

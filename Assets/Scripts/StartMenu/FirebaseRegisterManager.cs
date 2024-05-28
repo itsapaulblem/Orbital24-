@@ -7,7 +7,7 @@ using TMPro;
 using System.Threading.Tasks;
 using UnityEngine.SceneManagement;
 
-public class AuthRegisterManager : MonoBehaviour
+public class FirebaseRegisterManager : MonoBehaviour
 {
     [Header("Firebase")]
     public DependencyStatus dependencyStatus;

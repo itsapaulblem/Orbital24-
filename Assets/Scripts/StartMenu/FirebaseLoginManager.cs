@@ -2,10 +2,11 @@ using System.Collections;
 using UnityEngine;
 using Firebase;
 using Firebase.Auth;
+using Firebase.Database; 
 using TMPro;
 using UnityEngine.SceneManagement;
 
-public class AuthManager : MonoBehaviour
+public class FirebaseLoginManager : MonoBehaviour
 {
     [Header("Firebase")]
     public DependencyStatus dependencyStatus;
@@ -17,6 +18,14 @@ public class AuthManager : MonoBehaviour
     public TMP_InputField passwordLoginField;
     public TMP_Text warningLoginText;
     public TMP_Text confirmLoginText;
+
+    [Header("UserData")]
+    public TMP_InputField usernameField;
+    public TMP_InputField timeField;
+    public TMP_InputField killField;
+    public TMP_InputField deathField;
+    public GameObject UserData_UI;
+    public GameObject LoginScreen; 
 
     public void Awake()
     {
@@ -45,6 +54,18 @@ public class AuthManager : MonoBehaviour
         {
             Debug.LogError("Failed to initialize FirebaseAuth.");
         }
+    }
+
+    public void ClearLoginFields(){
+        emailLoginField.text = "";
+        passwordLoginField.text = ""; 
+    }
+
+    public void SignOutButton(){
+        auth.SignOut();
+        LoginScreen.SetActive(true);
+        UserData_UI.SetActive(false);
+        ClearLoginFields();
     }
 
     // Function for the login button 
@@ -113,26 +134,16 @@ public class AuthManager : MonoBehaviour
         else
         {
             user = loginTask.Result.User; // Corrected line to access the FirebaseUser
-            Debug.LogFormat("User signed in successfully: {0} ({1})", user.DisplayName, user.Email);
-
-            if (warningLoginText != null)
-            {
-                warningLoginText.text = "";
-            }
-            if (confirmLoginText != null)
-            {
-                confirmLoginText.text = "Logged in";
-            }
-            else
-            {
-                Debug.LogError("Confirm Login Text is not set.");
-            }
+            warningLoginText.text = "";
+            confirmLoginText.text = "Logged in";
             
-            // Load the next scene on the main thread
-            UnityMainThreadDispatcher.Instance().Enqueue(() =>
-            {
-                SceneManager.LoadSceneAsync("Cutscene1");
-            });
+            yield return new WaitForSeconds(2);
+            confirmLoginText.text = "";
+            
+            UserData_UI.SetActive(true);
+            LoginScreen.SetActive(false);
+           
+            
         }
     }
 }
