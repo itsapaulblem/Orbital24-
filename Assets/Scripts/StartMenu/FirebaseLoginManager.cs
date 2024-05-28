@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using Firebase;
 using Firebase.Auth;
-using Firebase.Database; 
+using Firebase.Database;
 using TMPro;
 using UnityEngine.SceneManagement;
 
@@ -12,6 +12,7 @@ public class FirebaseLoginManager : MonoBehaviour
     public DependencyStatus dependencyStatus;
     public FirebaseAuth auth;
     public FirebaseUser user;
+    public DatabaseReference DBreference;
 
     [Header("Login")]
     public TMP_InputField emailLoginField;
@@ -25,7 +26,7 @@ public class FirebaseLoginManager : MonoBehaviour
     public TMP_InputField killField;
     public TMP_InputField deathField;
     public GameObject UserData_UI;
-    public GameObject LoginScreen; 
+    public GameObject LoginScreen;
 
     public void Awake()
     {
@@ -47,8 +48,8 @@ public class FirebaseLoginManager : MonoBehaviour
     {
         Debug.Log("Setting up Firebase Auth");
 
-        // Set the authentication instance object 
         auth = FirebaseAuth.DefaultInstance;
+        DBreference = FirebaseDatabase.DefaultInstance.RootReference;
 
         if (auth == null)
         {
@@ -56,19 +57,29 @@ public class FirebaseLoginManager : MonoBehaviour
         }
     }
 
-    public void ClearLoginFields(){
+    public void ClearLoginFields()
+    {
         emailLoginField.text = "";
-        passwordLoginField.text = ""; 
+        passwordLoginField.text = "";
     }
 
-    public void SignOutButton(){
+    public void SignOutButton()
+    {
         auth.SignOut();
         LoginScreen.SetActive(true);
         UserData_UI.SetActive(false);
         ClearLoginFields();
     }
 
-    // Function for the login button 
+    public void SaveDataButton()
+    {
+        StartCoroutine(UpdateUsernameAuth(usernameField.text));
+        StartCoroutine(UpdateUsernameDataBase(usernameField.text));
+        StartCoroutine(UpdateKills(int.Parse(killField.text)));
+        StartCoroutine(UpdateDeaths(int.Parse(deathField.text)));
+        StartCoroutine(UpdateTime(float.Parse(timeField.text)));
+    }
+
     public void LoginButton()
     {
         if (emailLoginField == null || passwordLoginField == null)
@@ -84,7 +95,6 @@ public class FirebaseLoginManager : MonoBehaviour
     {
         if (auth == null)
         {
-           // Debug.LogError("FirebaseAuth is not initialized.");
             yield break;
         }
 
@@ -133,17 +143,102 @@ public class FirebaseLoginManager : MonoBehaviour
         }
         else
         {
-            user = loginTask.Result.User; // Corrected line to access the FirebaseUser
+            user = loginTask.Result.User;
             warningLoginText.text = "";
             confirmLoginText.text = "Logged in";
-            
+            StartCoroutine(LoadUserData());
+
             yield return new WaitForSeconds(2);
             confirmLoginText.text = "";
-            
+            usernameField.text = user.DisplayName;
+
             UserData_UI.SetActive(true);
             LoginScreen.SetActive(false);
-           
-            
+            ClearLoginFields();
+        }
+    }
+
+    private IEnumerator UpdateUsernameAuth(string username)
+    {
+        UserProfile profile = new UserProfile { DisplayName = username };
+        var profileTask = user.UpdateUserProfileAsync(profile);
+        yield return new WaitUntil(() => profileTask.IsCompleted);
+        if (profileTask.Exception != null)
+        {
+            Debug.LogWarning($"Failed to register task with {profileTask.Exception}");
+        }
+    }
+
+    private IEnumerator UpdateUsernameDataBase(string username)
+    {
+        var dbTask = DBreference.Child("users").Child(user.UserId).Child("username").SetValueAsync(username);
+        yield return new WaitUntil(() => dbTask.IsCompleted);
+        if (dbTask.Exception != null)
+        {
+            Debug.LogWarning($"Failed to register task with {dbTask.Exception}");
+        }
+    }
+
+    private IEnumerator UpdateKills(int kills)
+    {
+        var dbTask = DBreference.Child("users").Child(user.UserId).Child("kills").SetValueAsync(kills);
+        yield return new WaitUntil(() => dbTask.IsCompleted);
+        if (dbTask.Exception != null)
+        {
+            Debug.LogWarning($"Failed to register task with {dbTask.Exception}");
+        }
+    }
+
+    private IEnumerator UpdateDeaths(int deaths)
+    {
+        var dbTask = DBreference.Child("users").Child(user.UserId).Child("deaths").SetValueAsync(deaths);
+        yield return new WaitUntil(() => dbTask.IsCompleted);
+        if (dbTask.Exception != null)
+        {
+            Debug.LogWarning($"Failed to register task with {dbTask.Exception}");
+        }
+    }
+
+    private IEnumerator UpdateTime(float time)
+    {
+        var dbTask = DBreference.Child("users").Child(user.UserId).Child("time").SetValueAsync(time);
+        yield return new WaitUntil(() => dbTask.IsCompleted);
+        if (dbTask.Exception != null)
+        {
+            Debug.LogWarning($"Failed to register task with {dbTask.Exception}");
+        }
+    }
+
+    private IEnumerator LoadUserData()
+    {
+        var dbTask = DBreference.Child("users").Child(user.UserId).GetValueAsync();
+        yield return new WaitUntil(() => dbTask.IsCompleted);
+
+        if (dbTask.Exception != null)
+        {
+            Debug.LogWarning($"Failed to register task with {dbTask.Exception}");
+        }
+        else if (dbTask.Result.Value == null)
+        {
+            Debug.Log("No data found, setting default values.");
+            killField.text = "0";
+            deathField.text = "0";
+            timeField.text = "0.00";
+
+            killField.ForceLabelUpdate();
+            deathField.ForceLabelUpdate();
+            timeField.ForceLabelUpdate();
+        }
+        else
+        {
+            DataSnapshot snapshot = dbTask.Result;
+            killField.text = snapshot.Child("kills").Value.ToString();
+            deathField.text = snapshot.Child("deaths").Value.ToString();
+            timeField.text = snapshot.Child("time").Value.ToString();
+
+            killField.ForceLabelUpdate();
+            deathField.ForceLabelUpdate();
+            timeField.ForceLabelUpdate();
         }
     }
 }

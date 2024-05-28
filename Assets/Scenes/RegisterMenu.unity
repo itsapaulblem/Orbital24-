@@ -441,7 +441,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 320256128}
-  - component: {fileID: 320256127}
+  - component: {fileID: 320256129}
   m_Layer: 0
   m_Name: AuthManager
   m_TagString: Untagged
@@ -449,23 +449,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &320256127
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 320256126}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bf29d1583974a64f89ab5644898bd04, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dependencyStatus: 0
-  emailLoginField: {fileID: 0}
-  passwordLoginField: {fileID: 0}
-  warningLoginText: {fileID: 0}
-  confirmLoginText: {fileID: 0}
 --- !u!4 &320256128
 Transform:
   m_ObjectHideFlags: 0
@@ -481,6 +464,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &320256129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 320256126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd234760f5a84746a4ccc39dd94dda5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dependencyStatus: 0
+  usernameRegisterField: {fileID: 45422124}
+  emailRegisterField: {fileID: 371446508}
+  passwordRegisterField: {fileID: 522003936}
+  passwordRegisterVerifyField: {fileID: 543831868}
+  warningRegisterText: {fileID: 1880430083}
 --- !u!1 &349754911
 GameObject:
   m_ObjectHideFlags: 0
@@ -1130,12 +1131,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10f729bc80309fc478f1b300a8c31ab1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dependencyStatus: 0
-  usernameRegisterField: {fileID: 45422124}
-  emailRegisterField: {fileID: 371446508}
-  passwordRegisterField: {fileID: 522003936}
-  passwordRegisterVerifyField: {fileID: 543831868}
-  warningRegisterText: {fileID: 1880430083}
 --- !u!1 &427199537
 GameObject:
   m_ObjectHideFlags: 0
@@ -2543,8 +2538,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 406077913}
-        m_TargetAssemblyTypeName: AuthRegisterManager, Assembly-CSharp
+      - m_Target: {fileID: 320256129}
+        m_TargetAssemblyTypeName: FirebaseRegisterManager, Assembly-CSharp
         m_MethodName: RegisterButton
         m_Mode: 1
         m_Arguments:
