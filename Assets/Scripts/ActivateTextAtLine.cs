@@ -34,6 +34,7 @@ public class ActivateTextAtLine : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D other){
+        Debug.Log("OnTriggerEnter2D");
         if(other.name == "Player"){
             if (requireButtonpress){
                 waitForPress = true; 
