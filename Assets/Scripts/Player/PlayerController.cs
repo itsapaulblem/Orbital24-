@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
 /// <summary>
@@ -34,6 +35,7 @@ public class PlayerController : MonoBehaviour
     private float timeBetweenShots = 0.9f;
     private float lastFireTime;
 
+    public bool canMove; 
     private void Awake() 
     {
         rb = GetComponent<Rigidbody2D>();
@@ -95,6 +97,10 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Update() 
     {
+         if (!canMove){
+            return; 
+        }
+        
         float timeSinceLastFire = Time.time - lastFireTime;
         if (shootContinuous || shootSingle)
         {
@@ -116,6 +122,8 @@ public class PlayerController : MonoBehaviour
             temp.a -= 1f * Time.deltaTime;
             healthBar.GetComponent<SpriteRenderer>().color = temp;
         }
+
+        
     }
 
     /// <summary>

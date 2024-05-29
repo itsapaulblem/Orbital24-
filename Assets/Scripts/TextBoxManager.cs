@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UI;
 
 public class TextBoxManager : MonoBehaviour
@@ -11,6 +13,9 @@ public class TextBoxManager : MonoBehaviour
     public int currentLine;
     public int endAtLine;
     public PlayerController player;
+
+    public bool isActive;
+    public bool stopPlayerMovement; 
 
     // Start is called before the first frame update
     void Start()
@@ -32,10 +37,20 @@ public class TextBoxManager : MonoBehaviour
             endAtLine = textLines.Length - 1;
            //  Debug.Log("End line set to " + endAtLine);
         }
+
+        if (isActive){
+            EnableTextBox();
+        }
+        else{
+            DisableTextBox();
+        }
     }
 
     void Update()
     {
+        if  (!isActive){
+            return; 
+        }
         if (currentLine <= endAtLine)
         {
             theText.text = textLines[currentLine];
@@ -49,7 +64,27 @@ public class TextBoxManager : MonoBehaviour
 
         if (currentLine > endAtLine)
         {
-            textBox.SetActive(false);
+            DisableTextBox();
+        }
+    }
+
+    public void EnableTextBox(){
+         textBox.SetActive(true);
+         if (stopPlayerMovement){
+            player.canMove = false; 
+         }
+    }
+
+    public void DisableTextBox(){
+        textBox.SetActive(false);
+        isActive = false;
+        player.canMove = true; 
+    }
+
+    public void ReloadScript(TextAsset theText){
+        if (theText != null){
+            textLines = new string[1]; 
+            textLines = theText.text.Split('\n');
         }
     }
 }
