@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,10 +11,6 @@ public class TextBoxManager : MonoBehaviour
     public int currentLine;
     public int endAtLine;
     public PlayerController player;
-    private Coroutine typingCoroutine;
-    public GameObject continueButton;
-    public float wordSpeed;
-    public bool playerIsClose; // Renamed from playerClose to match the other code
 
     // Start is called before the first frame update
     void Start()
@@ -24,94 +19,37 @@ public class TextBoxManager : MonoBehaviour
 
         if (textFile != null)
         {
-            textLines = (textFile.text.Split('\n'));
+            textLines = textFile.text.Split('\n');
+          //  Debug.Log("Text file loaded successfully");
+        }
+        else
+        {
+           // Debug.LogError("Text file is null!");
         }
 
-        if (endAtLine == 0)
+        if (endAtLine == 0 && textLines != null)
         {
             endAtLine = textLines.Length - 1;
+           //  Debug.Log("End line set to " + endAtLine);
         }
     }
 
     void Update()
     {
-        if (playerIsClose || Input.GetKeyDown(KeyCode.E))
+        if (currentLine <= endAtLine)
         {
-            if (!textBox.activeInHierarchy)
-            {
-                textBox.SetActive(true);
-                StartTyping();
-            }
-            else
-            {
-                if (theText.text == textLines[currentLine])
-                {
-                    NextLine();
-                }
-            }
-        }
-    }
-
-    void StartTyping()
-    {
-        if (typingCoroutine != null)
-        {
-            StopCoroutine(typingCoroutine);
-        }
-        typingCoroutine = StartCoroutine(Typing());
-    }
-
-    IEnumerator Typing()
-    {
-        theText.text = ""; // Clear text before typing starts
-        foreach (char letter in textLines[currentLine].ToCharArray())
-        {
-            theText.text += letter;
-            yield return new WaitForSeconds(wordSpeed);
+            theText.text = textLines[currentLine];
         }
 
-        if (continueButton != null)
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            continueButton.SetActive(true);
+            currentLine += 1;
+            textBox.SetActive(true);
         }
-        typingCoroutine = null;
-    }
 
-    public void NextLine()
-    {
-        if (continueButton != null)
-        {
-            continueButton.SetActive(false);
-        }
-        
-        if (currentLine < endAtLine)
-        {
-            currentLine++;
-            StartTyping();
-        }
-        else
+        if (currentLine > endAtLine)
         {
             textBox.SetActive(false);
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            playerIsClose = true;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            playerIsClose = false;
-            if (textBox.activeInHierarchy)
-            {
-                textBox.SetActive(false);
-            }
         }
     }
 }
