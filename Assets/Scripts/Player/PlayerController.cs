@@ -76,6 +76,9 @@ public class PlayerController : MonoBehaviour
 
     private void Move() 
     {
+        if (!canMove){
+            return;
+        }
         rb.MovePosition(rb.position + movement * movementSpeed * Time.fixedDeltaTime);
     }
 
@@ -97,10 +100,8 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Update() 
     {
-         if (!canMove){
-            return; 
-        }
         
+ 
         float timeSinceLastFire = Time.time - lastFireTime;
         if (shootContinuous || shootSingle)
         {

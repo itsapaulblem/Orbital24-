@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.UI;
 
 public class TextBoxManager : MonoBehaviour
@@ -15,7 +13,7 @@ public class TextBoxManager : MonoBehaviour
     public PlayerController player;
 
     public bool isActive;
-    public bool stopPlayerMovement; 
+    public bool stopPlayerMovement;
 
     // Start is called before the first frame update
     void Start()
@@ -24,67 +22,77 @@ public class TextBoxManager : MonoBehaviour
 
         if (textFile != null)
         {
-            textLines = textFile.text.Split('\n');
-          //  Debug.Log("Text file loaded successfully");
-        }
-        else
-        {
-           // Debug.LogError("Text file is null!");
+            textLines = textFile.text.Split(new[] { "\r\n", "\r", "\n" }, System.StringSplitOptions.None);
         }
 
         if (endAtLine == 0 && textLines != null)
         {
             endAtLine = textLines.Length - 1;
-           //  Debug.Log("End line set to " + endAtLine);
         }
 
-        if (isActive){
+        if (isActive)
+        {
             EnableTextBox();
         }
-        else{
+        else
+        {
             DisableTextBox();
         }
     }
 
     void Update()
     {
-        if  (!isActive){
-            return; 
+        if (!isActive)
+        {
+            return;
         }
-        if (currentLine <= endAtLine)
+
+        if (currentLine <= endAtLine && textLines != null && currentLine < textLines.Length)
         {
             theText.text = textLines[currentLine];
         }
 
         if (Input.GetKeyDown(KeyCode.E))
         {
+            Debug.Log("E key pressed");
             currentLine += 1;
-            textBox.SetActive(true);
-        }
-
-        if (currentLine > endAtLine)
-        {
-            DisableTextBox();
+            if (currentLine <= endAtLine)
+            {
+                theText.text = textLines[currentLine];
+                Debug.Log("Current Line: " + currentLine);
+            }
+            else
+            {
+                DisableTextBox();
+            }
         }
     }
 
-    public void EnableTextBox(){
-         textBox.SetActive(true);
-         if (stopPlayerMovement){
-            player.canMove = false; 
-         }
+    public void EnableTextBox()
+    {
+        textBox.SetActive(true);
+        isActive = true;
+        
+        player.canMove = false;
+        
     }
 
-    public void DisableTextBox(){
+    public void DisableTextBox()
+    {
         textBox.SetActive(false);
         isActive = false;
-        player.canMove = true; 
+       
+        player.canMove = true;
+    
     }
 
-    public void ReloadScript(TextAsset theText){
-        if (theText != null){
-            textLines = new string[1]; 
-            textLines = theText.text.Split('\n');
+    public void ReloadScript(TextAsset newText)
+    {
+        if (newText != null)
+        {
+            textLines = newText.text.Split(new[] { "\r\n", "\r", "\n" }, System.StringSplitOptions.None);
+            currentLine = 0;
+            endAtLine = textLines.Length - 1;
         }
     }
 }
