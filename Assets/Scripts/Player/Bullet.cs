@@ -9,10 +9,10 @@ public class Bullet : MonoBehaviour
     private Vector2 origin;
     private float bulletLife = 12f;
     private bool active = true;
-    public int damage = 10;  // Damage variable
+    public float damage = 10f;  // Damage variable
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         spriteLibrary = GetComponent<SpriteLibrary>();
         bulletAnimator = GetComponent<Animator>();
@@ -23,11 +23,22 @@ public class Bullet : MonoBehaviour
         }
     }
 
+    public void SetDamage(float damage)
+    {
+        this.damage = damage;
+    }
+
+    public void SetSprite(string shot)
+    {
+        spriteLibrary.spriteLibraryAsset = Resources.Load<SpriteLibraryAsset>("Sprites/Player/Bullets/" + shot);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        EnemyHealth enemy = collision.GetComponent<EnemyHealth>();
-        if (enemy != null)
+        EnemyAI enemy = collision.GetComponent<EnemyAI>();
+        if (enemy != null && active)
         {
+            active = false;
             enemy.TakeDamage(damage);
             StartCoroutine(End());
         }
