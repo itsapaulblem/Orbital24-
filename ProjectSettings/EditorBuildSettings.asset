@@ -5,15 +5,15 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/MainMenu.unity
-    guid: 8d112d1b0924ffc45971457fb210b90f
   - enabled: 1
     path: Assets/Scenes/Start.unity
     guid: 6ea9c224b50b23a44b9608fc1fe1faff
   - enabled: 1
     path: Assets/Scenes/RegisterMenu.unity
     guid: bb87fbd7b258de54c868f7060ed989f4
+  - enabled: 1
+    path: Assets/Scenes/Town.unity
+    guid: f98ae6f5c2ef44570a1d38cf2722d800
   - enabled: 1
     path: Assets/Scenes/DialogueBeginning.unity
     guid: 5c1e48f7fed443546a050e42b7d3c9f4
@@ -26,10 +26,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BaseLevel.unity
     guid: b6e0f588a292c824bad01eda53684517
-  - enabled: 1
-    path: Assets/Scenes/RewardScene.unity
-    guid: 5f0d768f164376e4fa73480e275bf178
-  - enabled: 0
-    path: Assets/Scenes/UserData.unity
-    guid: 1b30eef687906e54f93f5cd24c5a3230
   m_configObjects: {}

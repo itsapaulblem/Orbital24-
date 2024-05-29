@@ -685,8 +685,6 @@ GameObject:
   - component: {fileID: 495482713}
   - component: {fileID: 495482715}
   - component: {fileID: 495482716}
-  - component: {fileID: 495482717}
-  - component: {fileID: 495482718}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -780,30 +778,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 495482711}
   m_Enabled: 1
---- !u!114 &495482717
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 495482711}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15628452f64841b4c85243f5fa385ada, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &495482718
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 495482711}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e0662e6f333f324a84b2ddf2b4f8270, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &530806851
 GameObject:
   m_ObjectHideFlags: 0
@@ -1130,8 +1104,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 495482718}
-        m_TargetAssemblyTypeName: DialogueBeginning, Assembly-CSharp
+      - m_Target: {fileID: 495482715}
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: PlayGame
         m_Mode: 1
         m_Arguments:

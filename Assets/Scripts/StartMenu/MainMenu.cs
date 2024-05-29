@@ -7,6 +7,6 @@ public class MainMenu : MonoBehaviour
 {
     public void PlayGame()
     {
-        SceneManager.LoadSceneAsync("BaseLevel");
+        SceneManager.LoadSceneAsync("Town");
     }
 }
