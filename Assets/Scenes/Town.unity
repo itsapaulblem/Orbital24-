@@ -161,6 +161,7 @@ MonoBehaviour:
   player: {fileID: 906124259}
   isActive: 0
   stopPlayerMovement: 0
+  typeSpeed: 0.01
 --- !u!4 &40509645
 Transform:
   m_ObjectHideFlags: 0
@@ -1866,6 +1867,7 @@ MonoBehaviour:
   player: {fileID: 906124259}
   isActive: 0
   stopPlayerMovement: 0
+  typeSpeed: 0
 --- !u!4 &1192321725
 Transform:
   m_ObjectHideFlags: 0

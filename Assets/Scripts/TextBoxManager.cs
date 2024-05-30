@@ -1,4 +1,5 @@
-using System.Collections.Generic;
+using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,10 @@ public class TextBoxManager : MonoBehaviour
 
     public bool isActive;
     public bool stopPlayerMovement;
+
+    private bool isTyping = false; 
+    private bool cancelTyping = false; 
+    public float typeSpeed;
 
     // Start is called before the first frame update
     void Start()
@@ -49,41 +54,73 @@ public class TextBoxManager : MonoBehaviour
 
         if (currentLine <= endAtLine && textLines != null && currentLine < textLines.Length)
         {
-            theText.text = textLines[currentLine];
+            // theText.text = textLines[currentLine];
         }
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            Debug.Log("E key pressed");
-            currentLine += 1;
-            if (currentLine <= endAtLine)
+            if (!isTyping)
             {
-                theText.text = textLines[currentLine];
-                Debug.Log("Current Line: " + currentLine);
+                currentLine += 1;
+                if (currentLine > endAtLine)
+                {
+                    DisableTextBox();
+                }
+                else
+                {
+                    StartCoroutine(TextScroll(textLines[currentLine]));
+                }
             }
-            else
+            else if (isTyping && !cancelTyping)
             {
-                DisableTextBox();
+                cancelTyping = true;
             }
         }
     }
 
+    private IEnumerator TextScroll(string lineOfText)
+    {
+        int letter = 0;
+        theText.text = "";
+        isTyping = true;
+        cancelTyping = false;
+        while (isTyping && !cancelTyping && (letter < lineOfText.Length))
+        {
+            theText.text += lineOfText[letter];
+            letter += 1;
+            yield return new WaitForSeconds(typeSpeed);
+        }
+        theText.text = lineOfText;
+        isTyping = false;
+        cancelTyping = false;
+    }
+
     public void EnableTextBox()
     {
+        if (textLines == null || textLines.Length == 0)
+        {
+            return;
+        }
         textBox.SetActive(true);
         isActive = true;
-        
-        player.canMove = false;
-        
+
+        if (player != null)
+        {
+            player.canMove = false;
+        }
+
+        StartCoroutine(TextScroll(textLines[currentLine]));
     }
 
     public void DisableTextBox()
     {
         textBox.SetActive(false);
         isActive = false;
-       
-        player.canMove = true;
-    
+
+        if (player != null)
+        {
+            player.canMove = true;
+        }
     }
 
     public void ReloadScript(TextAsset newText)
