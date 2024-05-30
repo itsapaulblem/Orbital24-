@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ecf6b169a076542ea89091658c5b2804
+guid: 423f1c58dda7a49509351ef8204b5832
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spr_splat_main_0
+      name: spr_splat_elec_0
       rect:
         serializedVersion: 2
         x: 0
@@ -118,20 +118,20 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 9
-      pivot: {x: 0.5, y: 0.44}
+      pivot: {x: 0.5, y: 0.45}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3451935282f5349339ad19203629c5b6
-      internalID: 1641029427
+      spriteID: dbb95929e0ee14c728ef8387a130b02b
+      internalID: -1772159601
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_splat_main_1
+      name: spr_splat_elec_1
       rect:
         serializedVersion: 2
         x: 64
@@ -139,14 +139,14 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 9
-      pivot: {x: 0.5, y: 0.46}
+      pivot: {x: 0.5, y: 0.47}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: aa8a77009af7346afae6722e7bb24410
-      internalID: -1088294761
+      spriteID: f6aef2e50f9be4d6683c1519ac78ee47
+      internalID: -944297801
       vertices: []
       indices: 
       edges: []
@@ -162,8 +162,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      spr_splat_main_0: 1641029427
-      spr_splat_main_1: -1088294761
+      spr_splat_elec_0: -1772159601
+      spr_splat_elec_1: -944297801
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

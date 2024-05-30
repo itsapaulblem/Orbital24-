@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer playerSpriteRenderer;
 
     // Combat Attributes
-    [SerializeField] public GameObject bulletPrefab;
+    private string bulletPrefab = "Prefab/Bullet";
     private float maxHealth = 100f;
     public float currentHealth;
     private GameObject healthBar;
@@ -29,7 +29,8 @@ public class PlayerController : MonoBehaviour
     private float iFrame = 0.3f;
     private float lastDamageTick;
     private float bulletSpeed = 6f;
-    private float attack = 5f;
+    private float bulletLife = 12f;
+    public float attack = 10f;
     private bool shootContinuous;
     private bool shootSingle;
     private float timeBetweenShots = 0.9f;
@@ -100,8 +101,6 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Update() 
     {
-        
- 
         float timeSinceLastFire = Time.time - lastFireTime;
         if (shootContinuous || shootSingle)
         {
@@ -138,13 +137,9 @@ public class PlayerController : MonoBehaviour
         Vector2 bulletDir = mousePos - playerPos;
         float bulletAngle = Mathf.Atan2(bulletDir.y, bulletDir.x) * Mathf.Rad2Deg;
 
-        GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0, 0, bulletAngle));
+        GameObject bullet = Instantiate(Resources.Load<GameObject>(bulletPrefab), transform.position, Quaternion.Euler(0, 0, bulletAngle));
         Bullet bulletScript = bullet.GetComponent<Bullet>();
-        bulletScript.SetDamage(attack);
-        bulletScript.SetSprite("shot_main"); // to define sprite to use
-        Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
-
-        bulletRb.velocity = bulletSpeed * bulletDir.normalized;
+        bulletScript.SetInit(true, "shot_main", attack, bulletLife, bulletSpeed, bulletDir); // initialise bullet
     }
 
     /// <summary>

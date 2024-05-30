@@ -5,55 +5,59 @@ using UnityEngine.SceneManagement;
 
 public class EnemyAI : MonoBehaviour
 {
-    private enum State { Roaming, Seeking }
-    private State state;
+    protected enum State { Roaming, Seeking }
+    protected State state;
 
     // Movement Attributes
-    public float movementSpeed = 2f;
-    private Rigidbody2D rb;
-    private Vector2 origin;
-    private Vector2 movement;
+    protected float movementSpeed = 2f;
+    protected Rigidbody2D rb;
+    protected Vector2 origin;
+    protected Vector2 movement;
     // for Seeking
-    [SerializeField] private float sight = 10f;
-    private GameObject player;
+    [SerializeField] private float sight = 12f;
+    protected GameObject player;
 
     // Animation Attributes
-    private SpriteRenderer enemySpriteRenderer;
+    protected SpriteRenderer enemySpriteRenderer;
 
     // Combat Attributes
     private float maxHealth = 30f;
     public float currentHealth;
     private GameObject healthBar;
     private float maxHealthBarScale;
-    private float attack = 3f;
+    protected float attack = 3f;
     
     
     private void Awake()
     {
+        // Initalise to Roam
         state = State.Roaming;
+        // Find Target in Scene
         player = GameObject.Find("Player");
+        // Initialise movement
         rb = GetComponent<Rigidbody2D>();
         origin = rb.position;
+        // Get renderer
         enemySpriteRenderer = GetComponent<SpriteRenderer>();
-        currentHealth = maxHealth;
-        
+
         // Initialise HealthBar
         healthBar = System.Array.Find(gameObject.GetComponentsInChildren<Transform>(), 
                         p => p.gameObject.name == "HealthBar").gameObject;
         healthBar.transform.localScale = new Vector3(maxHealthBarScale, 0.1f, 1f);
-        SetMaxHealth(30); // default 30 hp 
+
+        SetInit(50f, 3f, 2f); // default initialise
     }
 
-    public void SetMaxHealth(float health)
+    public void SetInit(float health, float attack, float moveSpeed)
     {
         maxHealth = health;
+        currentHealth = maxHealth;
         maxHealthBarScale = maxHealth / 50;
         healthBar.transform.localScale = new Vector3(maxHealthBarScale, 0.1f, 1f);
         healthBar.transform.localPosition = new Vector3(0f, 1f ,1f);
-    }
 
-    private void Start()
-    {
+        this.attack = attack;
+        this.movementSpeed = moveSpeed;
         StartCoroutine(MovementRoutine());
     }
 
@@ -74,17 +78,17 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    public virtual Vector2 GetRoamingPosition()
+    protected virtual Vector2 GetRoamingPosition()
     {
         return (origin + new Vector2(Random.Range(-2f, 2f), Random.Range(-2f, 2f)) - rb.position).normalized / 2;
     }
 
-    public virtual Vector2 GetSeekingPosition()
+    protected virtual Vector2 GetSeekingPosition()
     {
         return (player.transform.position - transform.position).normalized;
     }
 
-    private void UpdateEnemyFacingDirection() 
+    protected virtual void UpdateEnemyFacingDirection() 
     {
         enemySpriteRenderer.flipX = movement.x > 0;
     }
@@ -101,8 +105,6 @@ public class EnemyAI : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        Debug.Log("OnTriggerEnter2D");
-        Debug.Log(damage);
         currentHealth = Mathf.Max(0f, currentHealth - damage);
         Vector3 healthBarChange = new Vector3(currentHealth/maxHealth * maxHealthBarScale, 0.1f, 1f);
         healthBar.transform.localScale = healthBarChange;
@@ -113,7 +115,7 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
+    protected virtual void OnCollisionStay2D(Collision2D collision)
     {
         PlayerController player = collision.gameObject.GetComponent<PlayerController>();
         if (player != null)
