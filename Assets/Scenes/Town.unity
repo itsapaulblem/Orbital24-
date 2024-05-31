@@ -3031,13 +3031,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1152466661}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0f9bfcd703f259468b2cc73a576df78, type: 3}
+  m_Script: {fileID: 11500000, guid: 414f56fbb7db7004791c025fd557280d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   theText: {fileID: 4900000, guid: fc525e85803058a4eb2be2c37d5d4b5d, type: 3}
   startLine: 0
   endLine: 0
-  theTextBox: {fileID: 0}
+  theTextBox: {fileID: 40509644}
   requireButtonPress: 0
   destroyWhenActivated: 0
 --- !u!1 &1192321723
