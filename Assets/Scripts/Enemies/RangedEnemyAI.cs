@@ -66,7 +66,7 @@ public class RangedEnemyAI : EnemyAI
 
         GameObject bullet = Instantiate(Resources.Load(bulletPrefab) as GameObject, transform.position, Quaternion.Euler(0, 0, bulletAngle));
         Bullet bulletScript = bullet.GetComponent<Bullet>();
-        bulletScript.SetInit(false, "shot_elec", attack, bulletLife, bulletSpeed, bulletDir); // initialise bullet
+        bulletScript.SetInit(false, "shot_elec", attack, bulletLife, bulletSpeed, bulletDir, false); // initialise bullet
     }
 
     protected override void OnCollisionStay2D(Collision2D collision)
