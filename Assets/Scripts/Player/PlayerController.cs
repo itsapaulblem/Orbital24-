@@ -152,7 +152,6 @@ public class PlayerController : MonoBehaviour
     /// <param name="inputValue"></param>
     private void OnFire(InputValue inputValue)
     {
-        TakeDamage(5);
         shootContinuous = inputValue.isPressed;
         if (inputValue.isPressed)
         {
