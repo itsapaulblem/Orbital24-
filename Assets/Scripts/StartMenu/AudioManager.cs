@@ -7,12 +7,14 @@ public class AudioManager : MonoBehaviour
 {
     // Start is called before the first frame update
     private AudioSource _audioSource; 
+    private string prevScene;
 
     private void Awake()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
         DontDestroyOnLoad(transform.gameObject);
         _audioSource = GetComponent<AudioSource>();
+        prevScene = SceneManager.GetActiveScene().name;
     }
     void Start()
     {
@@ -32,8 +34,10 @@ public class AudioManager : MonoBehaviour
 
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "Cutscene1") {
+        Debug.Log(prevScene);
+        if (prevScene == "Start" && scene.name == "Cutscene1") {
             Destroy(gameObject);
         }
+        
     }
 }
