@@ -69,6 +69,9 @@ public class PlayerController : MonoBehaviour
     /// <param name="inputValue"></param>
     private void OnMove(InputValue inputValue) 
     {
+        if (!canMove){
+            return;
+        }
         movement = inputValue.Get<Vector2>();
         movement.Normalize();
         playerAnimator.SetFloat("moveX", movement.x);

@@ -170,8 +170,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.025191408, y: 0.18615152}
-  m_Size: {x: 1.2401737, y: 1.201044}
+  m_Offset: {x: -0.025191423, y: 0.054900896}
+  m_Size: {x: 1.2401738, y: 0.93854403}
   m_Direction: 1
 --- !u!114 &232442922354137785
 MonoBehaviour:
@@ -215,7 +215,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27ced1127aa674d32a59c150c35d6ac6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 7950858053171795064, guid: f5dcbdadc46254077b904481b2493d1d, type: 3}
+  currentHealth: 0
+  attack: 10
+  canMove: 0
 --- !u!1 &4486559080717028467
 GameObject:
   m_ObjectHideFlags: 0
