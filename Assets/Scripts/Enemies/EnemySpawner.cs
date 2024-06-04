@@ -21,14 +21,14 @@ public class EnemySpawner : MonoBehaviour
 
         while (canSpawn)
         {
-            yield return wait; 
+            yield return wait;  
             int rand = UnityEngine.Random.Range(0, enemyPrefabs.Length); // Changed here
             GameObject enemyToSpawn = enemyPrefabs[rand];
             GameObject spawnedEnemy = Instantiate(enemyToSpawn, transform.position, Quaternion.identity);
 
             EnemyAI enemyAI = spawnedEnemy.GetComponent<EnemyAI>();
             if (enemyAI != null){
-                enemyAI.SetInit(50f, 3f, 5f);
+                enemyAI.SetInit(50f, 3f, 3f);
             }
         }
     }

@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class EnemyAI : MonoBehaviour
 {
+    [SerializeField] private ParticleSystem deathParticles = default;
+    
     protected enum State { Roaming, Seeking }
     protected State state;
 
@@ -13,6 +15,7 @@ public class EnemyAI : MonoBehaviour
     protected Rigidbody2D rb;
     protected Vector2 origin;
     protected Vector2 movement;
+    
     // for Seeking
     [SerializeField] private float sight = 12f;
     protected GameObject player;
@@ -27,25 +30,27 @@ public class EnemyAI : MonoBehaviour
     private float maxHealthBarScale;
     protected float attack = 3f;
     
-    
     private void Awake()
     {
-        // Initalise to Roam
+        // Initialize to Roam
         state = State.Roaming;
+        
         // Find Target in Scene
         player = GameObject.Find("Player");
-        // Initialise movement
+        
+        // Initialize movement
         rb = GetComponent<Rigidbody2D>();
         origin = rb.position;
+        
         // Get renderer
         enemySpriteRenderer = GetComponent<SpriteRenderer>();
 
-        // Initialise HealthBar
+        // Initialize HealthBar
         healthBar = System.Array.Find(gameObject.GetComponentsInChildren<Transform>(), 
                         p => p.gameObject.name == "HealthBar").gameObject;
         healthBar.transform.localScale = new Vector3(maxHealthBarScale, 0.1f, 1f);
 
-        SetInit(50f, 3f, 2f); // default initialise
+        SetInit(50f, 3f, 2f); // default initialize
     }
 
     public void SetInit(float health, float attack, float moveSpeed)
@@ -110,8 +115,18 @@ public class EnemyAI : MonoBehaviour
         healthBar.transform.localScale = healthBarChange;
 
         if (currentHealth == 0f) {
-            Destroy(gameObject);
-            // SceneManager.LoadScene("RewardScene");
+            // Instantiate the death particles
+            if (deathParticles != null) {
+                GameObject particlesObject = Instantiate(deathParticles.gameObject, transform.position, Quaternion.identity);
+            ParticleSystem particles = particlesObject.GetComponent<ParticleSystem>();
+            particles.Play();
+            
+            // Destroy the particle system object after the duration of the particle effect
+            Destroy(particlesObject, particles.main.duration);
+        }
+
+        // Destroy the enemy game object
+        Destroy(gameObject);
         }
     }
 

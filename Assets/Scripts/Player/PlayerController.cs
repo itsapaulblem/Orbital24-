@@ -10,6 +10,7 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class PlayerController : MonoBehaviour
 {   
+
     // Movement Attributes
     private float movementSpeed = 4f;
     private Vector2 movement;
@@ -177,6 +178,8 @@ public class PlayerController : MonoBehaviour
 
             if (currentHealth == 0f) {
                 Destroy(gameObject); 
+        
+            
                 GameOverMenu.SetActive(true);
             }
         }
