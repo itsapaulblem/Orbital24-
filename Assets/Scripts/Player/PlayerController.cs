@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
     private float lastFireTime;
 
     public bool canMove; 
+    public GameObject GameOverMenu;
     private void Awake() 
     {
         rb = GetComponent<Rigidbody2D>();
@@ -175,7 +176,8 @@ public class PlayerController : MonoBehaviour
             healthBar.transform.localScale = healthBarChange;
 
             if (currentHealth == 0f) {
-                // trigger death
+                Destroy(gameObject); 
+                GameOverMenu.SetActive(true);
             }
         }
     }

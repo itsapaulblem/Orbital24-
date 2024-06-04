@@ -1,41 +1,35 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject _enemyPrefab;
+    [SerializeField] private float spawnRate = 1f; 
+    [SerializeField] private GameObject[] enemyPrefabs; 
 
-    [SerializeField]
-    private float _minimumSpawnTime = 1f; 
+    [SerializeField] private bool canSpawn = true; 
 
-    private float _maximumSpawnTime = 5f; 
-    private float _timeUntilSpawn;
-    private GameObject _currentEnemy;
-
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        SetTimeUntilSpawn();
+        StartCoroutine(Spawner());
     }
 
-    // Update is called once per frame
-    void Update()
+    private IEnumerator Spawner()
     {
-        if (_currentEnemy == null)
+        WaitForSeconds wait = new WaitForSeconds(spawnRate);
+
+        while (canSpawn)
         {
-            _timeUntilSpawn -= Time.deltaTime;
-            if (_timeUntilSpawn <= 0)
-            {
-                _currentEnemy = Instantiate(_enemyPrefab, transform.position, Quaternion.identity);
-                SetTimeUntilSpawn();
+            yield return wait; 
+            int rand = UnityEngine.Random.Range(0, enemyPrefabs.Length); // Changed here
+            GameObject enemyToSpawn = enemyPrefabs[rand];
+            GameObject spawnedEnemy = Instantiate(enemyToSpawn, transform.position, Quaternion.identity);
+
+            EnemyAI enemyAI = spawnedEnemy.GetComponent<EnemyAI>();
+            if (enemyAI != null){
+                enemyAI.SetInit(50f, 3f, 5f);
             }
         }
-    }
-
-    private void SetTimeUntilSpawn()
-    {
-        _timeUntilSpawn = Random.Range(_minimumSpawnTime, _maximumSpawnTime);
     }
 }
