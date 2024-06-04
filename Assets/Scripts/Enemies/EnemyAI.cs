@@ -2,11 +2,13 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting.ReorderableList.Element_Adder_Menu;
 
 public class EnemyAI : MonoBehaviour
 {
-    [SerializeField] private ParticleSystem deathParticles = default;
-    
+    [SerializeField] private ParticleSystem deathParticlesPrefab = default;
+    private ParticleSystem deathParticlesInstance;
+
     protected enum State { Roaming, Seeking }
     protected State state;
 
@@ -15,7 +17,7 @@ public class EnemyAI : MonoBehaviour
     protected Rigidbody2D rb;
     protected Vector2 origin;
     protected Vector2 movement;
-    
+
     // for Seeking
     [SerializeField] private float sight = 12f;
     protected GameObject player;
@@ -29,24 +31,24 @@ public class EnemyAI : MonoBehaviour
     private GameObject healthBar;
     private float maxHealthBarScale;
     protected float attack = 3f;
-    
+
     private void Awake()
     {
         // Initialize to Roam
         state = State.Roaming;
-        
+
         // Find Target in Scene
         player = GameObject.Find("Player");
-        
+
         // Initialize movement
         rb = GetComponent<Rigidbody2D>();
         origin = rb.position;
-        
+
         // Get renderer
         enemySpriteRenderer = GetComponent<SpriteRenderer>();
 
         // Initialize HealthBar
-        healthBar = System.Array.Find(gameObject.GetComponentsInChildren<Transform>(), 
+        healthBar = System.Array.Find(gameObject.GetComponentsInChildren<Transform>(),
                         p => p.gameObject.name == "HealthBar").gameObject;
         healthBar.transform.localScale = new Vector3(maxHealthBarScale, 0.1f, 1f);
 
@@ -59,7 +61,7 @@ public class EnemyAI : MonoBehaviour
         currentHealth = maxHealth;
         maxHealthBarScale = maxHealth / 50;
         healthBar.transform.localScale = new Vector3(maxHealthBarScale, 0.1f, 1f);
-        healthBar.transform.localPosition = new Vector3(0f, 1f ,1f);
+        healthBar.transform.localPosition = new Vector3(0f, 1f, 1f);
 
         this.attack = attack;
         this.movementSpeed = moveSpeed;
@@ -70,15 +72,22 @@ public class EnemyAI : MonoBehaviour
     {
         while (true)
         {
-            if (state == State.Roaming)
+            if (player != null)
             {
-                movement = GetRoamingPosition();
-                yield return new WaitForSeconds(3f); // Add a delay to prevent infinite loop   
+                if (state == State.Roaming)
+                {
+                    movement = GetRoamingPosition();
+                    yield return new WaitForSeconds(3f); // Add a delay to prevent infinite loop   
+                }
+                if (state == State.Seeking)
+                {
+                    movement = GetSeekingPosition();
+                    yield return new WaitForSeconds(Time.fixedDeltaTime); // Add a delay to prevent infinite loop   
+                }
             }
-            if (state == State.Seeking)
+            else
             {
-                movement = GetSeekingPosition();
-                yield return new WaitForSeconds(Time.fixedDeltaTime); // Add a delay to prevent infinite loop   
+                yield return new WaitForSeconds(1f);
             }
         }
     }
@@ -93,40 +102,47 @@ public class EnemyAI : MonoBehaviour
         return (player.transform.position - transform.position).normalized;
     }
 
-    protected virtual void UpdateEnemyFacingDirection() 
+    protected virtual void UpdateEnemyFacingDirection()
     {
         enemySpriteRenderer.flipX = movement.x > 0;
     }
 
     private void FixedUpdate()
     {
-        state = Vector2.Distance(player.transform.position, rb.position) <= sight
-            ? State.Seeking
-            : State.Roaming;
+        if (player != null)
+        {
+            state = Vector2.Distance(player.transform.position, rb.position) <= sight
+                ? State.Seeking
+                : State.Roaming;
 
-        rb.MovePosition(rb.position + movement * movementSpeed * Time.fixedDeltaTime);   
-        UpdateEnemyFacingDirection();
+            rb.MovePosition(rb.position + movement * movementSpeed * Time.fixedDeltaTime);
+            UpdateEnemyFacingDirection();
+        }
     }
 
     public void TakeDamage(float damage)
     {
         currentHealth = Mathf.Max(0f, currentHealth - damage);
-        Vector3 healthBarChange = new Vector3(currentHealth/maxHealth * maxHealthBarScale, 0.1f, 1f);
+        Vector3 healthBarChange = new Vector3(currentHealth / maxHealth * maxHealthBarScale, 0.1f, 1f);
         healthBar.transform.localScale = healthBarChange;
 
-        if (currentHealth == 0f) {
+        if (currentHealth == 0f)
+        {
             // Instantiate the death particles
-            if (deathParticles != null) {
-                GameObject particlesObject = Instantiate(deathParticles.gameObject, transform.position, Quaternion.identity);
-            ParticleSystem particles = particlesObject.GetComponent<ParticleSystem>();
-            particles.Play();
-            
-            // Destroy the particle system object after the duration of the particle effect
-            Destroy(particlesObject, particles.main.duration);
-        }
+            if (deathParticlesPrefab != null)
+            {
+                deathParticlesInstance = Instantiate(deathParticlesPrefab, transform.position, Quaternion.identity);
+                deathParticlesInstance.Play();
 
-        // Destroy the enemy game object
-        Destroy(gameObject);
+                // Detach the particle system from the enemy GameObject
+                deathParticlesInstance.transform.parent = null;
+
+                // Destroy the particle system object after the duration of the particle effect
+                Destroy(deathParticlesInstance.gameObject, deathParticlesInstance.main.duration);
+            }
+
+            // Destroy the enemy game object
+            Destroy(gameObject);
         }
     }
 

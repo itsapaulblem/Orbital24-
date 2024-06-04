@@ -5740,6 +5740,10 @@ PrefabInstance:
       propertyPath: deathParticles
       value: 
       objectReference: {fileID: 1060105339}
+    - target: {fileID: 2233878198095463399, guid: a74911568ffa04a08aac5f50dc9374d4, type: 3}
+      propertyPath: deathParticlesPrefab
+      value: 
+      objectReference: {fileID: 1111976400}
     - target: {fileID: 7159409009723346263, guid: a74911568ffa04a08aac5f50dc9374d4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 22.93
@@ -7532,6 +7536,10 @@ PrefabInstance:
       propertyPath: deathParticles
       value: 
       objectReference: {fileID: 1060105339}
+    - target: {fileID: 4691936696320082005, guid: 871fedc0b0d5c450aac532a1b4b5ab4d, type: 3}
+      propertyPath: deathParticlesPrefab
+      value: 
+      objectReference: {fileID: 1060105339}
     - target: {fileID: 6017567060952554473, guid: 871fedc0b0d5c450aac532a1b4b5ab4d, type: 3}
       propertyPath: m_Name
       value: 'Enemy '
@@ -8399,6 +8407,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!198 &1111976400 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 384688083539446917, guid: a74911568ffa04a08aac5f50dc9374d4, type: 3}
+  m_PrefabInstance: {fileID: 422137231}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1152466661
 GameObject:
   m_ObjectHideFlags: 0
