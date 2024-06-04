@@ -5,6 +5,8 @@ using Firebase.Auth;
 using Firebase.Database;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Threading.Tasks;
+using Unity.VisualScripting;
 
 public class FirebaseLoginManager : MonoBehaviour
 {
@@ -19,6 +21,7 @@ public class FirebaseLoginManager : MonoBehaviour
     public TMP_InputField passwordLoginField;
     public TMP_Text warningLoginText;
     public TMP_Text confirmLoginText;
+    
 
     [Header("UserData")]
     public TMP_InputField usernameField;
@@ -251,4 +254,5 @@ public class FirebaseLoginManager : MonoBehaviour
         UserData_UI.SetActive(true);
         LoginScreen.SetActive(false);
     }
+   
 }

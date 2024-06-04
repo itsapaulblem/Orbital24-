@@ -20,7 +20,10 @@ public class FirebaseRegisterManager : MonoBehaviour
     public TMP_InputField passwordRegisterField;
     public TMP_InputField passwordRegisterVerifyField; 
     public TMP_Text warningRegisterText; 
+    public TMP_Text emailText; 
+    public TMP_Text successText; 
 
+    public GameObject EmailMenu; 
     // Called when the script instance is being loaded
     public void Awake()
     {
@@ -115,10 +118,43 @@ public class FirebaseRegisterManager : MonoBehaviour
                     else
                     {
                         // Load the Start scene on successful registration
-                        SceneManager.LoadSceneAsync("Start");
+                        EmailMenu.SetActive(true);
                         warningRegisterText.text = ""; 
+                        SendEmailForVerification();
                     }
                 }
+            }
+        }
+    }
+     public void SendEmailForVerification(){
+        StartCoroutine(SendEmailForVerificationAsync());
+    }
+
+    private IEnumerator SendEmailForVerificationAsync(){
+        if (user != null){
+            var sendEmailTask = user.SendEmailVerificationAsync();
+            yield return new WaitUntil(()=> sendEmailTask.IsCompleted);
+
+            if (sendEmailTask.Exception != null){
+                FirebaseException firebaseException = sendEmailTask.Exception.GetBaseException() as FirebaseException;
+                AuthError error = (AuthError) firebaseException.ErrorCode; 
+                emailText.text = "Unknown Error: Please try again later"; 
+                
+                switch(error){
+                    case AuthError.Cancelled:
+                      emailText.text = "Email Verification was cancelled"; 
+                        break; 
+                    case AuthError.Unimplemented:
+                      emailText.text = "Too many request";
+                        break;
+                    case AuthError.Failure: 
+                       emailText.text = "The email you entered is invalid";
+                        break;
+
+                }
+            }
+            else{
+               successText.text = $"Email has successfully sent to {user.Email}";
             }
         }
     }
