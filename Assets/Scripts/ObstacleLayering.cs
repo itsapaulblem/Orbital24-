@@ -16,7 +16,7 @@ public class ObstacleLayering : MonoBehaviour
     void Awake() 
     {
         obstacleRenderer = GetComponent<SpriteRenderer>();
-        player = ObstacleLayeringManager.Instance.Player;
+        player = GameObject.Find("Player");
         SetSortOrder();
     }
 
