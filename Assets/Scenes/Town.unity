@@ -437,8 +437,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnRate: 10
   enemyPrefabs:
-  - {fileID: 994735165}
-  - {fileID: 1174047215}
+  - {fileID: 6017567060952554473, guid: 871fedc0b0d5c450aac532a1b4b5ab4d, type: 3}
+  - {fileID: 2136108935076824082, guid: a74911568ffa04a08aac5f50dc9374d4, type: 3}
   canSpawn: 1
 --- !u!4 &166923034
 Transform:
@@ -7582,11 +7582,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 871fedc0b0d5c450aac532a1b4b5ab4d, type: 3}
---- !u!1 &994735165 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6017567060952554473, guid: 871fedc0b0d5c450aac532a1b4b5ab4d, type: 3}
-  m_PrefabInstance: {fileID: 994735164}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &994750361
 GameObject:
   m_ObjectHideFlags: 0
@@ -8583,11 +8578,6 @@ MonoBehaviour:
   theTextBox: {fileID: 40509644}
   requireButtonPress: 0
   destroyWhenActivated: 0
---- !u!1 &1174047215 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2136108935076824082, guid: a74911568ffa04a08aac5f50dc9374d4, type: 3}
-  m_PrefabInstance: {fileID: 422137231}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1192321723
 GameObject:
   m_ObjectHideFlags: 0

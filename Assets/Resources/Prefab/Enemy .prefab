@@ -111,7 +111,7 @@ Transform:
   m_GameObject: {fileID: 1302785307820392584}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -23, y: -9.3, z: 0}
+  m_LocalPosition: {x: -16.87, y: 0.15, z: 0}
   m_LocalScale: {x: 0.34453127, y: 0.28875, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5103,7 +5103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32f3b7cdba6674e3694984334071ad41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathParticles: {fileID: 0}
+  deathParticlesPrefab: {fileID: 5436096917770605438}
   sight: 10
   currentHealth: 0
 --- !u!70 &4147875229576924164

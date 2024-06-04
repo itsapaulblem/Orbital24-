@@ -128,6 +128,14 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9086105420995975311, guid: 871fedc0b0d5c450aac532a1b4b5ab4d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -25.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 9086105420995975311, guid: 871fedc0b0d5c450aac532a1b4b5ab4d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.35
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4691936696320082005, guid: 871fedc0b0d5c450aac532a1b4b5ab4d, type: 3}
     m_RemovedGameObjects:
@@ -138,6 +146,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2233878198095463399}
   m_SourcePrefab: {fileID: 100100000, guid: 871fedc0b0d5c450aac532a1b4b5ab4d, type: 3}
+--- !u!198 &384688083539446917 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5436096917770605438, guid: 871fedc0b0d5c450aac532a1b4b5ab4d, type: 3}
+  m_PrefabInstance: {fileID: 5631270427828543483}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2136108935076824082 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6017567060952554473, guid: 871fedc0b0d5c450aac532a1b4b5ab4d, type: 3}
@@ -155,5 +168,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 371e77a7112e64d5b9fcdbe51c7bf9b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathParticlesPrefab: {fileID: 384688083539446917}
   sight: 12
   currentHealth: 0
