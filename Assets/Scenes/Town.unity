@@ -5621,7 +5621,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 21, y: -61}
+  m_AnchoredPosition: {x: 21, y: -61.000015}
   m_SizeDelta: {x: -1.7243652, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &389102704
@@ -8818,6 +8818,10 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7612526692340881417, guid: c3382ac9c803741aeaebc44feb7e097a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cd0b9154818108a49b0d89894bf22141, type: 2}
     - target: {fileID: 7939045153601931480, guid: c3382ac9c803741aeaebc44feb7e097a, type: 3}
       propertyPath: GameOverMenu
       value: 

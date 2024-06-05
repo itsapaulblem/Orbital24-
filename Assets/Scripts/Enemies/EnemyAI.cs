@@ -127,6 +127,7 @@ public class EnemyAI : MonoBehaviour
         currentHealth = Mathf.Max(0f, currentHealth - damage);
         Vector3 healthBarChange = new Vector3(currentHealth / maxHealth * maxHealthBarScale, 0.1f, 1f);
         healthBar.transform.localScale = healthBarChange;
+       
 
         if (currentHealth == 0f)
         {

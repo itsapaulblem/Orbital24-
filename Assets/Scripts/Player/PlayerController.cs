@@ -39,6 +39,9 @@ public class PlayerController : MonoBehaviour
 
     public bool canMove; 
     public GameObject GameOverMenu;
+    [SerializeField] private float flashDuration = 0.2f; 
+    [SerializeField] private Color flashColor = Color.red; 
+
     private void Awake() 
     {
         rb = GetComponent<Rigidbody2D>();
@@ -178,12 +181,24 @@ public class PlayerController : MonoBehaviour
 
             if (currentHealth == 0f) {
                 Destroy(gameObject); 
-        
-            
                 GameOverMenu.SetActive(true);
+            }
+            else {
+                StartCoroutine(FlashEffect());
             }
         }
     }
+
+      private IEnumerator FlashEffect()
+    {
+        Color originalColor = playerSpriteRenderer.color;
+        playerSpriteRenderer.color = flashColor;
+
+        yield return new WaitForSeconds(flashDuration);
+
+        playerSpriteRenderer.color = originalColor;
+    }
+
 
     public void Heal(float healing)
     {
