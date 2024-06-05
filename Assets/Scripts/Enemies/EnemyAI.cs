@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Unity.VisualScripting.ReorderableList.Element_Adder_Menu;
+using UnityEngine.SocialPlatforms.Impl;
+
 
 public class EnemyAI : MonoBehaviour
 {
@@ -131,6 +133,7 @@ public class EnemyAI : MonoBehaviour
             // Instantiate the death particles
             if (deathParticlesPrefab != null)
             {
+             
                 deathParticlesInstance = Instantiate(deathParticlesPrefab, transform.position, Quaternion.identity);
                 deathParticlesInstance.Play();
 
@@ -140,7 +143,7 @@ public class EnemyAI : MonoBehaviour
                 // Destroy the particle system object after the duration of the particle effect
                 Destroy(deathParticlesInstance.gameObject, deathParticlesInstance.main.duration);
             }
-
+            GameManager.Instance.AddKill();
             // Destroy the enemy game object
             Destroy(gameObject);
         }
@@ -154,4 +157,5 @@ public class EnemyAI : MonoBehaviour
             player.TakeDamage(attack);
         }
     }
+
 }
