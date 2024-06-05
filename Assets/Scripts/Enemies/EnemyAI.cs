@@ -33,6 +33,8 @@ public class EnemyAI : MonoBehaviour
     private GameObject healthBar;
     private float maxHealthBarScale;
     protected float attack = 3f;
+    [SerializeField] private float flashDuration = 0.2f; 
+    [SerializeField] private Color flashColor = Color.red; 
 
     private void Awake()
     {
@@ -148,6 +150,19 @@ public class EnemyAI : MonoBehaviour
             // Destroy the enemy game object
             Destroy(gameObject);
         }
+        else{
+            StartCoroutine(FlashEffect());
+        }
+    }
+
+     private IEnumerator FlashEffect()
+    {
+        Color originalColor = enemySpriteRenderer.color;
+        enemySpriteRenderer.color = flashColor;
+
+        yield return new WaitForSeconds(flashDuration);
+
+        enemySpriteRenderer.color = originalColor;
     }
 
     protected virtual void OnCollisionStay2D(Collision2D collision)

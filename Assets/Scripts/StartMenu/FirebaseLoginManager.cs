@@ -10,6 +10,7 @@ using Unity.VisualScripting;
 
 public class FirebaseLoginManager : MonoBehaviour
 {
+    //public static FirebaseLoginManager Instance; 
     [Header("Firebase")]
     public DependencyStatus dependencyStatus;
     public FirebaseAuth auth;

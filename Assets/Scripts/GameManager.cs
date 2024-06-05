@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour
     {
         kills++;
         UpdateKillText();
+
+    
     }
 
     private void UpdateKillText()

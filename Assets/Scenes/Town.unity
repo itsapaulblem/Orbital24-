@@ -5621,7 +5621,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 21, y: -61.000015}
+  m_AnchoredPosition: {x: 21, y: -61}
   m_SizeDelta: {x: -1.7243652, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &389102704
@@ -7630,6 +7630,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 652978448}
     - target: {fileID: 4691936696320082005, guid: 871fedc0b0d5c450aac532a1b4b5ab4d, type: 3}
+      propertyPath: flashColor.b
+      value: 0.08962262
+      objectReference: {fileID: 0}
+    - target: {fileID: 4691936696320082005, guid: 871fedc0b0d5c450aac532a1b4b5ab4d, type: 3}
+      propertyPath: flashColor.g
+      value: 0.08962262
+      objectReference: {fileID: 0}
+    - target: {fileID: 4691936696320082005, guid: 871fedc0b0d5c450aac532a1b4b5ab4d, type: 3}
+      propertyPath: flashColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4691936696320082005, guid: 871fedc0b0d5c450aac532a1b4b5ab4d, type: 3}
       propertyPath: movementSpeed
       value: 2
       objectReference: {fileID: 0}
@@ -8821,7 +8833,7 @@ PrefabInstance:
     - target: {fileID: 7612526692340881417, guid: c3382ac9c803741aeaebc44feb7e097a, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: cd0b9154818108a49b0d89894bf22141, type: 2}
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 7939045153601931480, guid: c3382ac9c803741aeaebc44feb7e097a, type: 3}
       propertyPath: GameOverMenu
       value: 
