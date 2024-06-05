@@ -5,6 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
+    [SerializeField] AudioSource SFXSource; 
+    public AudioClip enemybeingshot; 
+    public AudioClip bobbeingshot; 
+    public AudioClip bobshooting; 
+    
     // Start is called before the first frame update
     private AudioSource _audioSource; 
     private string prevScene;
@@ -40,4 +45,7 @@ public class AudioManager : MonoBehaviour
         }
         
     }
+    public void PlaySFX(AudioClip clip){
+        SFXSource.PlayOneShot(clip);
+   }
 }

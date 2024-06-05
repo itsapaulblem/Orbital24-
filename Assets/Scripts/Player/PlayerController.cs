@@ -10,6 +10,7 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class PlayerController : MonoBehaviour
 {   
+    private AudioManager audioManager;
 
     // Movement Attributes
     private float movementSpeed = 4f;
@@ -41,9 +42,11 @@ public class PlayerController : MonoBehaviour
     public GameObject GameOverMenu;
     [SerializeField] private float flashDuration = 0.2f; 
     [SerializeField] private Color flashColor = Color.red; 
+ 
 
     private void Awake() 
     {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
         rb = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
         playerSpriteRenderer = GetComponent<SpriteRenderer>();
@@ -148,6 +151,9 @@ public class PlayerController : MonoBehaviour
         GameObject bullet = Instantiate(Resources.Load<GameObject>(bulletPrefab), transform.position, Quaternion.Euler(0, 0, bulletAngle));
         Bullet bulletScript = bullet.GetComponent<Bullet>();
         bulletScript.SetInit(true, "shot_main", attack, bulletLife, bulletSpeed, bulletDir); // initialise bullet
+     
+        audioManager.PlaySFX(audioManager.bobshooting); // Play shooting sound effect
+
     }
 
     /// <summary>
@@ -185,6 +191,7 @@ public class PlayerController : MonoBehaviour
             }
             else {
                 StartCoroutine(FlashEffect());
+                audioManager.PlaySFX(audioManager.bobbeingshot);
             }
         }
     }

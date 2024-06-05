@@ -2,12 +2,10 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using Unity.VisualScripting.ReorderableList.Element_Adder_Menu;
-using UnityEngine.SocialPlatforms.Impl;
-
 
 public class EnemyAI : MonoBehaviour
 {
+    private AudioManager audioManager;
     [SerializeField] private ParticleSystem deathParticlesPrefab = default;
     private ParticleSystem deathParticlesInstance;
 
@@ -57,6 +55,11 @@ public class EnemyAI : MonoBehaviour
         healthBar.transform.localScale = new Vector3(maxHealthBarScale, 0.1f, 1f);
 
         SetInit(50f, 3f, 2f); // default initialize
+    }
+
+    private void Start()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
     public void SetInit(float health, float attack, float moveSpeed)
@@ -129,14 +132,12 @@ public class EnemyAI : MonoBehaviour
         currentHealth = Mathf.Max(0f, currentHealth - damage);
         Vector3 healthBarChange = new Vector3(currentHealth / maxHealth * maxHealthBarScale, 0.1f, 1f);
         healthBar.transform.localScale = healthBarChange;
-       
 
         if (currentHealth == 0f)
         {
             // Instantiate the death particles
             if (deathParticlesPrefab != null)
             {
-             
                 deathParticlesInstance = Instantiate(deathParticlesPrefab, transform.position, Quaternion.identity);
                 deathParticlesInstance.Play();
 
@@ -150,12 +151,14 @@ public class EnemyAI : MonoBehaviour
             // Destroy the enemy game object
             Destroy(gameObject);
         }
-        else{
+        else
+        {
             StartCoroutine(FlashEffect());
+           // audioManager.PlaySFX(audioManager.enemybeingshot); // Play hit sound effect
         }
     }
 
-     private IEnumerator FlashEffect()
+    private IEnumerator FlashEffect()
     {
         Color originalColor = enemySpriteRenderer.color;
         enemySpriteRenderer.color = flashColor;
@@ -173,5 +176,4 @@ public class EnemyAI : MonoBehaviour
             player.TakeDamage(attack);
         }
     }
-
 }

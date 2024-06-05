@@ -8,6 +8,7 @@ TagManager:
   - Bullet
   - 'continueButton '
   - Music
+  - Audio
   layers:
   - Default
   - TransparentFX
