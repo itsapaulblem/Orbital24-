@@ -6336,9 +6336,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SFXSource: {fileID: 618862418}
-  enemyhit: {fileID: 8300000, guid: 622cdecfcf58444d7be5352e4209020a, type: 3}
-  hit: {fileID: 8300000, guid: a245ee5d75348c84a89ffb7992f1dc82, type: 3}
-  shoot: {fileID: 0}
+  enemybeingshot: {fileID: 8300000, guid: 622cdecfcf58444d7be5352e4209020a, type: 3}
+  bobbeingshot: {fileID: 8300000, guid: a245ee5d75348c84a89ffb7992f1dc82, type: 3}
+  bobshooting: {fileID: 8300000, guid: d9419ba0bfac1e84a95418ac5851caf6, type: 3}
 --- !u!4 &618862420
 Transform:
   m_ObjectHideFlags: 0
