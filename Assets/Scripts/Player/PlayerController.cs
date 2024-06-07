@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake() 
     {
-        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+        //audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
         rb = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
         playerSpriteRenderer = GetComponent<SpriteRenderer>();
@@ -152,7 +152,7 @@ public class PlayerController : MonoBehaviour
         Bullet bulletScript = bullet.GetComponent<Bullet>();
         bulletScript.SetInit(true, "shot_main", attack, bulletLife, bulletSpeed, bulletDir); // initialise bullet
      
-        audioManager.PlaySFX(audioManager.bobshooting); // Play shooting sound effect
+        //audioManager.PlaySFX(audioManager.bobshooting); // Play shooting sound effect
 
     }
 
@@ -191,7 +191,7 @@ public class PlayerController : MonoBehaviour
             }
             else {
                 StartCoroutine(FlashEffect());
-                audioManager.PlaySFX(audioManager.bobbeingshot);
+                //audioManager.PlaySFX(audioManager.bobbeingshot);
             }
         }
     }
