@@ -38,7 +38,6 @@ public class PlayerController : MonoBehaviour
     private float timeBetweenShots = 0.9f;
     private float lastFireTime;
 
-    public bool canMove; 
     public GameObject GameOverMenu;
     [SerializeField] private float flashDuration = 0.2f; 
     [SerializeField] private Color flashColor = Color.red; 
@@ -77,9 +76,7 @@ public class PlayerController : MonoBehaviour
     /// <param name="inputValue"></param>
     private void OnMove(InputValue inputValue) 
     {
-        if (!canMove){
-            return;
-        }
+
         movement = inputValue.Get<Vector2>();
         movement.Normalize();
         playerAnimator.SetFloat("moveX", movement.x);
@@ -88,9 +85,7 @@ public class PlayerController : MonoBehaviour
 
     private void Move() 
     {
-        if (!canMove){
-            return;
-        }
+        
         rb.MovePosition(rb.position + movement * movementSpeed * Time.fixedDeltaTime);
     }
 

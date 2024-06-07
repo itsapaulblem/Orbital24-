@@ -1,11 +1,11 @@
 using System.Collections;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class TextBoxManager : MonoBehaviour
 {
-    public GameObject textBox;
+    public GameObject prompt;
+    public GameObject speechPanel;
     public Text theText;
     public TextAsset textFile;
     public string[] textLines;
@@ -13,14 +13,12 @@ public class TextBoxManager : MonoBehaviour
     public int endAtLine;
     public PlayerController player;
 
-    public bool isActive;
-    public bool stopPlayerMovement;
-
-    private bool isTyping = false; 
-    private bool cancelTyping = false; 
+    public bool isTextboxActive; 
+    private bool isTyping = false;
+    private bool cancelTyping = false;
     public float typeSpeed;
+    public bool isPlayerNear = false; 
 
-    // Start is called before the first frame update
     void Start()
     {
         player = FindObjectOfType<PlayerController>();
@@ -34,30 +32,22 @@ public class TextBoxManager : MonoBehaviour
         {
             endAtLine = textLines.Length - 1;
         }
-
-        if (isActive)
-        {
-            EnableTextBox();
-        }
-        else
-        {
-            DisableTextBox();
-        }
     }
 
     void Update()
     {
-        if (!isActive)
+        // Show prompt if textbox is not active and player is near
+        if (!isTextboxActive && isPlayerNear)
         {
-            return;
+            prompt.SetActive(true);
+            if (Input.GetKeyDown(KeyCode.E)){
+                prompt.SetActive(false);
+                EnableTextBox();
+            }
         }
 
-        if (currentLine <= endAtLine && textLines != null && currentLine < textLines.Length)
-        {
-            // theText.text = textLines[currentLine];
-        }
-
-        if (Input.GetKeyDown(KeyCode.E))
+        // Check for 'E' key press when player is near
+        if (isTextboxActive && Input.GetKeyDown(KeyCode.E))
         {
             if (!isTyping)
             {
@@ -101,26 +91,16 @@ public class TextBoxManager : MonoBehaviour
         {
             return;
         }
-        textBox.SetActive(true);
-        isActive = true;
-
-        if (player != null)
-        {
-            player.canMove = false;
-        }
-
+        speechPanel.SetActive(true);
+        prompt.SetActive(false);
+        isTextboxActive = true; // Update flag to indicate textbox is active
         StartCoroutine(TextScroll(textLines[currentLine]));
     }
 
     public void DisableTextBox()
     {
-        textBox.SetActive(false);
-        isActive = false;
-
-        if (player != null)
-        {
-            player.canMove = true;
-        }
+        speechPanel.SetActive(false);
+        isTextboxActive = false; // Update flag to indicate textbox is inactive
     }
 
     public void ReloadScript(TextAsset newText)
@@ -131,5 +111,10 @@ public class TextBoxManager : MonoBehaviour
             currentLine = 0;
             endAtLine = textLines.Length - 1;
         }
+    }
+
+    public void showPrompt(bool show)
+    {
+        prompt.SetActive(show);
     }
 }

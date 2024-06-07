@@ -104,11 +104,6 @@ public class TextBoxManagerCrab : MonoBehaviour
         textBox.SetActive(true);
         isActive = true;
 
-        if (player != null)
-        {
-            player.canMove = false;
-        }
-
         StartCoroutine(TextScroll(textLines[currentLine]));
     }
 
@@ -116,11 +111,6 @@ public class TextBoxManagerCrab : MonoBehaviour
     {
         textBox.SetActive(false);
         isActive = false;
-
-        if (player != null)
-        {
-            player.canMove = true;
-        }
     }
 
     public void ReloadScript(TextAsset newText)
