@@ -134,7 +134,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -5106,6 +5106,8 @@ MonoBehaviour:
   deathParticlesPrefab: {fileID: 5436096917770605438}
   sight: 10
   currentHealth: 0
+  flashDuration: 0.2
+  flashColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!70 &4147875229576924164
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
