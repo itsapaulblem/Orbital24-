@@ -133,8 +133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 40509645}
   - component: {fileID: 40509644}
-  - component: {fileID: 40509646}
-  - component: {fileID: 40509647}
   m_Layer: 0
   m_Name: 'Text Box Manager '
   m_TagString: Untagged
@@ -154,17 +152,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13a90d02309d40a488a83a0c76c03b5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prompt: {fileID: 1699860252}
-  speechPanel: {fileID: 1726616031}
+  textBox: {fileID: 1726616031}
+  prompt: {fileID: 2030696711}
   theText: {fileID: 2057152288}
   textFile: {fileID: 4900000, guid: fc525e85803058a4eb2be2c37d5d4b5d, type: 3}
   textLines: []
   currentLine: 0
   endAtLine: 0
   player: {fileID: 906124259}
-  isTextboxActive: 0
+  isActive: 0
+  stopPlayerMovement: 0
   typeSpeed: 0.01
-  isPlayerNear: 0
 --- !u!4 &40509645
 Transform:
   m_ObjectHideFlags: 0
@@ -180,43 +178,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &40509646
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 40509643}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 414f56fbb7db7004791c025fd557280d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  theText: {fileID: 4900000, guid: fc525e85803058a4eb2be2c37d5d4b5d, type: 3}
-  startLine: 0
-  endLine: 0
-  theTextBox: {fileID: 40509644}
---- !u!65 &40509647
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 40509643}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 3.3881578, y: 2.6613278, z: 1}
-  m_Center: {x: 0.44994307, y: 0.20766568, z: 0}
 --- !u!1 &95809240
 GameObject:
   m_ObjectHideFlags: 0
@@ -6268,7 +6229,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!61 &638172606
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6345,6 +6306,8 @@ MonoBehaviour:
   startLine: 0
   endLine: 5
   theTextBox: {fileID: 40509644}
+  requireButtonPress: 0
+  destroyWhenActivated: 0
 --- !u!1 &652978446
 GameObject:
   m_ObjectHideFlags: 0
@@ -6858,10 +6821,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0f9bfcd703f259468b2cc73a576df78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  theText: {fileID: 0}
+  theText: {fileID: 4900000, guid: c3bf3aca71ddf8f4f86551b507d7ef88, type: 3}
   startLine: 0
   endLine: 0
-  theTextBox: {fileID: 0}
+  theTextBox: {fileID: 1192321726}
   requireButtonPress: 0
   destroyWhenActivated: 0
 --- !u!1 &969209726
@@ -8130,6 +8093,8 @@ MonoBehaviour:
   startLine: 0
   endLine: 0
   theTextBox: {fileID: 40509644}
+  requireButtonPress: 0
+  destroyWhenActivated: 0
 --- !u!1 &1192321723
 GameObject:
   m_ObjectHideFlags: 0
@@ -9718,7 +9683,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2131364785
 MonoBehaviour:
   m_ObjectHideFlags: 0
