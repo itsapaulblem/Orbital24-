@@ -5147,7 +5147,7 @@ GameObject:
   - component: {fileID: 389102705}
   - component: {fileID: 389102704}
   m_Layer: 5
-  m_Name: GameOver Menu
+  m_Name: GameOverMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5884,8 +5884,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 535c17633c4a8e94b8550ff62d5265c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseMenu: {fileID: 1717993188}
-  GameOverMenu: {fileID: 389102702}
   killText: {fileID: 652978448}
 --- !u!4 &660395806
 Transform:
@@ -8703,7 +8701,7 @@ GameObject:
   - component: {fileID: 1717993191}
   - component: {fileID: 1717993190}
   m_Layer: 5
-  m_Name: Pause Menu
+  m_Name: pauseMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
