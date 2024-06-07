@@ -41,7 +41,6 @@ public class PlayerController : MonoBehaviour
     public GameObject GameOverMenu;
     [SerializeField] private float flashDuration = 0.2f; 
     [SerializeField] private Color flashColor = Color.red; 
- 
 
     private void Awake() 
     {
@@ -76,7 +75,7 @@ public class PlayerController : MonoBehaviour
     /// <param name="inputValue"></param>
     private void OnMove(InputValue inputValue) 
     {
-
+        
         movement = inputValue.Get<Vector2>();
         movement.Normalize();
         playerAnimator.SetFloat("moveX", movement.x);
@@ -182,7 +181,7 @@ public class PlayerController : MonoBehaviour
 
             if (currentHealth == 0f) {
                 Destroy(gameObject); 
-                GameOverMenu.SetActive(true);
+                GameManager.Instance.GameOver(); // calling GameOver from GameManager 
             }
             else {
                 StartCoroutine(FlashEffect());
