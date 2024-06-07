@@ -59,6 +59,8 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogWarning("KillText not found in the scene: " + scene.name);
         }
+
+        ResetKillCount(); // Reset kill count when scene is loaded
     }
 
     private void Update()
@@ -141,6 +143,8 @@ public class GameManager : MonoBehaviour
         {
             gameOverMenu.SetActive(false); // Ensure GameOverMenu is inactive
         }
+
+        ResetKillCount(); // Reset kill count when game restarts
     }
 
     public void No()
@@ -148,5 +152,13 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         PlayerPrefs.SetInt("ShowUserDataUI", 1);
         SceneManager.LoadScene("Start");
+
+        ResetKillCount(); // Reset kill count when game restarts
+    }
+
+    private void ResetKillCount()
+    {
+        kills = 0;
+        UpdateKillText(); // Update kill count text after resetting
     }
 }
