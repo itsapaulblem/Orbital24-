@@ -26,6 +26,8 @@ public class RangedEnemyAI : EnemyAI
 
     protected override Vector2 GetSeekingPosition()
     {
+        if (player == null) return Vector2.zero;
+
         float dist = Vector2.Distance(player.transform.position, transform.position);
         if (dist > distanceToStop) {
             return (player.transform.position - transform.position).normalized;
@@ -39,6 +41,8 @@ public class RangedEnemyAI : EnemyAI
 
     protected override void UpdateEnemyFacingDirection() 
     {
+        if (player == null) return;
+
         if (state == State.Seeking) {
             enemySpriteRenderer.flipX = transform.position.x < player.transform.position.x;
         } else {
@@ -48,6 +52,8 @@ public class RangedEnemyAI : EnemyAI
 
     private void Update() 
     {
+        if (player == null) return;
+
         float timeSinceLastFire = Time.time - lastFireTime;
         float dist = Vector2.Distance(player.transform.position, transform.position);
         if (timeSinceLastFire >= timeBetweenShots && state == State.Seeking)
@@ -59,6 +65,8 @@ public class RangedEnemyAI : EnemyAI
 
     private void FireBullet()
     {
+        if (player == null) return;
+
         Vector3 playerPos = player.transform.position;
         Vector3 originPos = transform.position;
         Vector2 bulletDir = playerPos - originPos;
@@ -74,8 +82,7 @@ public class RangedEnemyAI : EnemyAI
         PlayerController player = collision.gameObject.GetComponent<PlayerController>();
         if (player != null)
         {
-            player.TakeDamage(attack/2);
+            player.TakeDamage(attack / 2);
         }
     }
-    
 }
