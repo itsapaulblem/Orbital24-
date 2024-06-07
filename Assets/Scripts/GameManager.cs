@@ -77,6 +77,7 @@ public class GameManager : MonoBehaviour
      public void Yes(){
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        GameOverMenu.SetActive(false);
     }
     public void No(){
         Time.timeScale = 1f; 
