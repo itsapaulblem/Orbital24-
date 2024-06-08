@@ -5152,7 +5152,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &389102703
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5788,7 +5788,7 @@ GameObject:
   - component: {fileID: 652978449}
   - component: {fileID: 652978448}
   m_Layer: 5
-  m_Name: Killscore Text
+  m_Name: KillText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5884,7 +5884,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 535c17633c4a8e94b8550ff62d5265c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  killText: {fileID: 652978448}
+  killText: {fileID: 0}
 --- !u!4 &660395806
 Transform:
   m_ObjectHideFlags: 0
@@ -8701,12 +8701,12 @@ GameObject:
   - component: {fileID: 1717993191}
   - component: {fileID: 1717993190}
   m_Layer: 5
-  m_Name: pauseMenu
+  m_Name: PauseMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1717993189
 RectTransform:
   m_ObjectHideFlags: 0
