@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Room.unity
     guid: 921e64162dedd448a9c44d148a9f5c8c
+  - enabled: 1
+    path: Assets/Scenes/SeagrassValley.unity
+    guid: beef02741f071ed40a53a62863662dd3
   m_configObjects: {}
