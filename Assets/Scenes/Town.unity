@@ -5643,7 +5643,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &618862418
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5752,7 +5752,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2f7ee2dcca358645b9056952fea2303, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  musicSource: {fileID: 0}
   SFXSource: {fileID: 618862418}
+  startBackground: {fileID: 0}
+  gameBackground: {fileID: 8300000, guid: 7aece2f4e2ff5483c8b6649a74ae1b0d, type: 3}
   enemybeingshot: {fileID: 8300000, guid: 622cdecfcf58444d7be5352e4209020a, type: 3}
   bobbeingshot: {fileID: 8300000, guid: a245ee5d75348c84a89ffb7992f1dc82, type: 3}
   bobshooting: {fileID: 8300000, guid: d9419ba0bfac1e84a95418ac5851caf6, type: 3}

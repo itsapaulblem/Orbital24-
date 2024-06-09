@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class VolumeSettings : MonoBehaviour
 {
-    [SerializeField] private AudioMixer myAudio;
+    //[SerializeField] private AudioMixer myAudio;
     [SerializeField] private Slider musicSlider;
     
     // Start is called before the first frame update
@@ -21,7 +21,8 @@ public class VolumeSettings : MonoBehaviour
     }
     public void SetMusicVolume(){
         float volume = musicSlider.value;
-        myAudio.SetFloat("music", Mathf.Log10(volume) * 20);
+        //myAudio.SetFloat("music", Mathf.Log10(volume) * 20);
+        AudioListener.volume = volume;
         PlayerPrefs.SetFloat("musicVolume", volume);
     }
 

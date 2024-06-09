@@ -36,6 +36,8 @@ public class EnemyAI : MonoBehaviour
 
     private void Awake()
     {
+        audioManager = AudioManager.Instance;
+        
         // Initialize to Roam
         state = State.Roaming;
 
@@ -55,11 +57,6 @@ public class EnemyAI : MonoBehaviour
         healthBar.transform.localScale = new Vector3(maxHealthBarScale, 0.1f, 1f);
 
         SetInit(50f, 3f, 2f); // default initialize
-    }
-
-    private void Start()
-    {
-        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
     public void SetInit(float health, float attack, float moveSpeed)
@@ -150,11 +147,10 @@ public class EnemyAI : MonoBehaviour
             GameManager.Instance.AddKill();
             // Destroy the enemy game object
             Destroy(gameObject);
-        }
-        else
-        {
+        } else {
             StartCoroutine(FlashEffect());
-           // audioManager.PlaySFX(audioManager.enemybeingshot); // Play hit sound effect
+            Debug.Log(audioManager);
+            audioManager.PlaySFX(audioManager.enemybeingshot); // Play hit sound effect
         }
     }
 
