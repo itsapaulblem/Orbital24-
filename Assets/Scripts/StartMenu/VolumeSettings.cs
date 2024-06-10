@@ -6,31 +6,53 @@ using UnityEngine.UI;
 
 public class VolumeSettings : MonoBehaviour
 {
-    //[SerializeField] private AudioMixer myAudio;
+    [SerializeField] private AudioMixer audioMixer;
     [SerializeField] private Slider musicSlider;
-    
-    // Start is called before the first frame update
-    private void Start(){
-        if (PlayerPrefs.HasKey("musicVolume")){
+    [SerializeField] private Slider sfxSlider;
+
+    private void Start()
+    {
+        if (PlayerPrefs.HasKey("musicVolume") && PlayerPrefs.HasKey("sfxVolume"))
+        {
             LoadVolume();
         }
-        else{
+        else
+        {
             SetMusicVolume();
+            SetSFXVolume();
         }
-       // SetMusicVolume();
+
+        // Ensure sliders update volumes in real-time
+        musicSlider.onValueChanged.AddListener(delegate { SetMusicVolume(); });
+        sfxSlider.onValueChanged.AddListener(delegate { SetSFXVolume(); });
     }
-    public void SetMusicVolume(){
+
+    public void SetMusicVolume()
+    {
         float volume = musicSlider.value;
-        //myAudio.SetFloat("music", Mathf.Log10(volume) * 20);
-        AudioListener.volume = volume;
+        audioMixer.SetFloat("MusicVolume", Mathf.Log10(volume) * 20);
         PlayerPrefs.SetFloat("musicVolume", volume);
     }
 
-    private void LoadVolume(){
-        if (musicSlider == null){
-            return ;
+    public void SetSFXVolume()
+    {
+        float volume = sfxSlider.value;
+        audioMixer.SetFloat("SFXVolume", Mathf.Log10(volume) * 20);
+        PlayerPrefs.SetFloat("sfxVolume", volume);
+    }
+
+    private void LoadVolume()
+    {
+        if (musicSlider != null)
+        {
+            musicSlider.value = PlayerPrefs.GetFloat("musicVolume");
+            SetMusicVolume();
         }
-        musicSlider.value = PlayerPrefs.GetFloat("musicVolume");
-        SetMusicVolume();
+
+        if (sfxSlider != null)
+        {
+            sfxSlider.value = PlayerPrefs.GetFloat("sfxVolume");
+            SetSFXVolume();
+        }
     }
 }
