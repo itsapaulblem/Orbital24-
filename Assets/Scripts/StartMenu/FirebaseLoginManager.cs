@@ -5,12 +5,9 @@ using Firebase.Auth;
 using Firebase.Database;
 using TMPro;
 using UnityEngine.SceneManagement;
-using System.Threading.Tasks;
-using Unity.VisualScripting;
 
 public class FirebaseLoginManager : MonoBehaviour
 {
-    //public static FirebaseLoginManager Instance; 
     [Header("Firebase")]
     public DependencyStatus dependencyStatus;
     public FirebaseAuth auth;
@@ -22,7 +19,6 @@ public class FirebaseLoginManager : MonoBehaviour
     public TMP_InputField passwordLoginField;
     public TMP_Text warningLoginText;
     public TMP_Text confirmLoginText;
-    
 
     [Header("UserData")]
     public TMP_InputField usernameField;
@@ -46,9 +42,10 @@ public class FirebaseLoginManager : MonoBehaviour
                 Debug.LogError("Could not resolve all Firebase dependencies: " + dependencyStatus);
             }
         });
-        if (PlayerPrefs.GetInt("ShowUserDataUI", 0) == 1){
+        if (PlayerPrefs.GetInt("ShowUserDataUI", 0) == 1)
+        {
             ShowUserDataUI();
-            PlayerPrefs.SetInt("ShowUserDataUI", 0); 
+            PlayerPrefs.SetInt("ShowUserDataUI", 0);
         }
     }
 
@@ -152,6 +149,21 @@ public class FirebaseLoginManager : MonoBehaviour
         else
         {
             user = loginTask.Result.User;
+
+            // Check if email is verified
+            if (!user.IsEmailVerified)
+            {
+                if (warningLoginText != null)
+                {
+                    warningLoginText.text = "Please verify your email address before logging in.";
+                }
+                else
+                {
+                    Debug.LogError("Warning Login Text is not set.");
+                }
+                yield break; // Stop the login process
+            }
+
             warningLoginText.text = "";
             confirmLoginText.text = "Logged in";
             StartCoroutine(LoadUserData());
@@ -163,7 +175,7 @@ public class FirebaseLoginManager : MonoBehaviour
             UserData_UI.SetActive(true);
             LoginScreen.SetActive(false);
             ClearLoginFields();
-            
+
             SceneManager.LoadScene("CutScene1");
         }
     }
@@ -251,9 +263,10 @@ public class FirebaseLoginManager : MonoBehaviour
             timeField.ForceLabelUpdate();
         }
     }
-    private void ShowUserDataUI(){
+
+    private void ShowUserDataUI()
+    {
         UserData_UI.SetActive(true);
         LoginScreen.SetActive(false);
     }
-   
 }
