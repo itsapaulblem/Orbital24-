@@ -5435,6 +5435,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1111976400}
     - target: {fileID: 4164192914118255092, guid: a74911568ffa04a08aac5f50dc9374d4, type: 3}
+      propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4164192914118255092, guid: a74911568ffa04a08aac5f50dc9374d4, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 1df26681ac3f40342a64c90cb3888b19, type: 3}
@@ -10049,7 +10053,7 @@ PrefabInstance:
       objectReference: {fileID: 906124258}
     - target: {fileID: 1320195265699661409, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
       propertyPath: m_ChildCameras.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2553973854623526517, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
       propertyPath: m_LocalPosition.x
