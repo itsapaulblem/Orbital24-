@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     private GameObject pauseMenu;
     private GameObject gameOverMenu;
+    private GameObject miniMapWindow; 
+    private bool isMiniMapActive = false; 
     private bool isPaused = false;
     public Text killText;
     private int kills = 0;
@@ -54,6 +56,15 @@ public class GameManager : MonoBehaviour
             gameOverMenu.SetActive(false); // Ensure GameOverMenu is inactive
         }
 
+        miniMapWindow = GameObject.Find("MinimapWindow");
+        if (miniMapWindow == null){
+            Debug.LogWarning("MinimapWindow not found in the scene: " + scene.name);
+        }
+        else{
+            miniMapWindow.SetActive(false);
+        }
+
+
         killText = GameObject.Find("KillText")?.GetComponent<Text>();
         if (killText == null)
         {
@@ -68,6 +79,9 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             TogglePauseMenu();
+        }
+        if(Input.GetKeyDown(KeyCode.M)){
+            ToggleMiniMap();
         }
     }
 
@@ -99,6 +113,20 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.LogWarning("PauseMenu is missing.");
+        }
+    }
+
+     private void ToggleMiniMap()
+    {
+    
+        if (miniMapWindow != null)
+        {
+           isMiniMapActive = !isMiniMapActive;
+            miniMapWindow.SetActive(isMiniMapActive);
+        }
+        else
+        {
+            Debug.LogWarning("MiniMapWindow is missing.");
         }
     }
 

@@ -16,6 +16,22 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1381893477159286711, guid: 871fedc0b0d5c450aac532a1b4b5ab4d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.3683702
+      objectReference: {fileID: 0}
+    - target: {fileID: 1381893477159286711, guid: 871fedc0b0d5c450aac532a1b4b5ab4d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.3685133
+      objectReference: {fileID: 0}
+    - target: {fileID: 1381893477159286711, guid: 871fedc0b0d5c450aac532a1b4b5ab4d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1381893477159286711, guid: 871fedc0b0d5c450aac532a1b4b5ab4d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.1133
+      objectReference: {fileID: 0}
     - target: {fileID: 3277809164955112108, guid: 871fedc0b0d5c450aac532a1b4b5ab4d, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -113,9 +129,33 @@ PrefabInstance:
       value: 0.7647059
       objectReference: {fileID: 0}
     - target: {fileID: 8433457996436843362, guid: 871fedc0b0d5c450aac532a1b4b5ab4d, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8433457996436843362, guid: 871fedc0b0d5c450aac532a1b4b5ab4d, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 25849345, guid: d0ba7a4cffead4ad08b2b1bdc9ac1238, type: 3}
+    - target: {fileID: 8641393910286286351, guid: 871fedc0b0d5c450aac532a1b4b5ab4d, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8641393910286286351, guid: 871fedc0b0d5c450aac532a1b4b5ab4d, type: 3}
+      propertyPath: m_Size.x
+      value: 1.2642937
+      objectReference: {fileID: 0}
+    - target: {fileID: 8641393910286286351, guid: 871fedc0b0d5c450aac532a1b4b5ab4d, type: 3}
+      propertyPath: m_Size.y
+      value: 1.2265377
+      objectReference: {fileID: 0}
+    - target: {fileID: 8641393910286286351, guid: 871fedc0b0d5c450aac532a1b4b5ab4d, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1df26681ac3f40342a64c90cb3888b19, type: 3}
+    - target: {fileID: 8641393910286286351, guid: 871fedc0b0d5c450aac532a1b4b5ab4d, type: 3}
+      propertyPath: m_DrawMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8898159154549671423, guid: 871fedc0b0d5c450aac532a1b4b5ab4d, type: 3}
       propertyPath: m_LocalScale.y
       value: 0.1
@@ -171,3 +211,5 @@ MonoBehaviour:
   deathParticlesPrefab: {fileID: 384688083539446917}
   sight: 12
   currentHealth: 0
+  flashDuration: 0.2
+  flashColor: {r: 1, g: 0, b: 0, a: 1}
