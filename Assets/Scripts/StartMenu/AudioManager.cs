@@ -32,7 +32,7 @@ public class AudioManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    void Start()
+    private  void Start()
     {
         string sceneName = SceneManager.GetActiveScene().name;
         if (Array.IndexOf(startScenes, sceneName) > -1) {

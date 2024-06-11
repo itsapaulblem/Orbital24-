@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float flashDuration = 0.2f; 
     [SerializeField] private Color flashColor = Color.red; 
 
+
     private void Awake() 
     {
         audioManager = AudioManager.Instance;
@@ -56,6 +57,9 @@ public class PlayerController : MonoBehaviour
         maxHealthBarScale = maxHealth / 50;
         healthBar.transform.localScale = new Vector3(maxHealthBarScale, 0.1f, 1f);
         healthBar.transform.localPosition = new Vector3(0f, 1f ,1f);
+    }
+    private void Start(){
+        audioManager = AudioManager.Instance;
     }
 
     /// <summary>
