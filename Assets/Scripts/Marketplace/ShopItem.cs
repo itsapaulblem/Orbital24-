@@ -8,6 +8,7 @@ public class ShopItem : ScriptableObject
     public string title; 
     public string description; 
     public int baseCost; 
+    public Sprite sprite; 
     // Start is called before the first frame update
     void Start()
     {

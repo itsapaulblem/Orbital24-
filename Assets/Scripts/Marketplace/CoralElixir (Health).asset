@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: CoralElixir (Health)
   m_EditorClassIdentifier: 
   title: Coral Elixir
-  description: 'A mystical elixir made from coral extracts that permantly increases
-    Bob''s health '
+  description: A mystical elixir made from coral extracts that increases Bob's health
+    for a period of time
   baseCost: 0

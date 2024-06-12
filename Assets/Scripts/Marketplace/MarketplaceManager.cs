@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEditor;
-public class ShopManager : MonoBehaviour
+public class MarketplaceManager : MonoBehaviour
 {
 
     public int coins; 
@@ -12,7 +12,9 @@ public class ShopManager : MonoBehaviour
     public ShopItem[] shopItems; 
     public GameObject[] shopPanelsGameObject; 
     public ShopTemplate[] shopPanels; 
-    public Button[] purchaseButton; 
+    public Button[] purchaseButton;
+    
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -41,6 +43,7 @@ public class ShopManager : MonoBehaviour
             shopPanels[i].titleTxt.text = shopItems[i].title; 
             shopPanels[i].descriptionTxt.text = shopItems[i].description; 
             shopPanels[i].costTxt.text = shopItems[i].baseCost.ToString(); 
+          
         }
     }
 
