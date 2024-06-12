@@ -25,14 +25,19 @@ public class NPC : MonoBehaviour
     private bool waitForPress = false;
     private PlayerController player;
 
+    // Track if dialogue has been shown
+    private bool dialogueShown = false;
+
+    // Marketplace menu
+    private GameObject marketplaceMenu;
+
     void Awake() {
         currName = gameObject.name;
         path = path + currName + "_dialogue";
         
         TextAsset dialogueData = Resources.Load<TextAsset>(path);
-        dialogue = Regex.Split ( dialogueData.text, "\n|\r|\r\n");
+        dialogue = Regex.Split(dialogueData.text, "\n|\r|\r\n");
 
-        // TODO: Firebase access to determine dialogue block
         dialogueBlock = 1;
 
         dialogueMain = GameObject.Find("DialogueMain");
@@ -40,28 +45,28 @@ public class NPC : MonoBehaviour
             Debug.Log("Missing DialogueMain");
         }
 
+        marketplaceMenu = GameObject.Find("MarketplaceMenu");
+        if (marketplaceMenu == null) {
+            Debug.Log("Missing MarketplaceMenu");
+        } else {
+            marketplaceMenu.SetActive(false);
+        }
+
         player = FindObjectOfType<PlayerController>();
 
-        // Hard coded names for npc
         npcNames = new Dictionary<string, string>(){
-                    { "Goldfish", "Finlay" },
-                    { "Crab", "Krabtain Kidd" },
-                    { "Mermaid", "Lorelei" },
-                    { "Field boss", "Ezekill" }};
-    }
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+            { "Goldfish", "Finlay" },
+            { "Crab", "Krabtain Kidd" },
+            { "Mermaid", "Lorelei" },
+            { "Field boss", "Ezekill" }
+        };
     }
 
     void OnTriggerEnter2D(Collider2D other) 
     { 
         if (other.CompareTag("Player")) {
-            gameObject.transform.Find("Prompt").gameObject.SetActive(true);    // TODO: After tutorial, disable?
+            gameObject.transform.Find("Prompt").gameObject.SetActive(true);
             waitForPress = true;
-            
         } 
     } 
  
@@ -74,17 +79,25 @@ public class NPC : MonoBehaviour
         } 
     } 
 
-    // Update is called once per frame
     void Update()
     {
         if (waitForPress && Input.GetKeyDown(KeyCode.E)) {
             gameObject.transform.Find("Prompt").gameObject.SetActive(false);
-            if (state != DialogueState.Next){
-                StartCoroutine(RunText());
-                Debug.Log("Trigger correct");
-            } else if (state == DialogueState.Next && !nextDialogue) {
-                Debug.Log("Trigger cancel");
-                nextDialogue = true;
+            if (!dialogueShown) {
+                if (state != DialogueState.Next){
+                    StartCoroutine(RunText());
+                    Debug.Log("Trigger correct");
+                } else if (state == DialogueState.Next && !nextDialogue) {
+                    Debug.Log("Trigger cancel");
+                    nextDialogue = true;
+                }
+            } else {
+               if (marketplaceMenu.activeSelf){
+                marketplaceMenu.SetActive(false);
+               }
+               else{
+                ShowMarketplaceMenu();
+               }
             }
         }
     }
@@ -105,8 +118,6 @@ public class NPC : MonoBehaviour
         int index = 0;
         if (state == DialogueState.Run) {
             state = DialogueState.Next;
-            // disable player movement
-            
             for (int i = 0; i < dialogueBlock; i++) {
                 index = Array.IndexOf(dialogue, "-", index) + 1;
             }
@@ -120,6 +131,7 @@ public class NPC : MonoBehaviour
         }
         state = DialogueState.Idle;
         SetPanel(false);
+        dialogueShown = true; // Mark dialogue as shown after it finishes
     }
 
     private IEnumerator TextScroll(string lineOfText)
@@ -140,4 +152,10 @@ public class NPC : MonoBehaviour
         thisText.text = lineOfText;
         nextDialogue = false;
     }
+
+    void ShowMarketplaceMenu() {
+        if (marketplaceMenu != null) {
+            marketplaceMenu.SetActive(true);
+        } 
+}
 }

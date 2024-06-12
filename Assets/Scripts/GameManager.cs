@@ -102,6 +102,8 @@ public class GameManager : MonoBehaviour
         {
             ToggleMiniMap();
         }
+
+        
     }
 
     public void AddKill()
