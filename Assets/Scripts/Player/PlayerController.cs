@@ -11,9 +11,9 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {   
     private AudioManager audioManager;
+    private StatsManager stats;
 
     // Movement Attributes
-    private float movementSpeed = 4f;
     private Vector2 movement;
     private Rigidbody2D rb;
 
@@ -23,19 +23,14 @@ public class PlayerController : MonoBehaviour
 
     // Combat Attributes
     private string bulletPrefab = "Prefab/Bullet";
-    private float maxHealth = 100f;
-    public float currentHealth;
     private GameObject healthBar;
     private float maxHealthBarScale;
     private float healRate = 7f;
     private float iFrame = 0.3f;
     private float lastDamageTick;
-    private float bulletSpeed = 6f;
-    private float bulletLife = 12f;
-    public float attack = 10f;
     private bool shootContinuous;
     private bool shootSingle;
-    private float timeBetweenShots = 0.9f;
+    //private float timeBetweenShots = 0.9f;
     private float lastFireTime;
 
     public GameObject GameOverMenu;
@@ -49,12 +44,14 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
         playerSpriteRenderer = GetComponent<SpriteRenderer>();
-        currentHealth = maxHealth;
+
+        // TODO: retrieve stats data from Firebase, generate using .ofPlayer(stats)
+        stats = StatsManager.ofPlayer();
 
         // Initialise HealthBar
         healthBar = System.Array.Find(gameObject.GetComponentsInChildren<Transform>(), 
                         p => p.gameObject.name == "HealthBar").gameObject;
-        maxHealthBarScale = maxHealth / 50;
+        maxHealthBarScale = stats.GetMaxHealth() / 50;
         healthBar.transform.localScale = new Vector3(maxHealthBarScale, 0.1f, 1f);
         healthBar.transform.localPosition = new Vector3(0f, 1f ,1f);
     }
@@ -89,7 +86,7 @@ public class PlayerController : MonoBehaviour
     private void Move() 
     {
         
-        rb.MovePosition(rb.position + movement * movementSpeed * Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + movement * stats.GetMoveSpeed() * Time.fixedDeltaTime);
     }
 
     /// <summary>
@@ -113,7 +110,7 @@ public class PlayerController : MonoBehaviour
         float timeSinceLastFire = Time.time - lastFireTime;
         if (shootContinuous || shootSingle)
         {
-            if (timeSinceLastFire >= timeBetweenShots)
+            if (timeSinceLastFire >= stats.GetAttackSpeed())
             {
                 FireBullet();
                 lastFireTime = Time.time;
@@ -123,11 +120,11 @@ public class PlayerController : MonoBehaviour
         Color temp = healthBar.GetComponent<SpriteRenderer>().color;
         // Heal out of combat
         float timeSinceCombat = Mathf.Min(Time.time - lastDamageTick,timeSinceLastFire);
-        if (currentHealth != maxHealth && timeSinceCombat >= timeBetweenShots)
+        if (!stats.isFullHp() && timeSinceCombat >= stats.GetAttackSpeed())
         {
             Heal(healRate*Time.deltaTime);
         }
-        else if (currentHealth == maxHealth && temp.a > 0f) {
+        else if (stats.isFullHp() && temp.a > 0f) {
             temp.a -= 1f * Time.deltaTime;
             healthBar.GetComponent<SpriteRenderer>().color = temp;
         }
@@ -148,7 +145,11 @@ public class PlayerController : MonoBehaviour
 
         GameObject bullet = Instantiate(Resources.Load<GameObject>(bulletPrefab), transform.position, Quaternion.Euler(0, 0, bulletAngle));
         Bullet bulletScript = bullet.GetComponent<Bullet>();
-        bulletScript.SetInit(true, "shot_main", attack, bulletLife, bulletSpeed, bulletDir); // initialise bullet
+        bulletScript.SetInit(true, "shot_main", 
+                            stats.GetAttack(), 
+                            stats.GetBulletLife(), 
+                            stats.GetBulletSpeed(), 
+                            bulletDir); // initialise bullet
      
         audioManager.PlaySFX(audioManager.bobshooting); // Play shooting sound effect
 
@@ -173,17 +174,16 @@ public class PlayerController : MonoBehaviour
         float timeSinceLastDamage = Time.time - lastDamageTick;
         if (timeSinceLastDamage >= iFrame)
         {
-            if (currentHealth == maxHealth) {
+            if (stats.isFullHp()) {
                 Color temp = healthBar.GetComponent<SpriteRenderer>().color;
                 temp.a = 1f;
                 healthBar.GetComponent<SpriteRenderer>().color = temp;
             }
             lastDamageTick = Time.time;
-            currentHealth = Mathf.Max(0f, currentHealth - damage);
-            Vector3 healthBarChange = new Vector3(currentHealth/maxHealth * maxHealthBarScale, 0.1f, 1f);
+            Vector3 healthBarChange = new Vector3(stats.damage(damage) * maxHealthBarScale, 0.1f, 1f);
             healthBar.transform.localScale = healthBarChange;
 
-            if (currentHealth == 0f) {
+            if (stats.isDead()) {
                 Destroy(gameObject); 
                 GameManager.Instance.GameOver(); // calling GameOver from GameManager 
             }
@@ -207,8 +207,7 @@ public class PlayerController : MonoBehaviour
 
     public void Heal(float healing)
     {
-        currentHealth = Mathf.Min(maxHealth, currentHealth + healing);
-        Vector3 healthBarChange = new Vector3(currentHealth/maxHealth * maxHealthBarScale, 0.1f, 1f);
+        Vector3 healthBarChange = new Vector3(stats.heal(healing) * maxHealthBarScale, 0.1f, 1f);
         healthBar.transform.localScale = healthBarChange;
     }
 }

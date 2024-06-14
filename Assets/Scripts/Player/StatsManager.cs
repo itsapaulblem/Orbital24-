@@ -1,42 +1,56 @@
+using System.Collections;
 using UnityEngine;
 
-public class StatsManager : MonoBehaviour
+public class StatsManager
 {
-    private static StatsManager instance;
-    public static StatsManager Instance { get { return instance; } }
+    private static StatsManager playerInstance;
 
-    // Player stats
-    [SerializeField] private float baseMoveSpeed = 4f;
-    [SerializeField] private float baseMaxHealth = 100f;
-    [SerializeField] private float baseAttack = 10f;
-    [SerializeField] private float baseAttackSpeed = 0.9f;
-    [SerializeField] private float baseBulletLife = 12f;
-    [SerializeField] private float baseBulletDamage = 10f; 
+    // Default Player Stats
+    private const float MOVESPEED = 4f;
+    private const float MAXHEALTH = 100f;
+    private const float ATTACK = 10f;
+    private const float ATTACKSPEED = 0.9f;
+    private const float BULLETLIFE = 12f;
+    private const float BULLETSPEED = 6f;
 
     private float moveSpeed;
     private float maxHealth;
+    private float currentHealth;
     private float attack;
     private float attackSpeed;
     private float bulletLife;
-    private float bulletDamage; 
+    private float bulletSpeed;
 
-    private void Awake()
+    private StatsManager(float mvSpd, float maxHp, float atk, float atkSpd, float bulLife, float bulSpd)
     {
-        if (instance != null && instance != this)
-        {
-            Destroy(this.gameObject);
-            return;
-        }
-        instance = this;
-        DontDestroyOnLoad(this.gameObject);
+        moveSpeed = mvSpd;
+        maxHealth = maxHp;
+        currentHealth = maxHealth;
+        attack = atk;
+        attackSpeed = atkSpd;
+        bulletLife = bulLife;
+        bulletSpeed = bulSpd;
+    }
 
-        // Initialize stats with base values
-        moveSpeed = baseMoveSpeed;
-        maxHealth = baseMaxHealth;
-        attack = baseAttack;
-        attackSpeed = baseAttackSpeed;
-        bulletLife = baseBulletLife;
-        bulletDamage = baseBulletDamage; 
+    public static StatsManager of(float mvSpd, float maxHp, float atk, 
+        float atkSpd = -1, float bulLife = -1, float bulSpd = -1)
+    {
+        return new StatsManager(mvSpd, maxHp, atk, atkSpd, bulLife, bulSpd);
+    }
+
+    public static StatsManager ofPlayer(float mvSpd = -1, float maxHp = -1, 
+        float atk = -1, float atkSpd = -1, float bulLife = -1, float bulSpd = -1)
+    {
+        if (playerInstance == null) {
+            mvSpd = mvSpd == -1 ? MOVESPEED : mvSpd;
+            maxHp = maxHp  == -1 ? MAXHEALTH : maxHp;
+            atk = atk == -1 ? ATTACK : atk;
+            atkSpd = atkSpd == -1 ? ATTACKSPEED : atkSpd;
+            bulLife = bulLife == -1 ? BULLETLIFE : bulLife;
+            bulSpd = bulSpd == -1 ? BULLETSPEED : bulSpd;
+            playerInstance = new StatsManager(mvSpd, maxHp, atk, atkSpd, bulLife, bulSpd);
+        }
+        return playerInstance;
     }
 
     // Getter and setter methods for player stats
@@ -58,6 +72,28 @@ public class StatsManager : MonoBehaviour
     public void SetMaxHealth(float health)
     {
         maxHealth = health;
+    }
+
+    public float damage(float damage)
+    {
+        currentHealth = Mathf.Max(0f, currentHealth - damage);
+        return currentHealth / maxHealth;
+    }
+
+    public float heal(float healing)
+    {
+        currentHealth = Mathf.Min(maxHealth, currentHealth + healing);
+        return currentHealth / maxHealth;
+    }
+
+    public bool isFullHp()
+    {
+        return currentHealth == maxHealth;
+    }
+
+    public bool isDead()
+    {
+        return currentHealth == 0;
     }
 
     public float GetAttack()
@@ -90,11 +126,11 @@ public class StatsManager : MonoBehaviour
         bulletLife = life;
     }
 
-    public float GetBulletDamage(){
-        return bulletDamage; 
+    public float GetBulletSpeed(){
+        return bulletSpeed; 
     }
 
-    public void SetBulletDamage(float damage){
-        bulletDamage = damage; 
+    public void SetBulletSpeed(float speed){
+        bulletSpeed = speed; 
     }
 }

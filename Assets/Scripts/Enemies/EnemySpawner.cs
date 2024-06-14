@@ -28,7 +28,7 @@ public class EnemySpawner : MonoBehaviour
 
             EnemyAI enemyAI = spawnedEnemy.GetComponent<EnemyAI>();
             if (enemyAI != null){
-                enemyAI.SetInit(50f, 3f, 3f);
+                enemyAI.SetInit(2f, 50f, 3f);
             }
         }
     }
