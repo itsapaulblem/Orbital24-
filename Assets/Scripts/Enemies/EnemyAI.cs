@@ -144,7 +144,6 @@ public class EnemyAI : MonoBehaviour
             Destroy(gameObject);
         } else {
             StartCoroutine(FlashEffect());
-            Debug.Log(audioManager);
             audioManager.PlaySFX(audioManager.enemybeingshot); // Play hit sound effect
         }
     }
