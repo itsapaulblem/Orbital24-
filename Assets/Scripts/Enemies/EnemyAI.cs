@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class EnemyAI : MonoBehaviour
 {
     private AudioManager audioManager;
+    protected StatsManager stats;
     [SerializeField] private ParticleSystem deathParticlesPrefab = default;
     private ParticleSystem deathParticlesInstance;
 
@@ -13,7 +14,6 @@ public class EnemyAI : MonoBehaviour
     protected State state;
 
     // Movement Attributes
-    protected float movementSpeed = 2f;
     protected Rigidbody2D rb;
     protected Vector2 origin;
     protected Vector2 movement;
@@ -26,11 +26,8 @@ public class EnemyAI : MonoBehaviour
     protected SpriteRenderer enemySpriteRenderer;
 
     // Combat Attributes
-    private float maxHealth = 30f;
-    public float currentHealth;
     private GameObject healthBar;
     private float maxHealthBarScale;
-    protected float attack = 3f;
     [SerializeField] private float flashDuration = 0.2f; 
     [SerializeField] private Color flashColor = Color.red; 
 
@@ -56,19 +53,18 @@ public class EnemyAI : MonoBehaviour
                         p => p.gameObject.name == "HealthBar").gameObject;
         healthBar.transform.localScale = new Vector3(maxHealthBarScale, 0.1f, 1f);
 
-        SetInit(50f, 3f, 2f); // default initialize
+        SetInit(2f, 50f, 3f); // default initialize
     }
 
-    public void SetInit(float health, float attack, float moveSpeed)
+    public void SetInit(float mvSpd, float maxHp, float atk,
+        float atkSpd = -1, float bulLife = -1, float bulSpd = -1)
     {
-        maxHealth = health;
-        currentHealth = maxHealth;
-        maxHealthBarScale = maxHealth / 50;
+        stats = StatsManager.of(mvSpd, maxHp, atk, atkSpd, bulLife, bulSpd);
+
+        maxHealthBarScale = stats.GetMaxHealth() / 50;
         healthBar.transform.localScale = new Vector3(maxHealthBarScale, 0.1f, 1f);
         healthBar.transform.localPosition = new Vector3(0f, 1f, 1f);
 
-        this.attack = attack;
-        this.movementSpeed = moveSpeed;
         StartCoroutine(MovementRoutine());
     }
 
@@ -119,18 +115,17 @@ public class EnemyAI : MonoBehaviour
                 ? State.Seeking
                 : State.Roaming;
 
-            rb.MovePosition(rb.position + movement * movementSpeed * Time.fixedDeltaTime);
+            rb.MovePosition(rb.position + movement * stats.GetMoveSpeed() * Time.fixedDeltaTime);
             UpdateEnemyFacingDirection();
         }
     }
 
     public void TakeDamage(float damage)
     {
-        currentHealth = Mathf.Max(0f, currentHealth - damage);
-        Vector3 healthBarChange = new Vector3(currentHealth / maxHealth * maxHealthBarScale, 0.1f, 1f);
+        Vector3 healthBarChange = new Vector3(stats.damage(damage) * maxHealthBarScale, 0.1f, 1f);
         healthBar.transform.localScale = healthBarChange;
 
-        if (currentHealth == 0f)
+        if (stats.isDead())
         {
             // Instantiate the death particles
             if (deathParticlesPrefab != null)
@@ -169,7 +164,7 @@ public class EnemyAI : MonoBehaviour
         PlayerController player = collision.gameObject.GetComponent<PlayerController>();
         if (player != null)
         {
-            player.TakeDamage(attack);
+            player.TakeDamage(stats.GetAttack());
         }
     }
 }

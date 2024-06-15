@@ -6,17 +6,14 @@ public class RangedEnemyAI : EnemyAI
 {
     // Combat Attributes
     private string bulletPrefab = "Prefab/Bullet";
-    float bulletLife = 14f;
-    float bulletSpeed = 12f;
-    private float timeBetweenShots = 0.9f;
     private float lastFireTime;
     // Seeking Attributes
     private float distanceToStop = 7f;
 
     void Start()
     {
-        SetInit(30, 10f, 2f);
-        lastFireTime = Time.time - timeBetweenShots;
+        SetInit(2f, 30, 10f, 0.9f, 14f, 12f);
+        lastFireTime = Time.time - stats.GetAttackSpeed();
     }
 
     protected override Vector2 GetRoamingPosition()
@@ -56,7 +53,7 @@ public class RangedEnemyAI : EnemyAI
 
         float timeSinceLastFire = Time.time - lastFireTime;
         float dist = Vector2.Distance(player.transform.position, transform.position);
-        if (timeSinceLastFire >= timeBetweenShots && state == State.Seeking)
+        if (timeSinceLastFire >= stats.GetAttackSpeed() && state == State.Seeking)
         {
             FireBullet();
             lastFireTime = Time.time;
@@ -74,7 +71,12 @@ public class RangedEnemyAI : EnemyAI
 
         GameObject bullet = Instantiate(Resources.Load(bulletPrefab) as GameObject, transform.position, Quaternion.Euler(0, 0, bulletAngle));
         Bullet bulletScript = bullet.GetComponent<Bullet>();
-        bulletScript.SetInit(false, "shot_elec", attack, bulletLife, bulletSpeed, bulletDir, false); // initialise bullet
+        bulletScript.SetInit(false, "shot_elec", 
+                            stats.GetAttack(), 
+                            stats.GetBulletLife(), 
+                            stats.GetBulletSpeed(), 
+                            bulletDir, 
+                            false); // initialise bullet
     }
 
     protected override void OnCollisionStay2D(Collision2D collision)
@@ -82,7 +84,7 @@ public class RangedEnemyAI : EnemyAI
         PlayerController player = collision.gameObject.GetComponent<PlayerController>();
         if (player != null)
         {
-            player.TakeDamage(attack / 2);
+            player.TakeDamage(stats.GetAttack() / 2);
         }
     }
 }
