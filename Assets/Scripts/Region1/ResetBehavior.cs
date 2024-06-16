@@ -22,13 +22,18 @@ public class ResetBehavior : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        gameObject.transform.Find("Activated").gameObject.SetActive(true);
         PlayerController target = collision.GetComponent<PlayerController>();
         if (target != null) {
             foreach (GameObject obj in linkedObject) {
                 StartCoroutine(Reset(obj));
             }
         }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        gameObject.transform.Find("Activated").gameObject.SetActive(false);
     }
 
     private IEnumerator Reset(GameObject obj) 
