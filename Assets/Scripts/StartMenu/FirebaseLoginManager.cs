@@ -269,4 +269,10 @@ public class FirebaseLoginManager : MonoBehaviour
         UserData_UI.SetActive(true);
         LoginScreen.SetActive(false);
     }
+
+  
+// GetData("StoryProgress")
+// GetData("Inventory")
+// GetData("Stats")
+// StoreData("Key")
 }
