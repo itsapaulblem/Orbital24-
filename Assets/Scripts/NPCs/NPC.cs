@@ -31,6 +31,9 @@ public class NPC : MonoBehaviour
     // Marketplace menu
     private GameObject marketplaceMenu;
 
+    //reference to GameManager
+    private GameManager gameManager; 
+
     void Awake() {
         currName = gameObject.name;
         path = path + currName + "_dialogue";
@@ -53,6 +56,7 @@ public class NPC : MonoBehaviour
         }
 
         player = FindObjectOfType<PlayerController>();
+        gameManager = GameManager.Instance; // get reference to the GameManager
 
         npcNames = new Dictionary<string, string>(){
             { "Goldfish", "Finlay" },
@@ -94,6 +98,10 @@ public class NPC : MonoBehaviour
             } else {
                if (marketplaceMenu.activeSelf){
                 marketplaceMenu.SetActive(false);
+                // Reacticate killText when marketplace menu is hidden 
+                if (gameManager.killText != null){
+                    gameManager.killText.gameObject.SetActive(true);
+                }
                }
                else{
                 ShowMarketplaceMenu();
@@ -156,6 +164,9 @@ public class NPC : MonoBehaviour
     void ShowMarketplaceMenu() {
         if (marketplaceMenu != null) {
             marketplaceMenu.SetActive(true);
+            if (gameManager.killText != null){
+                gameManager.killText.gameObject.SetActive(false);
+            }
         } 
 }
 }
