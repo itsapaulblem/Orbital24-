@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 960f72231264f407996531f368f7c235
+guid: cfd0f3a8f917446c2b54f34802865018
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spr_seagrass_1_0
+      name: spr_seagrass_3_0
       rect:
         serializedVersion: 2
         x: 0
@@ -118,20 +118,20 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 9
-      pivot: {x: 0.5, y: 0.3}
+      pivot: {x: 0.5, y: 0.4}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1185e1266a9c6443abf6a6eda4251f2e
-      internalID: -1206464757
+      spriteID: 3cb891e65f78d461e82add2768d00225
+      internalID: -1356639726
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_seagrass_1_1
+      name: spr_seagrass_3_1
       rect:
         serializedVersion: 2
         x: 64
@@ -139,14 +139,14 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 9
-      pivot: {x: 0.5, y: 0.3}
+      pivot: {x: 0.5, y: 0.4}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 52706dedce3584ba299a98a4e19f125c
-      internalID: -1780941215
+      spriteID: 984a7604f6b554a49a1fc1bf556e3681
+      internalID: -1306436246
       vertices: []
       indices: 
       edges: []
@@ -162,8 +162,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      spr_seagrass_1_0: -1206464757
-      spr_seagrass_1_1: -1780941215
+      spr_seagrass_3_0: -1356639726
+      spr_seagrass_3_1: -1306436246
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
