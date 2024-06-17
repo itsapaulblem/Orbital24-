@@ -12,7 +12,6 @@ public class MarketplaceManager : MonoBehaviour
     public GameObject[] shopPanelsGameObject; 
     public ShopTemplate[] shopPanels; 
     public Button[] purchaseButton;
-    private InventoryManager inventoryManager; // Reference to InventoryManager
 
     void Start()
     {
@@ -64,7 +63,7 @@ public class MarketplaceManager : MonoBehaviour
             coins -= shopItems[num].baseCost;
             coins_UI.text = "Coins: " + coins.ToString();
             CheckPurchaseable();
-            inventoryManager.AddItemToInventory(num); // Pass item index to add to inventory
+            Inventory.AddItemToInventory(num); // Pass item index to add to inventory
            
         }
     }

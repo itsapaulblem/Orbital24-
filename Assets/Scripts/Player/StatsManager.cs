@@ -13,7 +13,6 @@ public class StatsManager : MonoBehaviour
     private const float ATTACKSPEED = 0.9f;
     private const float BULLETLIFE = 12f;
     private const float BULLETSPEED = 6f;
-    private const float BULLETDAMAGE = 10f;
 
     private float moveSpeed;
     private float maxHealth;
@@ -22,9 +21,8 @@ public class StatsManager : MonoBehaviour
     private float attackSpeed;
     private float bulletLife;
     private float bulletSpeed;
-    private float bulletDamage;
 
-    private StatsManager(float mvSpd, float maxHp, float atk, float atkSpd, float bulLife, float bulSpd, float bulDamage)
+    private StatsManager(float mvSpd, float maxHp, float atk, float atkSpd, float bulLife, float bulSpd)
     {
         moveSpeed = mvSpd;
         maxHealth = maxHp;
@@ -33,17 +31,16 @@ public class StatsManager : MonoBehaviour
         attackSpeed = atkSpd;
         bulletLife = bulLife;
         bulletSpeed = bulSpd;
-        bulletDamage = bulDamage;
     }
 
     public static StatsManager of(float mvSpd, float maxHp, float atk,
-        float atkSpd = -1, float bulLife = -1, float bulSpd = -1, float bulDamage = 1)
+        float atkSpd = -1, float bulLife = -1, float bulSpd = -1)
     {
-        return new StatsManager(mvSpd, maxHp, atk, atkSpd, bulLife, bulSpd, bulDamage);
+        return new StatsManager(mvSpd, maxHp, atk, atkSpd, bulLife, bulSpd);
     }
 
     public static StatsManager ofPlayer(float mvSpd = -1, float maxHp = -1,
-        float atk = -1, float atkSpd = -1, float bulLife = -1, float bulSpd = -1, float bulDamage = -1)
+        float atk = -1, float atkSpd = -1, float bulLife = -1, float bulSpd = -1)
     {
         // if no existing playerInstance
         if (playerInstance == null) {
@@ -53,8 +50,7 @@ public class StatsManager : MonoBehaviour
             atkSpd = atkSpd == -1 ? ATTACKSPEED : atkSpd;
             bulLife = bulLife == -1 ? BULLETLIFE : bulLife;
             bulSpd = bulSpd == -1 ? BULLETSPEED : bulSpd;
-            bulDamage = bulDamage == -1 ? BULLETDAMAGE : bulDamage;
-            playerInstance = new StatsManager(mvSpd, maxHp, atk, atkSpd, bulLife, bulSpd, bulDamage);
+            playerInstance = new StatsManager(mvSpd, maxHp, atk, atkSpd, bulLife, bulSpd);
         }
         return playerInstance;
     }
@@ -138,13 +134,5 @@ public class StatsManager : MonoBehaviour
 
     public void SetBulletSpeed(float speed){
         bulletSpeed = speed;
-    }
-
-    public float GetBulletDamage(){
-        return bulletDamage;
-    }
-
-    public void SetBulletDamage(float damage){
-        bulletDamage = damage;
     }
 }

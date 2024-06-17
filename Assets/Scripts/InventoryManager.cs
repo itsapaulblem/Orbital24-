@@ -21,18 +21,13 @@ public class InventoryManager : MonoBehaviour
         {
             itemNumbers[i].text = "0"; // Initialize text to show 0 items
         }
-    }
-
-    // Method to add an item to inventory and update UI
-    public void AddItemToInventory(int itemIndex)
-    {
-        itemCounts[itemIndex]++;
-        UpdateItemNumbers();
+        UpdateItemNumbers()
     }
 
     // Update UI for all item numbers
-    private void UpdateItemNumbers()
+    public void UpdateItemNumbers()
     {
+        itemCounts = Inventory.GetItemCount();
         for (int i = 0; i < itemNumbers.Length; i++)
         {
             itemNumbers[i].text = itemCounts[i].ToString();

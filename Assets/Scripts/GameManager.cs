@@ -165,6 +165,7 @@ public class GameManager : MonoBehaviour
         if (inventoryMenu != null){
             isActive = !isActive; 
             inventoryMenu.SetActive(isActive);
+            inventoryMenu.GetComponent<InventoryManager>().UpdateItemNumbers();
             UpdateKillText(); 
         }
         else{
