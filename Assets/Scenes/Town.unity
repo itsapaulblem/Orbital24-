@@ -3745,6 +3745,7 @@ GameObject:
   m_Component:
   - component: {fileID: 660395806}
   - component: {fileID: 660395805}
+  - component: {fileID: 660395807}
   m_Layer: 0
   m_Name: 'Game Manager '
   m_TagString: Untagged
@@ -3780,6 +3781,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &660395807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 660395804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4841a156e88dea14a87ceda54a8fc4b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  confirmMenu: {fileID: 1407406389}
 --- !u!1 &674464278
 GameObject:
   m_ObjectHideFlags: 0
@@ -5627,9 +5641,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 660395805}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: ToggleConfirmMenu
+      - m_Target: {fileID: 660395807}
+        m_TargetAssemblyTypeName: Confirm, Assembly-CSharp
+        m_MethodName: onClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7479,9 +7493,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 660395805}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: ToggleConfirmMenu
+      - m_Target: {fileID: 660395807}
+        m_TargetAssemblyTypeName: Confirm, Assembly-CSharp
+        m_MethodName: onClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9525,9 +9539,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 660395805}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: ToggleConfirmMenu
+      - m_Target: {fileID: 660395807}
+        m_TargetAssemblyTypeName: Confirm, Assembly-CSharp
+        m_MethodName: onClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10481,9 +10495,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 660395805}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: ToggleConfirmMenu
+      - m_Target: {fileID: 660395807}
+        m_TargetAssemblyTypeName: Confirm, Assembly-CSharp
+        m_MethodName: onClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -12231,9 +12245,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 660395805}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: ToggleConfirmMenu
+      - m_Target: {fileID: 660395807}
+        m_TargetAssemblyTypeName: Confirm, Assembly-CSharp
+        m_MethodName: onClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
