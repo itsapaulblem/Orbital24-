@@ -135,4 +135,33 @@ public class StatsManager : MonoBehaviour
     public void SetBulletSpeed(float speed){
         bulletSpeed = speed;
     }
+
+    public void IncreaseStat(string stat, float amount){
+        switch (stat){
+            case "moveSpeed":
+                moveSpeed += amount; 
+                break; 
+            case "maxHealth":
+                maxHealth += amount; 
+                break; 
+            case "currentHealth":
+                currentHealth = Mathf.Min(maxHealth, currentHealth + amount);
+                break; 
+            case "attack":
+                attack += amount; 
+                break; 
+            case "attackSpeed":
+                attackSpeed += amount; 
+                break; 
+            case "bulletLife":
+                bulletLife += amount;
+                break; 
+            case "bulletSpeed":
+                bulletSpeed += amount; 
+                break;
+            default: 
+                Debug.LogWarning("Stat not recognised: " + stat);
+                break;
+        }
+    }
 }

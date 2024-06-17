@@ -21,7 +21,7 @@ public class InventoryManager : MonoBehaviour
         {
             itemNumbers[i].text = "0"; // Initialize text to show 0 items
         }
-        UpdateItemNumbers()
+        UpdateItemNumbers();
     }
 
     // Update UI for all item numbers

@@ -29,6 +29,10 @@ public class GameManager : MonoBehaviour
     private GameObject inventoryMenu; 
     private bool isActive = false; // Tracks if the inventory is active 
 
+    // Confirm Menu 
+    private GameObject confirmMenu;
+    private bool isConfirmMenuActive = false; 
+
     private void Awake()
     {
         // Singleton pattern to ensure only one instance of GameManager exists
@@ -41,6 +45,10 @@ public class GameManager : MonoBehaviour
         else
         {
             Destroy(gameObject); // Destroy duplicate GameManager instances
+        }
+         if (confirmMenu != null)
+        {
+            confirmMenu.SetActive(false);
         }
     }
 
@@ -79,6 +87,14 @@ public class GameManager : MonoBehaviour
         }
         else{
             inventoryMenu.SetActive(false); // Ensure Inventory Menu is inactive 
+        }
+        
+        confirmMenu = GameObject.Find("ConfirmMenu");
+        if (confirmMenu == null){
+            Debug.LogWarning("Confirm Menu not found in the scene: " + scene.name);
+        }
+        else{
+            confirmMenu.SetActive(false);
         }
 
 
@@ -140,6 +156,16 @@ public class GameManager : MonoBehaviour
         else if (killText != null && isActive)
         {
             killText.text = ""; // Clear the kill text when inventory is active
+        }
+    }
+
+    public void ToggleConfirmMenu(){
+        isConfirmMenuActive = !isConfirmMenuActive; 
+        if (confirmMenu != null){
+            confirmMenu.SetActive(isConfirmMenuActive);
+        }
+        else{
+            Debug.LogWarning("ConfirmMenu is missing.");
         }
     }
 
@@ -251,5 +277,9 @@ public class GameManager : MonoBehaviour
         // Reset the kill count and update the kill text
         kills = 0;
         UpdateKillText();
+    }
+
+    public void confirmUpgrade(){
+        ToggleConfirmMenu();
     }
 }
