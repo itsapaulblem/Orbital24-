@@ -15,4 +15,5 @@ MonoBehaviour:
   title: 'Jet Boosters '
   description: Advanced water propulsion technology that increases Bob's movement
     speed
-  baseCost: 0
+  baseCost: 10
+  sprite: {fileID: 0}

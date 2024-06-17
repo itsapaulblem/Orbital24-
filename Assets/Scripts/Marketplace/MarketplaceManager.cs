@@ -3,22 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEditor;
+
 public class MarketplaceManager : MonoBehaviour
 {
-
     public int coins; 
     public TMP_Text coins_UI;
     public ShopItem[] shopItems; 
     public GameObject[] shopPanelsGameObject; 
     public ShopTemplate[] shopPanels; 
     public Button[] purchaseButton;
-    
-    
-    // Start is called before the first frame update
+    private InventoryManager inventoryManager; // Reference to InventoryManager
+
     void Start()
     {
-        for (int i = 0; i < shopItems.Length; i ++){
+        for (int i = 0; i < shopItems.Length; i++)
+        {
             shopPanelsGameObject[i].SetActive(true);
         }
         coins_UI.text = "Coins: " + coins.ToString(); 
@@ -26,43 +25,47 @@ public class MarketplaceManager : MonoBehaviour
         CheckPurchaseable();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void AddCoins()
     {
-        
-    }
-    public void AddCoins(){
-        coins ++;
+        coins++;
         coins_UI.text = "Coins: " + coins.ToString();
         CheckPurchaseable();
-
     }
 
-    public void LoadPanels(){
-        for (int i = 0; i < shopItems.Length ; i++){
+    public void LoadPanels()
+    {
+        for (int i = 0; i < shopItems.Length ; i++)
+        {
             shopPanels[i].titleTxt.text = shopItems[i].title; 
             shopPanels[i].descriptionTxt.text = shopItems[i].description; 
             shopPanels[i].costTxt.text = shopItems[i].baseCost.ToString(); 
-          
         }
     }
 
-    public void CheckPurchaseable(){
-        for (int i = 0; i < shopItems.Length; i ++){
-            if (coins >= shopItems[i].baseCost){
+    public void CheckPurchaseable()
+    {
+        for (int i = 0; i < shopItems.Length; i++)
+        {
+            if (coins >= shopItems[i].baseCost)
+            {
                 purchaseButton[i].interactable = true;
-            } else{
+            } 
+            else if (coins < shopItems[i].baseCost)
+            {
                 purchaseButton[i].interactable = false;
             }
         }
     }
 
-    public void PurchaseItem(int num){
-        if (coins >= shopItems[num].baseCost){
-            coins = coins - shopItems[num].baseCost;
+    public void PurchaseItem(int num)
+    {
+        if (coins >= shopItems[num].baseCost)
+        {
+            coins -= shopItems[num].baseCost;
             coins_UI.text = "Coins: " + coins.ToString();
             CheckPurchaseable();
+            inventoryManager.AddItemToInventory(num); // Pass item index to add to inventory
+           
         }
     }
-    
 }
