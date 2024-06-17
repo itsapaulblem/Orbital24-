@@ -16,15 +16,18 @@ public class RangedEnemyAI : EnemyAI
         lastFireTime = Time.time - stats.GetAttackSpeed();
     }
 
+    /// Roaming behaviour: enemy will attempt to return to origin point
     protected override Vector2 GetRoamingPosition()
     {
         return (origin - rb.position).normalized / 2;
     }
 
+    /// Seeking behaviour: enemy will seek player until distanceToStop, then attempts 
+    /// to maintain distanceToStop from the player
     protected override Vector2 GetSeekingPosition()
     {
         if (player == null) return Vector2.zero;
-
+        // get player distance
         float dist = Vector2.Distance(player.transform.position, transform.position);
         if (dist > distanceToStop) {
             return (player.transform.position - transform.position).normalized;
@@ -51,6 +54,7 @@ public class RangedEnemyAI : EnemyAI
     {
         if (player == null) return;
 
+        // tracks timeSinceLastFire, checks if can fire again
         float timeSinceLastFire = Time.time - lastFireTime;
         float dist = Vector2.Distance(player.transform.position, transform.position);
         if (timeSinceLastFire >= stats.GetAttackSpeed() && state == State.Seeking)
@@ -64,19 +68,21 @@ public class RangedEnemyAI : EnemyAI
     {
         if (player == null) return;
 
+        // get bullet direction based on player position
         Vector3 playerPos = player.transform.position;
         Vector3 originPos = transform.position;
         Vector2 bulletDir = playerPos - originPos;
         float bulletAngle = Mathf.Atan2(bulletDir.y, bulletDir.x) * Mathf.Rad2Deg;
 
+        // Instantiate bullet, and initialise bullet stats
         GameObject bullet = Instantiate(Resources.Load(bulletPrefab) as GameObject, transform.position, Quaternion.Euler(0, 0, bulletAngle));
         Bullet bulletScript = bullet.GetComponent<Bullet>();
-        bulletScript.SetInit(false, "shot_elec", 
+        bulletScript.SetInit(false, "shot_elec", // not by player, shot_elec sprite
                             stats.GetAttack(), 
                             stats.GetBulletLife(), 
                             stats.GetBulletSpeed(), 
                             bulletDir, 
-                            false); // initialise bullet
+                            false); 
     }
 
     protected override void OnCollisionStay2D(Collision2D collision)

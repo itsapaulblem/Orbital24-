@@ -24,25 +24,32 @@ public class Bullet : MonoBehaviour
         origin = transform.position;
         if (spriteLibrary.spriteLibraryAsset == null)
         {
-            spriteLibrary.spriteLibraryAsset = Resources.Load<SpriteLibraryAsset>(PATHTOSPRITE + "shot_main"); // default
+            // get default sprite
+            spriteLibrary.spriteLibraryAsset = Resources.Load<SpriteLibraryAsset>(PATHTOSPRITE + "shot_main"); 
         }
     }
 
-    public void SetInit(bool byPlayer, string shot, float damage, float bulletLife, float velocity, Vector2 dir, bool randomSplat = true)
+    /// Initialise bullet stats
+    public void SetInit(bool byPlayer, string shot, float damage, float bulletLife, 
+        float velocity, Vector2 dir, bool randomSplat = true)
     {
         this.byPlayer = byPlayer;
+        // retrieve bullet sprite
         spriteLibrary.spriteLibraryAsset = Resources.Load<SpriteLibraryAsset>(PATHTOSPRITE + shot);
+
+        // set bullet stats
         this.damage = damage;
         this.bulletLife = bulletLife;
         this.randomSplat = randomSplat;
 
+        // set bullet velocity
         Rigidbody2D bulletRb = GetComponent<Rigidbody2D>();
         bulletRb.velocity = velocity * dir.normalized;
     }
 
+    // Handle collision on entities
     private void OnTriggerEnter2D(Collider2D collision)
-    {
-        
+    {  
         if (byPlayer) {
             EnemyAI target = collision.GetComponent<EnemyAI>();
             if (target != null && active) {

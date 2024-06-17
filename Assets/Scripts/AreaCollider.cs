@@ -7,12 +7,11 @@ public class AreaCollider : MonoBehaviour
     // Copies PolygonColider's points, and generate new EdgeCollider
     void Awake()
     {
+        // retrieve/initialise polygon collider on background
         PolygonCollider2D poly = GetComponent<PolygonCollider2D>();
         if (poly == null) {
             poly = gameObject.AddComponent<PolygonCollider2D>();
         }
-
-        List<Vector2> points = new List<Vector2>();
 
         // Apply same boundary to camera confiner
         GameObject cameraConfiner = GameObject.Find("Camera").transform.Find("Camera Confiner").gameObject;
@@ -22,6 +21,8 @@ public class AreaCollider : MonoBehaviour
         }
         camPoly.points = poly.points;
 
+        // Add first point to list of coordinates for edge collider
+        List<Vector2> points = new List<Vector2>();
         foreach (Vector2 p in poly.points)
                 points.Add(p);
         points.Add(new Vector2(points[0].x, points[0].y));
