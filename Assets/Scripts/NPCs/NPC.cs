@@ -35,12 +35,14 @@ public class NPC : MonoBehaviour
     private GameManager gameManager; 
 
     void Awake() {
+        // get path to dialogue textfile
         currName = gameObject.name;
         path = path + currName + "_dialogue";
         
         TextAsset dialogueData = Resources.Load<TextAsset>(path);
         dialogue = Regex.Split(dialogueData.text, "\n|\r|\r\n");
 
+        // TODO: retrieve dialogueBlock based on story progress
         dialogueBlock = 1;
 
         dialogueMain = GameObject.Find("DialogueMain");
@@ -48,6 +50,7 @@ public class NPC : MonoBehaviour
             Debug.Log("Missing DialogueMain");
         }
 
+        // attempt to retrieve MarketplaceMenu (used for crab only)
         marketplaceMenu = GameObject.Find("MarketplaceMenu");
         if (marketplaceMenu == null) {
             Debug.Log("Missing MarketplaceMenu");
@@ -56,8 +59,10 @@ public class NPC : MonoBehaviour
         }
 
         player = FindObjectOfType<PlayerController>();
-        gameManager = GameManager.Instance; // get reference to the GameManager
+        // get reference to the GameManager
+        gameManager = GameManager.Instance; 
 
+        // Hardcoded npc names
         npcNames = new Dictionary<string, string>(){
             { "Goldfish", "Finlay" },
             { "Crab", "Krabtain Kidd" },
@@ -87,12 +92,13 @@ public class NPC : MonoBehaviour
     {
         if (waitForPress && Input.GetKeyDown(KeyCode.E)) {
             gameObject.transform.Find("Prompt").gameObject.SetActive(false);
+            // shows dialogue
+            // TODO: track story progress for crab marketplace menu
             if (!dialogueShown) {
                 if (state != DialogueState.Next){
+                    state = DialogueState.Next;
                     StartCoroutine(RunText());
-                    Debug.Log("Trigger correct");
                 } else if (state == DialogueState.Next && !nextDialogue) {
-                    Debug.Log("Trigger cancel");
                     nextDialogue = true;
                 }
             } else {
@@ -110,6 +116,7 @@ public class NPC : MonoBehaviour
         }
     }
 
+    /// Activate dialogue panel
     void SetPanel(bool active) {
         GameObject panel = dialogueMain.transform.Find("Panel").gameObject;
         if (panel == null) {
@@ -124,13 +131,12 @@ public class NPC : MonoBehaviour
     IEnumerator RunText() {
         SetPanel(true);
         int index = 0;
-        if (state == DialogueState.Run) {
-            state = DialogueState.Next;
-            for (int i = 0; i < dialogueBlock; i++) {
-                index = Array.IndexOf(dialogue, "-", index) + 1;
-            }
-        } else { state = DialogueState.Next; }
+        // discard previous dialogueBlocks
+        for (int i = 0; i < dialogueBlock; i++) {
+            index = Array.IndexOf(dialogue, "-", index) + 1;
+        }
 
+        // display dialogue on camera
         while (dialogue[index] != "-") {
             yield return TextScroll(dialogue[index]);
             index += 1;
@@ -142,6 +148,7 @@ public class NPC : MonoBehaviour
         dialogueShown = true; // Mark dialogue as shown after it finishes
     }
 
+    // Handles text display animations
     private IEnumerator TextScroll(string lineOfText)
     {
         int letter = 0;

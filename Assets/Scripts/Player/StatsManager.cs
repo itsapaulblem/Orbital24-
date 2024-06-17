@@ -45,6 +45,7 @@ public class StatsManager : MonoBehaviour
     public static StatsManager ofPlayer(float mvSpd = -1, float maxHp = -1,
         float atk = -1, float atkSpd = -1, float bulLife = -1, float bulSpd = -1, float bulDamage = -1)
     {
+        // if no existing playerInstance
         if (playerInstance == null) {
             mvSpd = mvSpd == -1 ? MOVESPEED : mvSpd;
             maxHp = maxHp == -1 ? MAXHEALTH : maxHp;

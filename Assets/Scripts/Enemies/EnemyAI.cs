@@ -56,18 +56,24 @@ public class EnemyAI : MonoBehaviour
         SetInit(2f, 50f, 3f); // default initialize
     }
 
+    /// Initialise enemy stats
     public void SetInit(float mvSpd, float maxHp, float atk,
         float atkSpd = -1, float bulLife = -1, float bulSpd = -1)
     {
+        // Initialise StatsManager based on provided stats
         stats = StatsManager.of(mvSpd, maxHp, atk, atkSpd, bulLife, bulSpd);
 
+        // Set starting length of healthbar
         maxHealthBarScale = stats.GetMaxHealth() / 50;
         healthBar.transform.localScale = new Vector3(maxHealthBarScale, 0.1f, 1f);
         healthBar.transform.localPosition = new Vector3(0f, 1f, 1f);
 
+        // Start async movement routine
         StartCoroutine(MovementRoutine());
     }
 
+    /// Async MovementRoutine retrieves next movement position
+    /// based on enemy state
     private IEnumerator MovementRoutine()
     {
         while (true)
@@ -77,12 +83,12 @@ public class EnemyAI : MonoBehaviour
                 if (state == State.Roaming)
                 {
                     movement = GetRoamingPosition();
-                    yield return new WaitForSeconds(3f); // Add a delay to prevent infinite loop   
+                    yield return new WaitForSeconds(3f);   
                 }
                 if (state == State.Seeking)
                 {
                     movement = GetSeekingPosition();
-                    yield return new WaitForSeconds(Time.fixedDeltaTime); // Add a delay to prevent infinite loop   
+                    yield return new WaitForSeconds(Time.fixedDeltaTime);
                 }
             }
             else
@@ -92,6 +98,8 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    /// Default Roaming behaviour: enemy will move within a fixed radius
+    /// around the origin point
     protected virtual Vector2 GetRoamingPosition()
     {
         return (origin + new Vector2(Random.Range(-2f, 2f), Random.Range(-2f, 2f)) - rb.position).normalized / 2;
@@ -111,20 +119,25 @@ public class EnemyAI : MonoBehaviour
     {
         if (player != null)
         {
+            // tracks player distance and update enemy state
             state = Vector2.Distance(player.transform.position, rb.position) <= sight
                 ? State.Seeking
                 : State.Roaming;
 
+            // move enemy based on movement position (from movement routine)
             rb.MovePosition(rb.position + movement * stats.GetMoveSpeed() * Time.fixedDeltaTime);
             UpdateEnemyFacingDirection();
         }
     }
 
+    /// Apply damage to enemy
     public void TakeDamage(float damage)
     {
+        // update healthbar to reflect damage taken
         Vector3 healthBarChange = new Vector3(stats.damage(damage) * maxHealthBarScale, 0.1f, 1f);
         healthBar.transform.localScale = healthBarChange;
 
+        // check if enemy is dead
         if (stats.isDead())
         {
             // Instantiate the death particles
@@ -142,7 +155,7 @@ public class EnemyAI : MonoBehaviour
             GameManager.Instance.AddKill();
             // Destroy the enemy game object
             Destroy(gameObject);
-        } else {
+        } else {    // if enemy not dead
             StartCoroutine(FlashEffect());
             Debug.Log(audioManager);
             audioManager.PlaySFX(audioManager.enemybeingshot); // Play hit sound effect

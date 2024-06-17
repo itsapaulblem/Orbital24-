@@ -4,10 +4,8 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
-/// <summary>
 /// PlayerController class handles the movement, 
 /// health and combat of the player.
-/// </summary>
 public class PlayerController : MonoBehaviour
 {   
     private AudioManager audioManager;
@@ -59,21 +57,17 @@ public class PlayerController : MonoBehaviour
         audioManager = AudioManager.Instance;
     }
 
-    /// <summary>
     /// UpdatePlayerFacingDirection for animation and Move player based on
     /// player inputs
-    /// </summary>
     private void FixedUpdate() 
     {
         UpdatePlayerFacingDirection();
         Move();
     }
 
-    /// <summary>
     /// When player triggers movement inputs, OnMove sets direction of motion
     /// and triggers playerAnimation to transition to moving animation.
-    /// </summary>
-    /// <param name="inputValue"></param>
+    ///   inputValue - player inputs
     private void OnMove(InputValue inputValue) 
     {
         
@@ -89,9 +83,7 @@ public class PlayerController : MonoBehaviour
         rb.MovePosition(rb.position + movement * stats.GetMoveSpeed() * Time.fixedDeltaTime);
     }
 
-    /// <summary>
     /// Updates sprite facing direction to mousePos.
-    /// </summary>
     private void UpdatePlayerFacingDirection() 
     {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -99,12 +91,10 @@ public class PlayerController : MonoBehaviour
         playerSpriteRenderer.flipX = mousePos.x < playerPos.x;
     }
 
-    /// <summary>
     /// Update function handles shooting mechanism, independent of movement mechanism. 
     /// If fireButton is pressed, player shootContinuous, with timeBetweenShots
     /// delay (reload) between each shot. If player stops pressing fireButton while 
     /// still reloading, player will shootSingle once reloaded.
-    /// </summary>
     private void Update() 
     {
         float timeSinceLastFire = Time.time - lastFireTime;
@@ -132,10 +122,8 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    /// <summary>
     /// Obtains mousePos and instantiate a bullet to fire at angle relative to 
     /// player position
-    /// </summary>
     private void FireBullet()
     {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -145,7 +133,7 @@ public class PlayerController : MonoBehaviour
 
         GameObject bullet = Instantiate(Resources.Load<GameObject>(bulletPrefab), transform.position, Quaternion.Euler(0, 0, bulletAngle));
         Bullet bulletScript = bullet.GetComponent<Bullet>();
-        bulletScript.SetInit(true, "shot_main", 
+        bulletScript.SetInit(true, "shot_main",     // by player, shot_main sprite
                             stats.GetAttack(), 
                             stats.GetBulletLife(), 
                             stats.GetBulletSpeed(), 
@@ -155,11 +143,9 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    /// <summary>
     /// When player triggers firing inputs, OnFire sets player into
     /// shootContinuous mode.
-    /// </summary>
-    /// <param name="inputValue"></param>
+    ///   inputValue - player inputs
     private void OnFire(InputValue inputValue)
     {
         shootContinuous = inputValue.isPressed;
@@ -169,6 +155,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// Apply damage to player
     public void TakeDamage(float damage)
     {
         float timeSinceLastDamage = Time.time - lastDamageTick;
@@ -194,6 +181,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// Apply healing to player
+    public void Heal(float healing)
+    {
+        Vector3 healthBarChange = new Vector3(stats.heal(healing) * maxHealthBarScale, 0.1f, 1f);
+        healthBar.transform.localScale = healthBarChange;
+    }
+
       private IEnumerator FlashEffect()
     {
         Color originalColor = playerSpriteRenderer.color;
@@ -205,9 +199,5 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    public void Heal(float healing)
-    {
-        Vector3 healthBarChange = new Vector3(stats.heal(healing) * maxHealthBarScale, 0.1f, 1f);
-        healthBar.transform.localScale = healthBarChange;
-    }
+    
 }
