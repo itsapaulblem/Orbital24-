@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 /// <summary>
 /// GameManager class handles the Menus and windows of the game, 
-/// pauseMenu, gameOverMenu, and miniMapWindow
+/// pauseMenu, gameOverMenu, inventory and miniMapWindow
 /// </summary>
 public class GameManager : MonoBehaviour
 {
@@ -24,6 +24,10 @@ public class GameManager : MonoBehaviour
     // KillText Window 
     public Text killText;
     private int kills = 0; // Tracks the number of kills
+
+    // Inventory Menu
+    private GameObject inventoryMenu; 
+    private bool isActive = false; // Tracks if the inventory is active 
 
     private void Awake()
     {
@@ -69,6 +73,15 @@ public class GameManager : MonoBehaviour
             gameOverMenu.SetActive(false); // Ensure GameOverMenu is inactive
         }
 
+        inventoryMenu = GameObject.Find("InventoryMenu"); 
+        if (inventoryMenu == null){
+            Debug.LogWarning("Inventory Menu not found in the scene: " + scene.name);
+        }
+        else{
+            inventoryMenu.SetActive(false); // Ensure Inventory Menu is inactive 
+        }
+
+
         miniMapWindow = GameObject.Find("MinimapWindow");
         if (miniMapWindow == null)
         {
@@ -103,6 +116,10 @@ public class GameManager : MonoBehaviour
             ToggleMiniMap();
         }
 
+        if (Input.GetKeyDown(KeyCode.I)){
+            ToggleInventoryMenu();
+        }
+
         
     }
 
@@ -115,10 +132,14 @@ public class GameManager : MonoBehaviour
 
     private void UpdateKillText()
     {
-        // Update the kill text UI element
-        if (killText != null)
+       // Update the kill text UI element if the inventory menu is not active
+        if (killText != null && !isActive)
         {
             killText.text = kills.ToString() + " KILLS";
+        }
+        else if (killText != null && isActive)
+        {
+            killText.text = ""; // Clear the kill text when inventory is active
         }
     }
 
@@ -137,6 +158,17 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.LogWarning("PauseMenu is missing.");
+        }
+    }
+
+    private void ToggleInventoryMenu(){
+        if (inventoryMenu != null){
+            isActive = !isActive; 
+            inventoryMenu.SetActive(isActive);
+            UpdateKillText(); 
+        }
+        else{
+            Debug.LogWarning("InventoryMenu is missing");
         }
     }
 

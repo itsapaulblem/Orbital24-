@@ -1,7 +1,8 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class StatsManager
+public class StatsManager : MonoBehaviour
 {
     private static StatsManager playerInstance;
 
@@ -12,6 +13,7 @@ public class StatsManager
     private const float ATTACKSPEED = 0.9f;
     private const float BULLETLIFE = 12f;
     private const float BULLETSPEED = 6f;
+    private const float BULLETDAMAGE = 10f;
 
     private float moveSpeed;
     private float maxHealth;
@@ -20,8 +22,9 @@ public class StatsManager
     private float attackSpeed;
     private float bulletLife;
     private float bulletSpeed;
+    private float bulletDamage;
 
-    private StatsManager(float mvSpd, float maxHp, float atk, float atkSpd, float bulLife, float bulSpd)
+    private StatsManager(float mvSpd, float maxHp, float atk, float atkSpd, float bulLife, float bulSpd, float bulDamage)
     {
         moveSpeed = mvSpd;
         maxHealth = maxHp;
@@ -30,25 +33,27 @@ public class StatsManager
         attackSpeed = atkSpd;
         bulletLife = bulLife;
         bulletSpeed = bulSpd;
+        bulletDamage = bulDamage;
     }
 
-    public static StatsManager of(float mvSpd, float maxHp, float atk, 
-        float atkSpd = -1, float bulLife = -1, float bulSpd = -1)
+    public static StatsManager of(float mvSpd, float maxHp, float atk,
+        float atkSpd = -1, float bulLife = -1, float bulSpd = -1, float bulDamage = 1)
     {
-        return new StatsManager(mvSpd, maxHp, atk, atkSpd, bulLife, bulSpd);
+        return new StatsManager(mvSpd, maxHp, atk, atkSpd, bulLife, bulSpd, bulDamage);
     }
 
-    public static StatsManager ofPlayer(float mvSpd = -1, float maxHp = -1, 
-        float atk = -1, float atkSpd = -1, float bulLife = -1, float bulSpd = -1)
+    public static StatsManager ofPlayer(float mvSpd = -1, float maxHp = -1,
+        float atk = -1, float atkSpd = -1, float bulLife = -1, float bulSpd = -1, float bulDamage = -1)
     {
         if (playerInstance == null) {
             mvSpd = mvSpd == -1 ? MOVESPEED : mvSpd;
-            maxHp = maxHp  == -1 ? MAXHEALTH : maxHp;
+            maxHp = maxHp == -1 ? MAXHEALTH : maxHp;
             atk = atk == -1 ? ATTACK : atk;
             atkSpd = atkSpd == -1 ? ATTACKSPEED : atkSpd;
             bulLife = bulLife == -1 ? BULLETLIFE : bulLife;
             bulSpd = bulSpd == -1 ? BULLETSPEED : bulSpd;
-            playerInstance = new StatsManager(mvSpd, maxHp, atk, atkSpd, bulLife, bulSpd);
+            bulDamage = bulDamage == -1 ? BULLETDAMAGE : bulDamage;
+            playerInstance = new StatsManager(mvSpd, maxHp, atk, atkSpd, bulLife, bulSpd, bulDamage);
         }
         return playerInstance;
     }
@@ -127,10 +132,87 @@ public class StatsManager
     }
 
     public float GetBulletSpeed(){
-        return bulletSpeed; 
+        return bulletSpeed;
     }
 
     public void SetBulletSpeed(float speed){
-        bulletSpeed = speed; 
+        bulletSpeed = speed;
+    }
+
+    public float GetBulletDamage(){
+        return bulletDamage;
+    }
+
+    public void SetBulletDamage(float damage){
+        bulletDamage = damage;
+    }
+
+    // Temporary stat increase methods with fixed amount and duration
+    public void TemporarilyIncreaseHealth()
+    {
+        StartCoroutine(TemporaryIncreaseHealthCoroutine());
+    }
+
+    private IEnumerator TemporaryIncreaseHealthCoroutine()
+    {
+        float originalHealth = maxHealth;
+        maxHealth += 5;
+        currentHealth = Mathf.Min(currentHealth + 5, maxHealth);
+        yield return new WaitForSeconds(5);
+        maxHealth = originalHealth;
+        currentHealth = Mathf.Min(currentHealth, maxHealth);
+    }
+
+    public void TemporarilyIncreaseBulletLife()
+    {
+        StartCoroutine(TemporaryIncreaseBulletLifeCoroutine());
+    }
+
+    private IEnumerator TemporaryIncreaseBulletLifeCoroutine()
+    {
+        float originalBulletLife = bulletLife;
+        bulletLife += 5;
+        yield return new WaitForSeconds(5);
+        bulletLife = originalBulletLife;
+    }
+
+    public void TemporarilyIncreaseBulletSpeed()
+    {
+        StartCoroutine(TemporaryIncreaseBulletSpeedCoroutine());
+    }
+
+    private IEnumerator TemporaryIncreaseBulletSpeedCoroutine()
+    {
+        float originalBulletSpeed = bulletSpeed;
+        bulletSpeed += 5;
+        yield return new WaitForSeconds(5);
+        bulletSpeed = originalBulletSpeed;
+    }
+
+    public void TemporarilyIncreaseAttack()
+    {
+        StartCoroutine(TemporaryIncreaseAttackCoroutine());
+    }
+
+    private IEnumerator TemporaryIncreaseAttackCoroutine()
+    {
+        float originalAttack = attack;
+        attack += 5;
+        yield return new WaitForSeconds(5);
+        attack = originalAttack;
+    }
+
+    // Temporary increase bullet damage method
+    public void TemporarilyIncreaseBulletDamage()
+    {
+        StartCoroutine(TemporaryIncreaseBulletDamageCoroutine());
+    }
+
+    private IEnumerator TemporaryIncreaseBulletDamageCoroutine()
+    {
+        float originalBulletDamage = bulletDamage;
+        bulletDamage += 5;
+        yield return new WaitForSeconds(5);
+        bulletDamage = originalBulletDamage;
     }
 }
