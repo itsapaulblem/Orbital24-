@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Confirm : MonoBehaviour
@@ -18,6 +19,18 @@ public class Confirm : MonoBehaviour
         if (confirmMenu != null)
         {
             confirmMenu.SetActive(false); // Ensure confirm menu starts deactivated
+        }
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode){
+       // confirmMenu = GameObject.Find("ConfirmMenu");
+        if (confirmMenu == null)
+        {
+            Debug.LogWarning("PauseMenu not found in the scene: " + scene.name);
+        }
+        else
+        {
+            confirmMenu.SetActive(false); // Ensure PauseMenu is inactive
         }
     }
 

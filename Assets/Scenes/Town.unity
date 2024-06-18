@@ -3745,7 +3745,6 @@ GameObject:
   m_Component:
   - component: {fileID: 660395806}
   - component: {fileID: 660395805}
-  - component: {fileID: 660395807}
   m_Layer: 0
   m_Name: 'Game Manager '
   m_TagString: Untagged
@@ -3782,23 +3781,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &660395807
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 660395804}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4841a156e88dea14a87ceda54a8fc4b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  confirmMenu: {fileID: 1407406389}
-  statToIncrease: 
-  increaseAmount: 0
-  increaseDuration: 5
-  inventoryMenu: {fileID: 1442180461}
 --- !u!1 &674464278
 GameObject:
   m_ObjectHideFlags: 0
@@ -4739,7 +4721,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 660395807}
+      - m_Target: {fileID: 1407406393}
         m_TargetAssemblyTypeName: Confirm, Assembly-CSharp
         m_MethodName: OnConfirm
         m_Mode: 1
@@ -5699,7 +5681,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statToIncrease: moveSpeed
-  increaseAmount: 1000
+  increaseAmount: 10
   confirmMenu: {fileID: 1407406389}
   inventoryMenu: {fileID: 1442180461}
 --- !u!1 &947347536
@@ -8440,6 +8422,7 @@ GameObject:
   - component: {fileID: 1407406390}
   - component: {fileID: 1407406392}
   - component: {fileID: 1407406391}
+  - component: {fileID: 1407406393}
   m_Layer: 5
   m_Name: 'ConfirmMenu '
   m_TagString: Untagged
@@ -8507,6 +8490,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1407406389}
   m_CullTransparentMesh: 1
+--- !u!114 &1407406393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1407406389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4841a156e88dea14a87ceda54a8fc4b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  confirmMenu: {fileID: 1407406389}
+  statToIncrease: 
+  increaseAmount: 0
+  increaseDuration: 5
+  inventoryMenu: {fileID: 1442180461}
 --- !u!1 &1408367265
 GameObject:
   m_ObjectHideFlags: 0
@@ -9733,7 +9733,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 660395807}
+      - m_Target: {fileID: 1407406393}
         m_TargetAssemblyTypeName: Confirm, Assembly-CSharp
         m_MethodName: OnCancel
         m_Mode: 1

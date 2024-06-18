@@ -3684,6 +3684,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 741116894}
   m_CullTransparentMesh: 1
+--- !u!114 &768618585 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1188419898628119479, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
+  m_PrefabInstance: {fileID: 1834034802}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &884223547
 GameObject:
   m_ObjectHideFlags: 0
@@ -6375,6 +6386,10 @@ PrefabInstance:
       propertyPath: m_ChildCameras.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1320195265699661409, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
+      propertyPath: m_ChildCameras.Array.data[0]
+      value: 
+      objectReference: {fileID: 768618585}
     - target: {fileID: 2553973854623526517, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -6794,6 +6809,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   killText: {fileID: 0}
+  isActive: 0
 --- !u!4 &2000211004
 Transform:
   m_ObjectHideFlags: 0
