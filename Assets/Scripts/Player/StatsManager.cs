@@ -138,21 +138,23 @@ public class StatsManager : MonoBehaviour
 
     public void IncreaseStat(string stat, float amount){
         switch (stat){
-            case "moveSpeed":
-                moveSpeed += amount; 
-                break; 
+            // coral elixir 
             case "maxHealth":
                 maxHealth += amount; 
                 break; 
-            case "attack":
-                attack += amount; 
-                break; 
-            case "attackSpeed":
-                attackSpeed += amount; 
-                break; 
+            // dense ink 
             case "bulletLife":
                 bulletLife += amount;
                 break; 
+            // jet boosters 
+            case "moveSpeed":
+                moveSpeed += amount; 
+                break; 
+            // toxic ink 
+            case "attack":
+                attack += amount; 
+                break; 
+            // turbo ink 
             case "bulletSpeed":
                 bulletSpeed += amount; 
                 break;

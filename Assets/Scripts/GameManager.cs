@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
 
     // Inventory Menu
     private GameObject inventoryMenu; 
-    private bool isActive = false; // Tracks if the inventory is active 
+    public bool isActive = false; // Tracks if the inventory is active 
 
     private void Awake()
     {

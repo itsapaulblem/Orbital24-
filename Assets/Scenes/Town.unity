@@ -3766,6 +3766,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   killText: {fileID: 652978448}
+  isActive: 0
 --- !u!4 &660395806
 Transform:
   m_ObjectHideFlags: 0
@@ -3796,6 +3797,7 @@ MonoBehaviour:
   confirmMenu: {fileID: 1407406389}
   statToIncrease: 
   increaseAmount: 0
+  inventoryMenu: {fileID: 1442180461}
 --- !u!1 &674464278
 GameObject:
   m_ObjectHideFlags: 0
@@ -5633,7 +5635,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 660395807}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Confirm, Assembly-CSharp
         m_MethodName: onClick
         m_Mode: 1
@@ -5696,8 +5698,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statToIncrease: moveSpeed
-  increaseAmount: 10
+  increaseAmount: 1000
   confirmMenu: {fileID: 1407406389}
+  inventoryMenu: {fileID: 1442180461}
 --- !u!1 &947347536
 GameObject:
   m_ObjectHideFlags: 0
@@ -7501,7 +7504,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 660395807}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Confirm, Assembly-CSharp
         m_MethodName: onClick
         m_Mode: 1
@@ -7566,6 +7569,7 @@ MonoBehaviour:
   statToIncrease: attack
   increaseAmount: 10
   confirmMenu: {fileID: 1407406389}
+  inventoryMenu: {fileID: 1442180461}
 --- !u!1 &1273308991
 GameObject:
   m_ObjectHideFlags: 0
@@ -9563,7 +9567,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 660395807}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Confirm, Assembly-CSharp
         m_MethodName: onClick
         m_Mode: 1
@@ -9628,6 +9632,7 @@ MonoBehaviour:
   statToIncrease: bulletSpeed
   increaseAmount: 10
   confirmMenu: {fileID: 1407406389}
+  inventoryMenu: {fileID: 1442180461}
 --- !u!1 &1489418705 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5591568056005401175, guid: 387f32fabe2166544a0f717d036983a0, type: 3}
@@ -9727,10 +9732,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1407406389}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 660395807}
+        m_TargetAssemblyTypeName: Confirm, Assembly-CSharp
+        m_MethodName: OnCancel
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -10535,7 +10540,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 660395807}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Confirm, Assembly-CSharp
         m_MethodName: onClick
         m_Mode: 1
@@ -10600,6 +10605,7 @@ MonoBehaviour:
   statToIncrease: bulletLife
   increaseAmount: 10
   confirmMenu: {fileID: 1407406389}
+  inventoryMenu: {fileID: 1442180461}
 --- !u!1 &1615577214
 GameObject:
   m_ObjectHideFlags: 0
@@ -12301,7 +12307,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 660395807}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Confirm, Assembly-CSharp
         m_MethodName: onClick
         m_Mode: 1
@@ -12366,6 +12372,7 @@ MonoBehaviour:
   statToIncrease: maxHealth
   increaseAmount: 10
   confirmMenu: {fileID: 1407406389}
+  inventoryMenu: {fileID: 1442180461}
 --- !u!1 &2064062128
 GameObject:
   m_ObjectHideFlags: 0
@@ -12449,7 +12456,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 660395807}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Confirm, Assembly-CSharp
         m_MethodName: onNoButtonClick
         m_Mode: 1
