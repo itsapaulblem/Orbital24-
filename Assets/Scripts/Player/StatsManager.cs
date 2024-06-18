@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StatsManager : MonoBehaviour
+public class StatsManager
 {
     private static StatsManager playerInstance;
 

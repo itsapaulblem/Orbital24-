@@ -3797,6 +3797,7 @@ MonoBehaviour:
   confirmMenu: {fileID: 1407406389}
   statToIncrease: 
   increaseAmount: 0
+  increaseDuration: 5
   inventoryMenu: {fileID: 1442180461}
 --- !u!1 &674464278
 GameObject:
