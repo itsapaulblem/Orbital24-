@@ -1,11 +1,9 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-/// <summary>
-/// GameManager class handles the Menus and windows of the game, 
-/// pauseMenu, gameOverMenu, inventory and miniMapWindow
-/// </summary>
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance; // Singleton instance of the GameManager
@@ -28,7 +26,6 @@ public class GameManager : MonoBehaviour
     // Inventory Menu
     private GameObject inventoryMenu; 
     private bool isActive = false; // Tracks if the inventory is active 
-
 
     private void Awake()
     {
@@ -120,8 +117,6 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I)){
             ToggleInventoryMenu();
         }
-
-        
     }
 
     public void AddKill()
@@ -133,7 +128,7 @@ public class GameManager : MonoBehaviour
 
     private void UpdateKillText()
     {
-       // Update the kill text UI element if the inventory menu is not active
+        // Update the kill text UI element if the inventory menu is not active
         if (killText != null && !isActive)
         {
             killText.text = kills.ToString() + " KILLS";
@@ -143,7 +138,6 @@ public class GameManager : MonoBehaviour
             killText.text = ""; // Clear the kill text when inventory is active
         }
     }
-
 
     private void TogglePauseMenu()
     {
@@ -163,14 +157,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void ToggleInventoryMenu(){
-        if (inventoryMenu != null){
+    private void ToggleInventoryMenu()
+    {
+        if (inventoryMenu != null)
+        {
             isActive = !isActive; 
             inventoryMenu.SetActive(isActive);
             inventoryMenu.GetComponent<InventoryManager>().UpdateItemNumbers();
             UpdateKillText(); 
         }
-        else{
+        else
+        {
             Debug.LogWarning("InventoryMenu is missing");
         }
     }
@@ -253,5 +250,20 @@ public class GameManager : MonoBehaviour
         // Reset the kill count and update the kill text
         kills = 0;
         UpdateKillText();
+    }
+
+    // New method to set the inventory menu active state
+    public void SetInventoryMenuActive(bool isActive)
+    {
+        if (inventoryMenu != null)
+        {
+            this.isActive = isActive;
+            inventoryMenu.SetActive(isActive);
+            UpdateKillText();
+        }
+        else
+        {
+            Debug.LogWarning("InventoryMenu is missing");
+        }
     }
 }

@@ -144,9 +144,6 @@ public class StatsManager : MonoBehaviour
             case "maxHealth":
                 maxHealth += amount; 
                 break; 
-            case "currentHealth":
-                currentHealth = Mathf.Min(maxHealth, currentHealth + amount);
-                break; 
             case "attack":
                 attack += amount; 
                 break; 

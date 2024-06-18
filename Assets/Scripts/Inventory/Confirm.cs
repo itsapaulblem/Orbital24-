@@ -1,23 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Confirm : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public GameObject confirmMenu; 
+    public GameObject confirmMenu;
+    public string statToIncrease;  // The stat to increase, e.g., "moveSpeed"
+    public float increaseAmount;   // The amount to increase the stat by
+
     void Start()
     {
-        confirmMenu.SetActive(false);
+        if (confirmMenu != null)
+        {
+            confirmMenu.SetActive(false); // Ensure confirm menu starts deactivated
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnConfirm()
     {
-        
+        if (StatsManager.ofPlayer() != null)
+        {
+            StatsManager.ofPlayer().IncreaseStat(statToIncrease, increaseAmount);
+            Debug.Log($"{statToIncrease} increased by {increaseAmount}");
+        }
+        confirmMenu.SetActive(false); // Close the confirm menu after confirming
     }
-    public void onClick(){
-        confirmMenu.SetActive(true);
+
+    public void OnCancel()
+    {
+        confirmMenu.SetActive(false); // Close the confirm menu if cancelled
     }
 }

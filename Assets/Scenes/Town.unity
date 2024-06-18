@@ -3794,6 +3794,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   confirmMenu: {fileID: 1407406389}
+  statToIncrease: 
+  increaseAmount: 0
 --- !u!1 &674464278
 GameObject:
   m_ObjectHideFlags: 0
@@ -4734,10 +4736,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 906124266}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnBoosterButtonClicked
-        m_Mode: 5
+      - m_Target: {fileID: 660395807}
+        m_TargetAssemblyTypeName: Confirm, Assembly-CSharp
+        m_MethodName: OnConfirm
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5545,17 +5547,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &906124266 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7939045153601931480, guid: c3382ac9c803741aeaebc44feb7e097a, type: 3}
-  m_PrefabInstance: {fileID: 1197407091}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 637509649}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27ced1127aa674d32a59c150c35d6ac6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &909789352
 GameObject:
   m_ObjectHideFlags: 0
@@ -5568,6 +5559,7 @@ GameObject:
   - component: {fileID: 909789356}
   - component: {fileID: 909789355}
   - component: {fileID: 909789354}
+  - component: {fileID: 909789357}
   m_Layer: 5
   m_Name: 'JetBoosters Button '
   m_TagString: Untagged
@@ -5691,6 +5683,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 909789352}
   m_CullTransparentMesh: 1
+--- !u!114 &909789357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 909789352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 201731b88624f1b4a81323da2de599f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statToIncrease: moveSpeed
+  increaseAmount: 10
+  confirmMenu: {fileID: 1407406389}
 --- !u!1 &947347536
 GameObject:
   m_ObjectHideFlags: 0
@@ -7420,6 +7427,7 @@ GameObject:
   - component: {fileID: 1226990681}
   - component: {fileID: 1226990680}
   - component: {fileID: 1226990679}
+  - component: {fileID: 1226990682}
   m_Layer: 5
   m_Name: 'ToxicInk Button '
   m_TagString: Untagged
@@ -7543,6 +7551,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1226990677}
   m_CullTransparentMesh: 1
+--- !u!114 &1226990682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1226990677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 201731b88624f1b4a81323da2de599f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statToIncrease: attack
+  increaseAmount: 10
+  confirmMenu: {fileID: 1407406389}
 --- !u!1 &1273308991
 GameObject:
   m_ObjectHideFlags: 0
@@ -9466,6 +9489,7 @@ GameObject:
   - component: {fileID: 1488718483}
   - component: {fileID: 1488718482}
   - component: {fileID: 1488718481}
+  - component: {fileID: 1488718484}
   m_Layer: 5
   m_Name: 'TurboBoost Button '
   m_TagString: Untagged
@@ -9589,6 +9613,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1488718479}
   m_CullTransparentMesh: 1
+--- !u!114 &1488718484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1488718479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 201731b88624f1b4a81323da2de599f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statToIncrease: bulletSpeed
+  increaseAmount: 10
+  confirmMenu: {fileID: 1407406389}
 --- !u!1 &1489418705 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5591568056005401175, guid: 387f32fabe2166544a0f717d036983a0, type: 3}
@@ -9688,10 +9727,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 660395805}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: ResumeGame
-        m_Mode: 1
+      - m_Target: {fileID: 1407406389}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -10422,6 +10461,7 @@ GameObject:
   - component: {fileID: 1609542948}
   - component: {fileID: 1609542947}
   - component: {fileID: 1609542946}
+  - component: {fileID: 1609542949}
   m_Layer: 5
   m_Name: 'DenseInkButton '
   m_TagString: Untagged
@@ -10545,6 +10585,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1609542944}
   m_CullTransparentMesh: 1
+--- !u!114 &1609542949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609542944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 201731b88624f1b4a81323da2de599f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statToIncrease: bulletLife
+  increaseAmount: 10
+  confirmMenu: {fileID: 1407406389}
 --- !u!1 &1615577214
 GameObject:
   m_ObjectHideFlags: 0
@@ -12172,6 +12227,7 @@ GameObject:
   - component: {fileID: 2048782380}
   - component: {fileID: 2048782379}
   - component: {fileID: 2048782378}
+  - component: {fileID: 2048782381}
   m_Layer: 5
   m_Name: CoralElixirButton
   m_TagString: Untagged
@@ -12295,6 +12351,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2048782376}
   m_CullTransparentMesh: 1
+--- !u!114 &2048782381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2048782376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 201731b88624f1b4a81323da2de599f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statToIncrease: maxHealth
+  increaseAmount: 10
+  confirmMenu: {fileID: 1407406389}
 --- !u!1 &2064062128
 GameObject:
   m_ObjectHideFlags: 0
@@ -12378,9 +12449,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 660395805}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: No
+      - m_Target: {fileID: 660395807}
+        m_TargetAssemblyTypeName: Confirm, Assembly-CSharp
+        m_MethodName: onNoButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
