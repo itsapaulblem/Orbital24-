@@ -8,7 +8,7 @@ public class RangedEnemyAI : EnemyAI
     private string bulletPrefab = "Prefab/Bullet";
     private float lastFireTime;
     // Seeking Attributes
-    private float distanceToStop = 7f;
+    protected float distanceToStop = 7f;
 
     void Start()
     {

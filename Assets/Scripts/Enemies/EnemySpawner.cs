@@ -20,6 +20,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void Update() 
     {
+        if (player == null) { return; }
         if (Vector2.Distance(player.transform.position, transform.position) <= spawnSight && !canSpawn) {
             canSpawn = true;
             StartCoroutine(Spawner());

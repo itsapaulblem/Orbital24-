@@ -15,6 +15,7 @@ public class Bullet : MonoBehaviour
     private bool randomSplat = true;
     private bool active = true;
     private bool byPlayer = true;
+    private bool persist = false;
     
     // Start is called before the first frame update
     void Awake()
@@ -45,17 +46,17 @@ public class Bullet : MonoBehaviour
         
         if (byPlayer) {
             EnemyAI target = collision.GetComponent<EnemyAI>();
-            if (target != null && active) {
-                active = false;
+            if (target != null && (active || persist)) {
                 target.TakeDamage(damage);
-                StartCoroutine(End());
+                if (active) { StartCoroutine(End()); }
+                active = false;
             }
         } else {
             PlayerController target = collision.GetComponent<PlayerController>();
-            if (target != null && active) {
-                active = false;
+            if (target != null && (active || persist)) {
                 target.TakeDamage(damage);
-                StartCoroutine(End());
+                if (active) { StartCoroutine(End()); }
+                active = false;
             }
         }
         
@@ -81,5 +82,10 @@ public class Bullet : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         Destroy(gameObject);
+    }
+
+    public void Persist() 
+    {
+        persist = true;
     }
 }
