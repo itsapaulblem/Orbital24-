@@ -5,8 +5,8 @@ using UnityEngine;
 public class RangedEnemyAI : EnemyAI
 {
     // Combat Attributes
-    private string bulletPrefab = "Prefab/Bullet";
-    private float lastFireTime;
+    protected string bulletPrefab = "Prefab/Bullet";
+    protected float lastFireTime;
     // Seeking Attributes
     protected float distanceToStop = 7f;
 
@@ -59,7 +59,7 @@ public class RangedEnemyAI : EnemyAI
         }
     }
 
-    private void FireBullet()
+    protected virtual void FireBullet()
     {
         if (player == null) return;
 

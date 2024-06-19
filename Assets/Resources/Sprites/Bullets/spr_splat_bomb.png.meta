@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 79599d7361b8d48cd94df60d83dc6404
+guid: 0e39fdcd014054105ade4759af1f112b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,28 +110,28 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spr_r_mb3_0
+      name: spr_splat_bomb_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 64
         height: 64
-      alignment: 9
-      pivot: {x: 0.5, y: 0.45}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9c191af6e9b57402a9fbb1ce41dd9dab
-      internalID: -595896027
+      spriteID: f606f2e06f5bf415aa5e1c67c91c9ecb
+      internalID: 1794934435
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_r_mb3_1
+      name: spr_splat_bomb_1
       rect:
         serializedVersion: 2
         x: 64
@@ -139,56 +139,14 @@ TextureImporter:
         width: 64
         height: 64
       alignment: 9
-      pivot: {x: 0.5, y: 0.45}
+      pivot: {x: 0.44, y: 0.47}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5e99457a8e82547918d37e07f1e375e2
-      internalID: 1372613819
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: spr_r_mb3_2
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 0
-        width: 64
-        height: 64
-      alignment: 9
-      pivot: {x: 0.5, y: 0.45}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b1a086207a66d41e5a67a4b0caefc6cb
-      internalID: -13530955
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: spr_r_mb3_3
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 0
-        width: 64
-        height: 64
-      alignment: 9
-      pivot: {x: 0.5, y: 0.45}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ed9e2f42c074f418a8f0d6160646ca63
-      internalID: -578491704
+      spriteID: 4f51bdb5218db480da381a617c743812
+      internalID: 1525698928
       vertices: []
       indices: 
       edges: []
@@ -204,10 +162,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      spr_r_mb3_0: -595896027
-      spr_r_mb3_1: 1372613819
-      spr_r_mb3_2: -13530955
-      spr_r_mb3_3: -578491704
+      spr_splat_bomb_0: 1794934435
+      spr_splat_bomb_1: 1525698928
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
