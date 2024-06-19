@@ -52,7 +52,6 @@ public class RangedEnemyAI : EnemyAI
         if (player == null) return;
 
         float timeSinceLastFire = Time.time - lastFireTime;
-        float dist = Vector2.Distance(player.transform.position, transform.position);
         if (timeSinceLastFire >= stats.GetAttackSpeed() && state == State.Seeking)
         {
             FireBullet();
