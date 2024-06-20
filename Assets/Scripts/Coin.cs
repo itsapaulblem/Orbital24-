@@ -11,7 +11,7 @@ public class Coin : MonoBehaviour
         PlayerController target = collision.GetComponent<PlayerController>();
         if (target != null) {
             // TODO: Update inventory
-            Destory(gameObject);
+            Destroy(gameObject);
         }
     }
 }
