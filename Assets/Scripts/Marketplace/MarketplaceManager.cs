@@ -6,12 +6,11 @@ using TMPro;
 
 public class MarketplaceManager : MonoBehaviour
 {
-    public int coins; 
-    public TMP_Text coins_UI;
     public ShopItem[] shopItems; 
     public GameObject[] shopPanelsGameObject; 
     public ShopTemplate[] shopPanels; 
     public Button[] purchaseButton;
+    public TMP_Text coins_UI;  // UI element to display coins in the marketplace
 
     void Start()
     {
@@ -19,21 +18,15 @@ public class MarketplaceManager : MonoBehaviour
         {
             shopPanelsGameObject[i].SetActive(true);
         }
-        coins_UI.text = "Coins: " + coins.ToString(); 
+        Inventory.AddCoinUI(coins_UI); // Register the marketplace UI element with the Inventory
+        Inventory.UpdateCoinUI();
         LoadPanels();
-        CheckPurchaseable();
-    }
-
-    public void AddCoins()
-    {
-        coins++;
-        coins_UI.text = "Coins: " + coins.ToString();
         CheckPurchaseable();
     }
 
     public void LoadPanels()
     {
-        for (int i = 0; i < shopItems.Length ; i++)
+        for (int i = 0; i < shopItems.Length; i++)
         {
             shopPanels[i].titleTxt.text = shopItems[i].title; 
             shopPanels[i].descriptionTxt.text = shopItems[i].description; 
@@ -43,6 +36,7 @@ public class MarketplaceManager : MonoBehaviour
 
     public void CheckPurchaseable()
     {
+        int coins = Inventory.GetCoins();
         for (int i = 0; i < shopItems.Length; i++)
         {
             if (coins >= shopItems[i].baseCost)
@@ -58,13 +52,11 @@ public class MarketplaceManager : MonoBehaviour
 
     public void PurchaseItem(int num)
     {
-        if (coins >= shopItems[num].baseCost)
+        if (Inventory.GetCoins() >= shopItems[num].baseCost)
         {
-            coins -= shopItems[num].baseCost;
-            coins_UI.text = "Coins: " + coins.ToString();
+            Inventory.SpendCoins(shopItems[num].baseCost);
             CheckPurchaseable();
             Inventory.AddItemToInventory(num); // Pass item index to add to inventory
-           
         }
     }
 }

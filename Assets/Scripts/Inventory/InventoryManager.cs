@@ -11,6 +11,7 @@ public class InventoryManager : MonoBehaviour
     // Reference to UI elements (assuming you have multiple item number texts)
     public TMP_Text[] itemNumbers;
     public Button[] shopItemButtons; 
+    public TMP_Text coins_UI; 
 
     void Start()
     {
@@ -22,6 +23,8 @@ public class InventoryManager : MonoBehaviour
             itemNumbers[i].text = "0"; // Initialize text to show 0 items
         }
         UpdateItemNumbers();
+        Inventory.AddCoinUI(coins_UI); // Register the inventory UI element with the Inventory
+        Inventory.UpdateCoinUI();
     }
 
     // Update UI for all item numbers
