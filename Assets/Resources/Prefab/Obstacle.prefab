@@ -13,8 +13,10 @@ GameObject:
   - component: {fileID: 7063125691831358758}
   - component: {fileID: 7208936237244759055}
   - component: {fileID: 7330818598103897880}
+  - component: {fileID: 727580508396564632}
+  - component: {fileID: 1014526793987893594}
   m_Layer: 0
-  m_Name: Seagrass_1
+  m_Name: Obstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -119,8 +121,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.012371723, y: -0.12688963}
-  m_Size: {x: 2.1691792, y: 0.5711157}
+  m_Offset: {x: 0.056588598, y: 0.51877326}
+  m_Size: {x: 3.6720343, y: 0.8679527}
   m_Direction: 1
 --- !u!114 &7208936237244759055
 MonoBehaviour:
@@ -155,3 +157,33 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &727580508396564632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 324967382423453168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c29cff538c195c249b69c6f2236de67b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Library: []
+  m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: 76f4a811046cb42d29fde9a849476bf5, type: 3}
+--- !u!114 &1014526793987893594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 324967382423453168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CategoryHash: 1.3910413e-22
+  m_labelHash: 1.2079726e-29
+  m_SpriteKey: 0
+  m_SpriteHash: 353229028

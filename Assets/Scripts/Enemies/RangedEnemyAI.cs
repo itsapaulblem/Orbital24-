@@ -5,10 +5,10 @@ using UnityEngine;
 public class RangedEnemyAI : EnemyAI
 {
     // Combat Attributes
-    private string bulletPrefab = "Prefab/Bullet";
-    private float lastFireTime;
+    protected string bulletPrefab = "Prefab/Bullet";
+    protected float lastFireTime;
     // Seeking Attributes
-    private float distanceToStop = 7f;
+    protected float distanceToStop = 7f;
 
     void Start()
     {
@@ -56,7 +56,6 @@ public class RangedEnemyAI : EnemyAI
 
         // tracks timeSinceLastFire, checks if can fire again
         float timeSinceLastFire = Time.time - lastFireTime;
-        float dist = Vector2.Distance(player.transform.position, transform.position);
         if (timeSinceLastFire >= stats.GetAttackSpeed() && state == State.Seeking)
         {
             FireBullet();
@@ -64,7 +63,7 @@ public class RangedEnemyAI : EnemyAI
         }
     }
 
-    private void FireBullet()
+    protected virtual void FireBullet()
     {
         if (player == null) return;
 

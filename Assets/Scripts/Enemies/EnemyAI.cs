@@ -19,7 +19,7 @@ public class EnemyAI : MonoBehaviour
     protected Vector2 movement;
 
     // for Seeking
-    [SerializeField] private float sight = 12f;
+    [SerializeField] protected float sight = 12f;
     protected GameObject player;
 
     // Animation Attributes
@@ -157,7 +157,7 @@ public class EnemyAI : MonoBehaviour
             Destroy(gameObject);
         } else {    // if enemy not dead
             StartCoroutine(FlashEffect());
-            Debug.Log(audioManager);
+            if (audioManager == null) { audioManager = AudioManager.Instance; }
             audioManager.PlaySFX(audioManager.enemybeingshot); // Play hit sound effect
         }
     }

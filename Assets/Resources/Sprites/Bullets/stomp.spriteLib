@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5e6fedc2472449cead18ef23b5cb30d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Library:
+  - m_Name: Shot_2
+    m_Hash: 399757492
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: New Label
+      m_Hash: 259326342
+      m_Sprite: {fileID: -642767260, guid: 84101fa43b2414f73a54c832638e7962, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 0}
+    - m_Name: New Label_0
+      m_Hash: 16589798
+      m_Sprite: {fileID: 1624641414, guid: 84101fa43b2414f73a54c832638e7962, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 0}
+    m_FromMain: 1
+    m_EntryOverrideCount: 2
+  - m_Name: Splat_2
+    m_Hash: 1026030376
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: New Label
+      m_Hash: 259326342
+      m_Sprite: {fileID: 1641029427, guid: ecf6b169a076542ea89091658c5b2804, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 104994400, guid: 655000d80a71d4d0b9dceadc78dd6dd5, type: 3}
+    - m_Name: New Label_0
+      m_Hash: 16589798
+      m_Sprite: {fileID: -1088294761, guid: ecf6b169a076542ea89091658c5b2804, type: 3}
+      m_FromMain: 1
+      m_SpriteOverride: {fileID: 1108960012, guid: 655000d80a71d4d0b9dceadc78dd6dd5, type: 3}
+    m_FromMain: 1
+    m_EntryOverrideCount: 2
+  m_PrimaryLibraryGUID: aa22c3b25f317486ba5ba2fabd03042e
+  m_ModificationHash: 638544257353019690
+  m_Version: 1
