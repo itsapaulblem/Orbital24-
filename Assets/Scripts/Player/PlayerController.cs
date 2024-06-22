@@ -8,6 +8,8 @@ using UnityEngine.InputSystem;
 /// health and combat of the player.
 public class PlayerController : MonoBehaviour
 {   
+    private static float xCoord = float.PositiveInfinity;
+    private static float yCoord = float.PositiveInfinity;
     private AudioManager audioManager;
     private StatsManager stats;
 
@@ -52,9 +54,20 @@ public class PlayerController : MonoBehaviour
         maxHealthBarScale = stats.GetMaxHealth() / 50;
         healthBar.transform.localScale = new Vector3(maxHealthBarScale, 0.1f, 1f);
         healthBar.transform.localPosition = new Vector3(0f, 1f ,1f);
+
+        if (xCoord != float.PositiveInfinity && yCoord != float.PositiveInfinity) {
+            transform.position = new Vector2(xCoord, yCoord);
+            xCoord = float.PositiveInfinity;
+            yCoord = float.PositiveInfinity;
+        }
     }
     private void Start(){
         audioManager = AudioManager.Instance;
+    }
+
+    public static void SetCoords(float x, float y) {
+        xCoord = x;
+        yCoord = y;
     }
 
     /// UpdatePlayerFacingDirection for animation and Move player based on

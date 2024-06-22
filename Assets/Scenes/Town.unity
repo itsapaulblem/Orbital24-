@@ -1138,6 +1138,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextScene: Room
+  xCoord: 0
+  yCoord: -2.2
 --- !u!114 &832117099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1970,6 +1972,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextScene: SeagrassValley
+  xCoord: -50
+  yCoord: -108
 --- !u!61 &1029212887
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2002,7 +2006,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -25.117382, y: 14.63998}
+  m_Offset: {x: -25.638496, y: 15.260556}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -2013,7 +2017,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 9.023056, y: 1.9700394}
+  m_Size: {x: 7.9808254, y: 0.72888756}
   m_EdgeRadius: 0
 --- !u!198 &1060105339 stripped
 ParticleSystem:
@@ -2464,11 +2468,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 68574786085466668, guid: c3382ac9c803741aeaebc44feb7e097a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 24.96
+      value: 18.94
       objectReference: {fileID: 0}
     - target: {fileID: 68574786085466668, guid: c3382ac9c803741aeaebc44feb7e097a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.61
+      value: 1.93
       objectReference: {fileID: 0}
     - target: {fileID: 68574786085466668, guid: c3382ac9c803741aeaebc44feb7e097a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3640,11 +3644,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3529020813528524534, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 24.96
+      value: 18.94
       objectReference: {fileID: 0}
     - target: {fileID: 3529020813528524534, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.61
+      value: 1.93
       objectReference: {fileID: 0}
     - target: {fileID: 4531758831444132276, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
       propertyPath: m_Name
@@ -3652,11 +3656,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7099115373997084846, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.758299
+      value: 1.7383003
       objectReference: {fileID: 0}
     - target: {fileID: 7099115373997084846, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.8448479
+      value: -3.524848
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
