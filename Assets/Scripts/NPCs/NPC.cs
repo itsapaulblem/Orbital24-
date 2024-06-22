@@ -103,18 +103,19 @@ public class NPC : MonoBehaviour
                     nextDialogue = true;
                 }
             } else {
+
                 if (marketplaceMenu == null) { marketplaceMenu = gameManager.marketplaceMenu; }
                 if (marketplaceMenu.activeSelf){
-                marketplaceMenu.SetActive(false);
-                // Reacticate killText when marketplace menu is hidden 
-                if (gameManager.killText != null){
-                    gameManager.killText.gameObject.SetActive(true);
+                    marketplaceMenu.SetActive(false);
+                    // Reacticate killText when marketplace menu is hidden 
+                    if (gameManager.killText != null){
+                        gameManager.killText.gameObject.SetActive(true);
+                    }
                 }
+                else{
+                    ShowMarketplaceMenu();
                }
-               else{
-                ShowMarketplaceMenu();
-               }
-            }
+            } 
         }
     }
 
@@ -171,11 +172,13 @@ public class NPC : MonoBehaviour
     }
 
     void ShowMarketplaceMenu() {
-        if (marketplaceMenu != null) {
+        if (marketplaceMenu != null && currName == "Crab") {
             marketplaceMenu.SetActive(true);
             if (gameManager.killText != null){
                 gameManager.killText.gameObject.SetActive(false);
             }
         } 
-}
-}
+    }
+    }
+
+
