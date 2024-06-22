@@ -18,13 +18,16 @@ public class Instructions : MonoBehaviour
         if (scoreText != null){
             scoreText.SetActive(false);
         }
-       controlsCanvasGroup.alpha = 1;
-       controls.SetActive(true);
-     }
+        controlsCanvasGroup.alpha = 1;
+
+        // TODO: Check story progress to see if player requires controls guide
+        controls.SetActive(true);
+    }
 
     // Update is called once per frame
     void Update()
     {
+        if (controlsCanvasGroup == null) { controlsCanvasGroup = controls.GetComponent<CanvasGroup>(); }
         if (controlsCanvasGroup == null) { return; }
         if (!exist && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)) {
             exist = true;
