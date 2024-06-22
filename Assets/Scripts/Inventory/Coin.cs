@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
+    // value of one coin
     public int value = 1;
 
     public void SetValue(int val) {
@@ -17,5 +18,8 @@ public class Coin : MonoBehaviour
             Inventory.AddCoins(value);
             Destroy(gameObject);
         }
+    }
+    private void OnDestroy(){
+        InventoryManager.UpdateCoinUI();
     }
 }

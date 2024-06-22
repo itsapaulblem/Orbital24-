@@ -6,21 +6,12 @@ using TMPro;
 public static class Inventory
 {
     private static int coins; 
-    private static List<TMP_Text> coinsUIList = new List<TMP_Text>();
     // Array to store item counts
     private static int[] itemCounts = new int[5];
 
-    public static void AddCoinUI(TMP_Text coinText)
-    {
-        if (!coinsUIList.Contains(coinText))
-        {
-            coinsUIList.Add(coinText);
-            UpdateCoinUI(); // Update immediately to reflect current coin count
-        }
-    }
-
     public static void AddCoins(int amount) {
         coins += amount;
+        InventoryManager.UpdateCoinUI();
     }
 
     public static void SpendCoins(int amount) {
@@ -29,14 +20,6 @@ public static class Inventory
 
     public static int GetCoins() {
         return coins;
-    }
-
-    public static void UpdateCoinUI()
-    {
-        foreach (var coinUI in coinsUIList)
-        {
-            coinUI.text = ": " + coins.ToString();
-        }
     }
 
     public static void AddItemToInventory(int itemIndex)

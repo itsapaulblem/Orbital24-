@@ -12,6 +12,8 @@ public class InventoryManager : MonoBehaviour
     public TMP_Text[] itemNumbers;
     public Button[] shopItemButtons; 
     public TMP_Text coins_UI; 
+    private static int coins; 
+    private static List<TMP_Text> coinsUIList = new List<TMP_Text>();
 
     void Start()
     {
@@ -23,8 +25,7 @@ public class InventoryManager : MonoBehaviour
             itemNumbers[i].text = "0"; // Initialize text to show 0 items
         }
         UpdateItemNumbers();
-        Inventory.AddCoinUI(coins_UI); // Register the inventory UI element with the Inventory
-        Inventory.UpdateCoinUI();
+        AddCoinUI(coins_UI);
     }
 
     // Update UI for all item numbers
@@ -36,6 +37,19 @@ public class InventoryManager : MonoBehaviour
             itemNumbers[i].text = itemCounts[i].ToString();
             // Ensure button interactability matches item count
             shopItemButtons[i].interactable = itemCounts[i] > 0;
+        }
+    }
+
+    public static void AddCoinUI(TMP_Text coinText){
+        if (!coinsUIList.Contains(coinText)){
+        coinsUIList.Add(coinText);
+        }
+        UpdateCoinUI();
+    }
+
+    public static void UpdateCoinUI(){
+        foreach(var coinUI in coinsUIList){
+            coinUI.text = ": " + Inventory.GetCoins().ToString(); 
         }
     }
 }

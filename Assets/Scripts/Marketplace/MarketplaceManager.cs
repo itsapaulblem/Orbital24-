@@ -18,8 +18,8 @@ public class MarketplaceManager : MonoBehaviour
         {
             shopPanelsGameObject[i].SetActive(true);
         }
-        Inventory.AddCoinUI(coins_UI); // Register the marketplace UI element with the Inventory
-        Inventory.UpdateCoinUI();
+        InventoryManager.AddCoinUI(coins_UI); // Register the marketplace UI element with the Inventory
+        InventoryManager.UpdateCoinUI();
         LoadPanels();
         CheckPurchaseable();
     }
