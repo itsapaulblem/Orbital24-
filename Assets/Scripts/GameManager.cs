@@ -27,6 +27,9 @@ public class GameManager : MonoBehaviour
     private GameObject inventoryMenu; 
     public bool isActive = false; // Tracks if the inventory is active 
 
+    // Marketplace Menu
+    public GameObject marketplaceMenu;
+
     private void Awake()
     {
         // Singleton pattern to ensure only one instance of GameManager exists
@@ -51,49 +54,44 @@ public class GameManager : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         // Re-establish references when a new scene is loaded
-        pauseMenu = GameObject.Find("PauseMenu");
-        if (pauseMenu == null)
-        {
+        if (pauseMenu == null) { pauseMenu = GameObject.Find("PauseMenu"); }
+        if (pauseMenu == null) {
             Debug.LogWarning("PauseMenu not found in the scene: " + scene.name);
-        }
-        else
-        {
+        } else {
             pauseMenu.SetActive(false); // Ensure PauseMenu is inactive
         }
 
-        gameOverMenu = GameObject.Find("GameOverMenu");
-        if (gameOverMenu == null)
-        {
+        if (gameOverMenu == null) { gameOverMenu = GameObject.Find("GameOverMenu"); }
+        if (gameOverMenu == null) {
             Debug.LogWarning("GameOverMenu not found in the scene: " + scene.name);
-        }
-        else
-        {
+        } else {
             gameOverMenu.SetActive(false); // Ensure GameOverMenu is inactive
         }
 
-        inventoryMenu = GameObject.Find("InventoryMenu"); 
-        if (inventoryMenu == null){
+        if (inventoryMenu == null) { inventoryMenu = GameObject.Find("InventoryMenu"); }
+        if (inventoryMenu == null) {
             Debug.LogWarning("Inventory Menu not found in the scene: " + scene.name);
-        }
-        else{
+        } else {
             inventoryMenu.SetActive(false); // Ensure Inventory Menu is inactive 
         }
         
-
-        miniMapWindow = GameObject.Find("MinimapWindow");
-        if (miniMapWindow == null)
-        {
+        if (miniMapWindow == null) { miniMapWindow = GameObject.Find("MinimapWindow"); }
+        if (miniMapWindow == null) {
             Debug.LogWarning("MinimapWindow not found in the scene: " + scene.name);
-        }
-        else
-        {
+        } else {
             miniMapWindow.SetActive(false); // Ensure MinimapWindow is inactive
         }
 
-        killText = GameObject.Find("KillText")?.GetComponent<Text>();
-        if (killText == null)
-        {
+        if (killText == null) { killText = GameObject.Find("KillText")?.GetComponent<Text>(); }
+        if (killText == null) {
             Debug.LogWarning("KillText not found in the scene: " + scene.name);
+        }
+
+        if (marketplaceMenu == null) { marketplaceMenu = GameObject.Find("MarketplaceMenu"); }
+        if (marketplaceMenu == null) {
+            Debug.LogWarning("MarketplaceMenu not found in the scene: " + scene.name);
+        } else {
+            marketplaceMenu.SetActive(false); // Ensure PauseMenu is inactive
         }
 
         // Reset kill count when a new scene is loaded

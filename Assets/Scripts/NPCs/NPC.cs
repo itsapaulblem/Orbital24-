@@ -32,9 +32,12 @@ public class NPC : MonoBehaviour
     private GameObject marketplaceMenu;
 
     //reference to GameManager
-    private GameManager gameManager; 
+    public GameManager gameManager; 
 
-    void Awake() {
+    void Start() {
+        // get reference to the GameManager
+        gameManager = GameManager.Instance; 
+
         // get path to dialogue textfile
         currName = gameObject.name;
         path = path + currName + "_dialogue";
@@ -51,7 +54,7 @@ public class NPC : MonoBehaviour
         }
 
         // attempt to retrieve MarketplaceMenu (used for crab only)
-        marketplaceMenu = GameObject.Find("MarketplaceMenu");
+        if (marketplaceMenu == null) { marketplaceMenu = gameManager.marketplaceMenu; } //GameObject.Find("MarketplaceMenu");
         if (marketplaceMenu == null) {
             Debug.Log("Missing MarketplaceMenu");
         } else {
@@ -59,8 +62,6 @@ public class NPC : MonoBehaviour
         }
 
         player = FindObjectOfType<PlayerController>();
-        // get reference to the GameManager
-        gameManager = GameManager.Instance; 
 
         // Hardcoded npc names
         npcNames = new Dictionary<string, string>(){
@@ -102,7 +103,8 @@ public class NPC : MonoBehaviour
                     nextDialogue = true;
                 }
             } else {
-               if (marketplaceMenu.activeSelf){
+                if (marketplaceMenu == null) { marketplaceMenu = gameManager.marketplaceMenu; }
+                if (marketplaceMenu.activeSelf){
                 marketplaceMenu.SetActive(false);
                 // Reacticate killText when marketplace menu is hidden 
                 if (gameManager.killText != null){

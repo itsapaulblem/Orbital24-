@@ -8,6 +8,7 @@ public class Instructions : MonoBehaviour
     public GameObject scoreText; 
     private CanvasGroup controlsCanvasGroup; 
     public float fadeDuration = 1f; 
+    private bool exist = false;
 
 
     // Start is called before the first frame update
@@ -24,12 +25,15 @@ public class Instructions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0){
-           StartCoroutine(Fade());
+        if (controlsCanvasGroup == null) { return; }
+        if (!exist && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)) {
+            exist = true;
+            StartCoroutine(Fade());
         }
     }
 
     private IEnumerator Fade(){
+        if (controlsCanvasGroup == null) { yield break; }
         float startAlpha = controlsCanvasGroup.alpha; 
         float rate = 1.0f/ fadeDuration;
         float progress = 0.0f; 
@@ -41,5 +45,6 @@ public class Instructions : MonoBehaviour
         }
         controlsCanvasGroup.alpha = 0; 
         controls.SetActive(false);
+        exist = false;
     }
 }

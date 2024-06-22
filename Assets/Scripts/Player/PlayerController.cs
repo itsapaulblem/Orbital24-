@@ -139,7 +139,9 @@ public class PlayerController : MonoBehaviour
                             stats.GetBulletSpeed(), 
                             bulletDir); // initialise bullet
      
-        audioManager.PlaySFX(audioManager.bobshooting); // Play shooting sound effect
+        if (audioManager != null) {
+            audioManager.PlaySFX(audioManager.bobshooting); // Play shooting sound effect
+        }
 
     }
 
