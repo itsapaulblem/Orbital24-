@@ -19,20 +19,15 @@ public static class Inventory
         }
     }
 
-    public static void AddCoins()
-    {
-        coins++;
-        UpdateCoinUI();
+    public static void AddCoins(int amount) {
+        coins += amount;
     }
 
-    public static void SpendCoins(int amount)
-    {
+    public static void SpendCoins(int amount) {
         coins -= amount;
-        UpdateCoinUI();
     }
 
-    public static int GetCoins()
-    {
+    public static int GetCoins() {
         return coins;
     }
 
