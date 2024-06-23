@@ -29,7 +29,10 @@ public class EnemyAI : MonoBehaviour
     private GameObject healthBar;
     private float maxHealthBarScale;
     [SerializeField] private float flashDuration = 0.2f; 
-    [SerializeField] private Color flashColor = Color.red; 
+    [SerializeField] private Color flashColor = Color.red;
+
+    // Coin prefab 
+    [SerializeField] private GameObject coinPrefab;  
 
     private void Awake()
     {
@@ -151,6 +154,10 @@ public class EnemyAI : MonoBehaviour
 
                 // Destroy the particle system object after the duration of the particle effect
                 Destroy(deathParticlesInstance.gameObject, deathParticlesInstance.main.duration);
+            }
+            // instantiate coin object so that a coin appears when the enemies dies 
+            if (coinPrefab != null){
+                Instantiate(coinPrefab, transform.position, Quaternion.identity);
             }
             GameManager.Instance.AddKill();
             // Destroy the enemy game object
