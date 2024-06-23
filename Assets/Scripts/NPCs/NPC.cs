@@ -217,10 +217,13 @@ public class NPC : MonoBehaviour
         {
             yield return TextScroll(dialogue[index]);
             index++;
+            // Wait for player to press E for the next dialogue line
+            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.E));
+            nextDialogue = false;
         }
 
         state = DialogueState.Idle;
-        SetPanel(false);
+        SetPanel(false); // Deactivate the panel after the last line
         dialogueShown = true; // Mark dialogue as shown after it finishes
     }
 
