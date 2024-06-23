@@ -28,7 +28,7 @@ public class NPC : MonoBehaviour
     // Track if dialogue has been shown
     private bool dialogueShown = false;
 
-    // Marketplace menu
+    // Reference to Marketplace menu
     private GameObject marketplaceMenu;
 
     // Reference to GameManager
@@ -56,7 +56,7 @@ public class NPC : MonoBehaviour
         }
 
         // attempt to retrieve MarketplaceMenu (used for crab only)
-        if (marketplaceMenu == null) { marketplaceMenu = gameManager.marketplaceMenu; } //GameObject.Find("MarketplaceMenu");
+        if (marketplaceMenu == null) { marketplaceMenu = gameManager.marketplaceMenu; }
         if (marketplaceMenu == null)
         {
             Debug.Log("Missing MarketplaceMenu");
@@ -78,50 +78,22 @@ public class NPC : MonoBehaviour
 
         // Subscribe to the EnemyDied event
         EnemyAI.EnemyDied += EnemyDiedHandler;
+        Debug.Log("Subscribed to EnemyDied Event");
     }
 
     void OnDestroy()
     {
         // Unsubscribe from the EnemyDied event
         EnemyAI.EnemyDied -= EnemyDiedHandler;
+        Debug.Log("Unsubscribed from EnemyDied Event");
     }
 
     // Event handler for when an enemy dies
     private void EnemyDiedHandler()
     {
-        // Check if the current dialogue block is the one where "You saved me Bob!" should be displayed
-        if (dialogueBlock == 1)  
-        {
-            Debug.Log("Playing good job bob");
-            StartCoroutine(DisplaySavedMessage());
-        }
-    }
-
-    private IEnumerator DisplaySavedMessage()
-    {
-        Debug.Log("Displaying saved message...");
-        SetPanel(true); // Activate dialogue panel
-
-        // Find the index where "You saved me Bob!" dialogue line is located
-        int index = Array.IndexOf(dialogue, "You saved me Bob!");
-
-        // Display this specific dialogue line
-        if (index != -1)
-        {
-            yield return TextScroll(dialogue[index]);
-        }
-
-        SetPanel(false); // Deactivate dialogue panel after displaying
-
-        // Display subsequent dialogue
-        index++; // Move to the next line after "You saved me Bob!"
-        while (index < dialogue.Length && dialogue[index] != "-")
-        {
-            yield return TextScroll(dialogue[index]);
-            index++;
-        }
-
-        dialogueShown = true; // Mark dialogue as shown after it finishes
+        dialogueBlock = 2; // changed dialogue block from 1 to 2 when enemy dies 
+        dialogueShown = false; // Reset dialogueShown when an enemy dies
+        Debug.Log("Enemy died, setting dialogueBlock to 2 and resetting dialogueShown");
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -144,10 +116,18 @@ public class NPC : MonoBehaviour
 
     void Update()
     {
+        // Check if the dialogue block is 2 and display the saved message if it hasn't been shown yet
+        if (dialogueBlock == 2 && !dialogueShown)
+        {
+            Debug.Log("Update: Detected dialogue block 2 and dialogue not shown. Starting saved message coroutine.");
+            StartCoroutine(RunTextForSavedMessage());
+        }
+
+        // Handle player input for dialogue interaction
         if (waitForPress && Input.GetKeyDown(KeyCode.E))
         {
             gameObject.transform.Find("Prompt").gameObject.SetActive(false);
-            // shows dialogue
+            // Shows dialogue
             // TODO: track story progress for crab marketplace menu
             if (!dialogueShown)
             {
@@ -167,7 +147,7 @@ public class NPC : MonoBehaviour
                 if (marketplaceMenu.activeSelf)
                 {
                     marketplaceMenu.SetActive(false);
-                    // Reactivate killText when marketplace menu is hidden 
+                    // Reactivate killText when marketplace menu is hidden
                     if (gameManager.killText != null)
                     {
                         gameManager.killText.gameObject.SetActive(true);
@@ -213,6 +193,32 @@ public class NPC : MonoBehaviour
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.E));
             nextDialogue = false;
         }
+        state = DialogueState.Idle;
+        SetPanel(false);
+        dialogueShown = true; // Mark dialogue as shown after it finishes
+    }
+
+    IEnumerator RunTextForSavedMessage()
+    {
+        SetPanel(true);
+
+        // Locate the "You saved me Bob!" line and start from there
+        int index = Array.IndexOf(dialogue, "You saved me Bob!");
+        Debug.Log("\"You saved me Bob!\" dialogue line index: " + index);
+
+        if (index != -1)
+        {
+            yield return TextScroll(dialogue[index]);
+            index++;
+        }
+
+        // Continue displaying the remaining dialogue
+        while (index < dialogue.Length && dialogue[index] != "-")
+        {
+            yield return TextScroll(dialogue[index]);
+            index++;
+        }
+
         state = DialogueState.Idle;
         SetPanel(false);
         dialogueShown = true; // Mark dialogue as shown after it finishes
