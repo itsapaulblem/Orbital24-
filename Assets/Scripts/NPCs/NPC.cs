@@ -90,14 +90,16 @@ public class NPC : MonoBehaviour
     private void EnemyDiedHandler()
     {
         // Check if the current dialogue block is the one where "You saved me Bob!" should be displayed
-        if (dialogueBlock == 2)  
+        if (dialogueBlock == 1)  
         {
+            Debug.Log("Playing good job bob");
             StartCoroutine(DisplaySavedMessage());
         }
     }
 
     private IEnumerator DisplaySavedMessage()
     {
+        Debug.Log("Displaying saved message...");
         SetPanel(true); // Activate dialogue panel
 
         // Find the index where "You saved me Bob!" dialogue line is located
@@ -110,6 +112,16 @@ public class NPC : MonoBehaviour
         }
 
         SetPanel(false); // Deactivate dialogue panel after displaying
+
+        // Display subsequent dialogue
+        index++; // Move to the next line after "You saved me Bob!"
+        while (index < dialogue.Length && dialogue[index] != "-")
+        {
+            yield return TextScroll(dialogue[index]);
+            index++;
+        }
+
+        dialogueShown = true; // Mark dialogue as shown after it finishes
     }
 
     void OnTriggerEnter2D(Collider2D other)

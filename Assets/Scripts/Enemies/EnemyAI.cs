@@ -169,6 +169,7 @@ public class EnemyAI : MonoBehaviour
             if (EnemyDied != null)
             {
                 EnemyDied();
+                Debug.Log("Enemy died");
             }
             GameManager.Instance.AddKill();
             
