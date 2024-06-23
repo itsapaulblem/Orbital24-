@@ -31,17 +31,18 @@ public class NPC : MonoBehaviour
     // Marketplace menu
     private GameObject marketplaceMenu;
 
-    //reference to GameManager
-    public GameManager gameManager; 
+    // Reference to GameManager
+    public GameManager gameManager;
 
-    void Start() {
+    void Start()
+    {
         // get reference to the GameManager
-        gameManager = GameManager.Instance; 
+        gameManager = GameManager.Instance;
 
         // get path to dialogue textfile
         currName = gameObject.name;
         path = path + currName + "_dialogue";
-        
+
         TextAsset dialogueData = Resources.Load<TextAsset>(path);
         dialogue = Regex.Split(dialogueData.text, "\n|\r|\r\n");
 
@@ -49,15 +50,19 @@ public class NPC : MonoBehaviour
         dialogueBlock = 1;
 
         dialogueMain = GameObject.Find("DialogueMain");
-        if (dialogueMain == null) {
+        if (dialogueMain == null)
+        {
             Debug.Log("Missing DialogueMain");
         }
 
         // attempt to retrieve MarketplaceMenu (used for crab only)
         if (marketplaceMenu == null) { marketplaceMenu = gameManager.marketplaceMenu; } //GameObject.Find("MarketplaceMenu");
-        if (marketplaceMenu == null) {
+        if (marketplaceMenu == null)
+        {
             Debug.Log("Missing MarketplaceMenu");
-        } else {
+        }
+        else
+        {
             marketplaceMenu.SetActive(false);
         }
 
@@ -70,59 +75,106 @@ public class NPC : MonoBehaviour
             { "Mermaid", "Lorelei" },
             { "Field boss", "Ezekill" }
         };
+
+        // Subscribe to the EnemyDied event
+        EnemyAI.EnemyDied += EnemyDiedHandler;
     }
 
-    void OnTriggerEnter2D(Collider2D other) 
-    { 
-        if (other.CompareTag("Player")) {
+    void OnDestroy()
+    {
+        // Unsubscribe from the EnemyDied event
+        EnemyAI.EnemyDied -= EnemyDiedHandler;
+    }
+
+    // Event handler for when an enemy dies
+    private void EnemyDiedHandler()
+    {
+        // Check if the current dialogue block is the one where "You saved me Bob!" should be displayed
+        if (dialogueBlock == 2)  
+        {
+            StartCoroutine(DisplaySavedMessage());
+        }
+    }
+
+    private IEnumerator DisplaySavedMessage()
+    {
+        SetPanel(true); // Activate dialogue panel
+
+        // Find the index where "You saved me Bob!" dialogue line is located
+        int index = Array.IndexOf(dialogue, "You saved me Bob!");
+
+        // Display this specific dialogue line
+        if (index != -1)
+        {
+            yield return TextScroll(dialogue[index]);
+        }
+
+        SetPanel(false); // Deactivate dialogue panel after displaying
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
             gameObject.transform.Find("Prompt").gameObject.SetActive(true);
             waitForPress = true;
-        } 
-    } 
- 
-    void OnTriggerExit2D(Collider2D other) 
-    { 
-        if (other.CompareTag("Player")) { 
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
             gameObject.transform.Find("Prompt").gameObject.SetActive(false);
-            waitForPress = false; 
-            Debug.Log("Waiting false");
-        } 
-    } 
+            waitForPress = false;
+        }
+    }
 
     void Update()
     {
-        if (waitForPress && Input.GetKeyDown(KeyCode.E)) {
+        if (waitForPress && Input.GetKeyDown(KeyCode.E))
+        {
             gameObject.transform.Find("Prompt").gameObject.SetActive(false);
             // shows dialogue
             // TODO: track story progress for crab marketplace menu
-            if (!dialogueShown) {
-                if (state != DialogueState.Next){
+            if (!dialogueShown)
+            {
+                if (state != DialogueState.Next)
+                {
                     state = DialogueState.Next;
                     StartCoroutine(RunText());
-                } else if (state == DialogueState.Next && !nextDialogue) {
+                }
+                else if (state == DialogueState.Next && !nextDialogue)
+                {
                     nextDialogue = true;
                 }
-            } else {
-
+            }
+            else
+            {
                 if (marketplaceMenu == null) { marketplaceMenu = gameManager.marketplaceMenu; }
-                if (marketplaceMenu.activeSelf){
+                if (marketplaceMenu.activeSelf)
+                {
                     marketplaceMenu.SetActive(false);
-                    // Reacticate killText when marketplace menu is hidden 
-                    if (gameManager.killText != null){
+                    // Reactivate killText when marketplace menu is hidden 
+                    if (gameManager.killText != null)
+                    {
                         gameManager.killText.gameObject.SetActive(true);
                     }
                 }
-                else{
+                else
+                {
                     ShowMarketplaceMenu();
-               }
-            } 
+                }
+            }
         }
     }
 
     /// Activate dialogue panel
-    void SetPanel(bool active) {
+    void SetPanel(bool active)
+    {
         GameObject panel = dialogueMain.transform.Find("Panel").gameObject;
-        if (panel == null) {
+        if (panel == null)
+        {
             Debug.Log("Missing Panel in DialogueMain");
             return;
         }
@@ -131,16 +183,19 @@ public class NPC : MonoBehaviour
         panel.transform.Find("Talker").gameObject.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = npcNames[currName];
     }
 
-    IEnumerator RunText() {
+    IEnumerator RunText()
+    {
         SetPanel(true);
         int index = 0;
         // discard previous dialogueBlocks
-        for (int i = 0; i < dialogueBlock; i++) {
+        for (int i = 0; i < dialogueBlock; i++)
+        {
             index = Array.IndexOf(dialogue, "-", index) + 1;
         }
 
         // display dialogue on camera
-        while (dialogue[index] != "-") {
+        while (dialogue[index] != "-")
+        {
             yield return TextScroll(dialogue[index]);
             index += 1;
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.E));
@@ -158,7 +213,7 @@ public class NPC : MonoBehaviour
         TextMeshProUGUI thisText = dialogueMain.transform.Find("Panel").gameObject
                                            .transform.Find("Dialogue").gameObject
                                            .GetComponent<TextMeshProUGUI>();
-        
+
         thisText.text = "";
         nextDialogue = false;
         while (!nextDialogue && (letter < lineOfText.Length))
@@ -171,14 +226,15 @@ public class NPC : MonoBehaviour
         nextDialogue = false;
     }
 
-    void ShowMarketplaceMenu() {
-        if (marketplaceMenu != null && currName == "Crab") {
+    void ShowMarketplaceMenu()
+    {
+        if (marketplaceMenu != null && currName == "Crab")
+        {
             marketplaceMenu.SetActive(true);
-            if (gameManager.killText != null){
+            if (gameManager.killText != null)
+            {
                 gameManager.killText.gameObject.SetActive(false);
             }
-        } 
+        }
     }
-    }
-
-
+}

@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System; 
 
 public class EnemyAI : MonoBehaviour
 {
@@ -32,7 +33,11 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private Color flashColor = Color.red;
 
     // Coin prefab 
-    [SerializeField] private GameObject coinPrefab;  
+    [SerializeField] private GameObject coinPrefab;
+
+    // Event to notify NPC of enemy death
+    public static event Action EnemyDied;
+  
 
     private void Awake()
     {
@@ -105,7 +110,7 @@ public class EnemyAI : MonoBehaviour
     /// around the origin point
     protected virtual Vector2 GetRoamingPosition()
     {
-        return (origin + new Vector2(Random.Range(-2f, 2f), Random.Range(-2f, 2f)) - rb.position).normalized / 2;
+        return (origin + new Vector2(UnityEngine.Random.Range(-2f, 2f),UnityEngine.Random.Range(-2f, 2f)) - rb.position).normalized / 2;
     }
 
     protected virtual Vector2 GetSeekingPosition()
@@ -159,10 +164,18 @@ public class EnemyAI : MonoBehaviour
             if (coinPrefab != null){
                 Instantiate(coinPrefab, transform.position, Quaternion.identity);
             }
+
+            // Notify listeners that the enemy has died
+            if (EnemyDied != null)
+            {
+                EnemyDied();
+            }
             GameManager.Instance.AddKill();
+            
             // Destroy the enemy game object
             Destroy(gameObject);
-        } else {    // if enemy not dead
+        } else {    
+            // if enemy not dead
             StartCoroutine(FlashEffect());
             if (audioManager == null) { audioManager = AudioManager.Instance; }
             audioManager.PlaySFX(audioManager.enemybeingshot); // Play hit sound effect

@@ -1527,7 +1527,7 @@ Transform:
   m_GameObject: {fileID: 947347536}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.6, y: 4.8, z: 0}
+  m_LocalPosition: {x: -5.93, y: 4.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1623,11 +1623,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3277809164955112108, guid: 871fedc0b0d5c450aac532a1b4b5ab4d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -26
+      value: -19.9
       objectReference: {fileID: 0}
     - target: {fileID: 3277809164955112108, guid: 871fedc0b0d5c450aac532a1b4b5ab4d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.3
+      value: 11.2
       objectReference: {fileID: 0}
     - target: {fileID: 3277809164955112108, guid: 871fedc0b0d5c450aac532a1b4b5ab4d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1671,7 +1671,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4691936696320082005, guid: 871fedc0b0d5c450aac532a1b4b5ab4d, type: 3}
       propertyPath: sight
-      value: 10
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4691936696320082005, guid: 871fedc0b0d5c450aac532a1b4b5ab4d, type: 3}
       propertyPath: scoreText
@@ -2063,8 +2063,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextScene: SeagrassValley
-  xCoord: 0
-  yCoord: 0
+  xCoord: -48.4
+  yCoord: -102.8
 --- !u!61 &1029212887
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2097,7 +2097,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -25.117382, y: 14.63998}
+  m_Offset: {x: -25.117382, y: 14.829667}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -2108,7 +2108,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 9.023056, y: 1.9700394}
+  m_Size: {x: 9.023056, y: 1.5906658}
   m_EdgeRadius: 0
 --- !u!198 &1060105339 stripped
 ParticleSystem:
@@ -3479,7 +3479,7 @@ Transform:
   m_GameObject: {fileID: 1539643497}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -17.45, y: 0.46, z: 0}
+  m_LocalPosition: {x: -25.86, y: 4.65, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
