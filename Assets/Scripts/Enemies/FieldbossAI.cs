@@ -10,6 +10,7 @@ public class FieldbossAI : RangedEnemyAI
         SetInit(1f, 250, 13f, 1.1f, 15f, 12f);
         sight = 16f;
         lastFireTime = Time.time - stats.GetAttackSpeed();
+        audioManager = AudioManager.Instance;
     }
 
     protected override Vector2 GetSeekingPosition()
@@ -30,6 +31,8 @@ public class FieldbossAI : RangedEnemyAI
     protected override void FireBullet()
     {
         if (player == null) return;
+        if (audioManager == null) { audioManager = AudioManager.Instance; }
+            audioManager.PlaySFX(audioManager.bossFinal); // Play hit sound effect
 
         Vector3 playerPos = player.transform.position;
         Vector3 originPos = transform.position;

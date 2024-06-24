@@ -22,7 +22,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip bossOne; 
     public AudioClip bossTwo; 
     public AudioClip bossThree; 
-    
+    public AudioClip bossFinal; 
 
     public static AudioManager Instance;
     private enum MusicState { Start, Game }
