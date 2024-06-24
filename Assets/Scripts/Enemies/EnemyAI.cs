@@ -6,8 +6,11 @@ using System;
 
 public class EnemyAI : MonoBehaviour
 {
+    // Reference to audio manager, for enemy SFX
     protected AudioManager audioManager;
     protected StatsManager stats;
+    
+    // Reference to particle system which will be played upon enemy death
     [SerializeField] private ParticleSystem deathParticlesPrefab = default;
     private ParticleSystem deathParticlesInstance;
 
@@ -176,7 +179,7 @@ public class EnemyAI : MonoBehaviour
             // Destroy the enemy game object
             Destroy(gameObject);
         } else {    
-            // if enemy not dead
+            // If enemy not dead
             StartCoroutine(FlashEffect());
             if (audioManager == null) { audioManager = AudioManager.Instance; }
             audioManager.PlaySFX(audioManager.enemybeingshot); // Play hit sound effect

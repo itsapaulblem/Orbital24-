@@ -8,6 +8,7 @@ public class Bullet : MonoBehaviour
     public SpriteLibrary spriteLibrary;
     private Animator bulletAnimator;
     private string PATHTOSPRITE = "Sprites/Bullets/";
+    
     // Bullet Attribute
     public float damage = 10f;  // Damage variable
     private float bulletLife = 12f;
@@ -79,6 +80,7 @@ public class Bullet : MonoBehaviour
         }
     }
 
+    // bullet animation when end
     private IEnumerator End()
     {
         GetComponent<Rigidbody2D>().velocity = Vector2.zero;
