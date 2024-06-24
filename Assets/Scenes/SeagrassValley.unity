@@ -46991,6 +46991,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5619843025935305482, guid: 019a6d559cbdc4388ad8060c009d2471, type: 3}
+      propertyPath: bobdied
+      value: 
+      objectReference: {fileID: 8300000, guid: 4f5bc64a69b9741b49c08897fbf40c67, type: 3}
+    - target: {fileID: 5619843025935305482, guid: 019a6d559cbdc4388ad8060c009d2471, type: 3}
+      propertyPath: bossOne
+      value: 
+      objectReference: {fileID: 8300000, guid: 365e07abc8415474397367ea6eb77eb9, type: 3}
+    - target: {fileID: 5619843025935305482, guid: 019a6d559cbdc4388ad8060c009d2471, type: 3}
+      propertyPath: bossTwo
+      value: 
+      objectReference: {fileID: 8300000, guid: effe6d71cfa2d4689a4262969473dd08, type: 3}
+    - target: {fileID: 5619843025935305482, guid: 019a6d559cbdc4388ad8060c009d2471, type: 3}
+      propertyPath: bossThree
+      value: 
+      objectReference: {fileID: 8300000, guid: af66162561d2eed40ad49268cab318bb, type: 3}
+    - target: {fileID: 5619843025935305482, guid: 019a6d559cbdc4388ad8060c009d2471, type: 3}
+      propertyPath: confirmClick
+      value: 
+      objectReference: {fileID: 8300000, guid: 7cc7d37818ed341adae32e6fe9d640b5, type: 3}
+    - target: {fileID: 5619843025935305482, guid: 019a6d559cbdc4388ad8060c009d2471, type: 3}
+      propertyPath: coinCollection
+      value: 
+      objectReference: {fileID: 8300000, guid: 4810b5971951446d2ba39f367a2dc2d6, type: 3}
     - target: {fileID: 5830793771487861755, guid: 019a6d559cbdc4388ad8060c009d2471, type: 3}
       propertyPath: m_LocalPosition.x
       value: 200.5366

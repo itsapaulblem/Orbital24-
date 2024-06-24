@@ -187,6 +187,7 @@ public class PlayerController : MonoBehaviour
 
             if (stats.isDead()) {
                 Destroy(gameObject); 
+                audioManager.PlaySFX(audioManager.bobdied); // Play shooting sound effect
                 GameManager.Instance.GameOver(); // calling GameOver from GameManager 
             }
             else {

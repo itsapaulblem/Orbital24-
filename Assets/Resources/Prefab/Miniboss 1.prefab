@@ -94,6 +94,7 @@ MonoBehaviour:
   sight: 12
   flashDuration: 0.2
   flashColor: {r: 1, g: 0, b: 0, a: 1}
+  coinPrefab: {fileID: 8117510315117872721, guid: 3dfd50419df63cf48be837f1f4bb8e34, type: 3}
 --- !u!198 &3678116054323659690 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 5436096917770605438, guid: 871fedc0b0d5c450aac532a1b4b5ab4d, type: 3}

@@ -15,7 +15,14 @@ public class AudioManager : MonoBehaviour
     public AudioClip gameBackground;
     public AudioClip enemybeingshot; 
     public AudioClip bobbeingshot; 
-    public AudioClip bobshooting; 
+    public AudioClip bobdied; 
+    public AudioClip bobshooting;
+    public AudioClip coinCollection;  
+    public AudioClip confirmClick; 
+    public AudioClip bossOne; 
+    public AudioClip bossTwo; 
+    public AudioClip bossThree; 
+    
 
     public static AudioManager Instance;
     private enum MusicState { Start, Game }

@@ -1893,6 +1893,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5619843025935305482, guid: 019a6d559cbdc4388ad8060c009d2471, type: 3}
+      propertyPath: confirmClick
+      value: 
+      objectReference: {fileID: 8300000, guid: 141b984e459bc422c8c0e500b4f52d92, type: 3}
+    - target: {fileID: 5619843025935305482, guid: 019a6d559cbdc4388ad8060c009d2471, type: 3}
+      propertyPath: coinCollection
+      value: 
+      objectReference: {fileID: 8300000, guid: af2435b78ba5d44beab25e91ad49efb7, type: 3}
     - target: {fileID: 5830793771487861755, guid: 019a6d559cbdc4388ad8060c009d2471, type: 3}
       propertyPath: m_LocalPosition.x
       value: 200.5366

@@ -5,10 +5,12 @@ using UnityEngine;
 public class MB2_AI : EnemyAI
 {
     // Combat Attributes
+
     private string stompPrefab = "Prefab/Stomp";
     private float lastFireTime;
 
     private bool contact = false;
+    private AudioManager audioManager; 
 
 
     void Start()
@@ -16,6 +18,7 @@ public class MB2_AI : EnemyAI
         // TODO: Check if undefeated, or if game completed, else destroy
         sight = 15f;
         SetInit(4.5f, 150f, 20f, 2f, -1, 0);
+        audioManager = AudioManager.Instance;
     }
 
     private void Update() 
@@ -29,6 +32,8 @@ public class MB2_AI : EnemyAI
     }
 
     private void StompAttack() {
+        if (audioManager == null) { audioManager = AudioManager.Instance; }
+        audioManager.PlaySFX(audioManager.bossTwo); // Play hit sound effect
         Vector2 bulletDir = transform.position;
         GameObject stomp = Instantiate(Resources.Load(stompPrefab) as GameObject, transform.position + new Vector3(0,-1,0), Quaternion.Euler(0, 0, 0));
         Bullet bulletScript = stomp.GetComponent<Bullet>();

@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
+    private AudioManager audioManager;
+    void Start(){
+        audioManager = AudioManager.Instance;
+    }
     // value of one coin
     public int value = 1;
 
@@ -16,6 +20,8 @@ public class Coin : MonoBehaviour
         PlayerController target = collision.GetComponent<PlayerController>();
         if (target != null) {
             Inventory.AddCoins(value);
+            if (audioManager == null) { audioManager = AudioManager.Instance; }
+            audioManager.PlaySFX(audioManager.coinCollection); // Play hit sound effect
             Destroy(gameObject);
         }
     }

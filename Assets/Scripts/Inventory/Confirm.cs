@@ -13,6 +13,7 @@ public class Confirm : MonoBehaviour
 
     private bool isIncreaseActive = false;
     private float increaseEndTime;
+    private AudioManager audioManager; 
 
     void Start()
     {
@@ -20,6 +21,7 @@ public class Confirm : MonoBehaviour
         {
             confirmMenu.SetActive(false); // Ensure confirm menu starts deactivated
         }
+        audioManager = AudioManager.Instance; 
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode){
@@ -54,6 +56,7 @@ public class Confirm : MonoBehaviour
             // Start temporary increase
             isIncreaseActive = true;
             increaseEndTime = Time.time + increaseDuration;
+            audioManager.PlaySFX(audioManager.confirmClick);
         }
         confirmMenu.SetActive(false); // Close the confirm menu after confirming
 
