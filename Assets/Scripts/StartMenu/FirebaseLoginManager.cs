@@ -156,6 +156,7 @@ public class FirebaseLoginManager : MonoBehaviour
                 if (warningLoginText != null)
                 {
                     warningLoginText.text = "Please verify your email address before logging in.";
+                    StartCoroutine(SendVerificationEmail(user));
                 }
                 else
                 {
@@ -177,6 +178,22 @@ public class FirebaseLoginManager : MonoBehaviour
             ClearLoginFields();
 
             SceneManager.LoadScene("CutScene1");
+        }
+    }
+
+    private IEnumerator SendVerificationEmail(FirebaseUser user)
+    {
+        var emailTask = user.SendEmailVerificationAsync();
+
+        yield return new WaitUntil(() => emailTask.IsCompleted);
+
+        if (emailTask.Exception != null)
+        {
+            Debug.LogWarning($"Failed to send verification email with {emailTask.Exception}");
+        }
+        else
+        {
+            Debug.Log("Verification email sent successfully.");
         }
     }
 
@@ -269,10 +286,4 @@ public class FirebaseLoginManager : MonoBehaviour
         UserData_UI.SetActive(true);
         LoginScreen.SetActive(false);
     }
-
-  
-// GetData("StoryProgress")
-// GetData("Inventory")
-// GetData("Stats")
-// StoreData("Key")
 }
