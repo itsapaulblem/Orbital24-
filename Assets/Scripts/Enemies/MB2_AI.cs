@@ -10,9 +10,7 @@ public class MB2_AI : EnemyAI
     private float lastFireTime;
 
     private bool contact = false;
-    private AudioManager audioManager; 
-
-
+   
     void Start()
     {
         // TODO: Check if undefeated, or if game completed, else destroy

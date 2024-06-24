@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MB3_AI : RangedEnemyAI
 {
-    private AudioManager audioManager; 
+
     // Start is called before the first frame update
     void Start()
     {

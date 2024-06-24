@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RangedEnemyAI : EnemyAI
 {
+
     // Combat Attributes
     protected string bulletPrefab = "Prefab/Bullet";
     protected float lastFireTime;

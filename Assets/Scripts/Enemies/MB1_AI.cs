@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MB1_AI : EnemyAI
 {
-    private AudioManager audioManager; 
     private float lastAttackTime;
 
     // Start is called before the first frame update

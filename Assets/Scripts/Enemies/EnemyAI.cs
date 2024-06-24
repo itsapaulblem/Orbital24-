@@ -6,7 +6,7 @@ using System;
 
 public class EnemyAI : MonoBehaviour
 {
-    private AudioManager audioManager;
+    protected AudioManager audioManager;
     protected StatsManager stats;
     [SerializeField] private ParticleSystem deathParticlesPrefab = default;
     private ParticleSystem deathParticlesInstance;
