@@ -920,8 +920,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8975be882cdc68e4f8c643411ba35563, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myAudio: {fileID: 24100000, guid: 8f45cbb3073f66949945ea7e962e2010, type: 2}
+  audioMixer: {fileID: 24100000, guid: 8f45cbb3073f66949945ea7e962e2010, type: 2}
   musicSlider: {fileID: 2093917171}
+  sfxSlider: {fileID: 0}
 --- !u!82 &349754914
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4708,6 +4709,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2f7ee2dcca358645b9056952fea2303, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  musicSource: {fileID: 0}
+  SFXSource: {fileID: 0}
+  startBackground: {fileID: 0}
+  gameBackground: {fileID: 0}
+  enemybeingshot: {fileID: 0}
+  bobbeingshot: {fileID: 0}
+  bobdied: {fileID: 0}
+  bobshooting: {fileID: 0}
+  coinCollection: {fileID: 0}
+  confirmClick: {fileID: 0}
+  bossOne: {fileID: 0}
+  bossTwo: {fileID: 0}
+  bossThree: {fileID: 0}
 --- !u!4 &2041705100
 Transform:
   m_ObjectHideFlags: 0

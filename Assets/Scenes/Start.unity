@@ -6157,7 +6157,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8975be882cdc68e4f8c643411ba35563, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: 8f45cbb3073f66949945ea7e962e2010, type: 2}
   musicSlider: {fileID: 148754189}
+  sfxSlider: {fileID: 0}
 --- !u!1 &1812948325
 GameObject:
   m_ObjectHideFlags: 0
@@ -6636,7 +6638,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8975be882cdc68e4f8c643411ba35563, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: 8f45cbb3073f66949945ea7e962e2010, type: 2}
   musicSlider: {fileID: 0}
+  sfxSlider: {fileID: 0}
 --- !u!114 &2092558827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7051,6 +7055,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5619843025935305482, guid: 019a6d559cbdc4388ad8060c009d2471, type: 3}
+      propertyPath: bobdied
+      value: 
+      objectReference: {fileID: 8300000, guid: 1dc177c9d0d8347d0b0a178593807e77, type: 3}
     - target: {fileID: 5830793771487861755, guid: 019a6d559cbdc4388ad8060c009d2471, type: 3}
       propertyPath: m_LocalPosition.x
       value: 200.5366

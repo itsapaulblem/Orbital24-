@@ -180,7 +180,13 @@ MonoBehaviour:
   gameBackground: {fileID: 8300000, guid: 7aece2f4e2ff5483c8b6649a74ae1b0d, type: 3}
   enemybeingshot: {fileID: 8300000, guid: b31abebe929a6476a9fdc2ccaa86f89d, type: 3}
   bobbeingshot: {fileID: 8300000, guid: ab297b593498a6e47ba84de770477cbe, type: 3}
+  bobdied: {fileID: 8300000, guid: 4f5bc64a69b9741b49c08897fbf40c67, type: 3}
   bobshooting: {fileID: 8300000, guid: aac3b95d9afb74b729eea0213d384e38, type: 3}
+  coinCollection: {fileID: 8300000, guid: 4810b5971951446d2ba39f367a2dc2d6, type: 3}
+  confirmClick: {fileID: 8300000, guid: 76827b774477f4a30816b9316be1c941, type: 3}
+  bossOne: {fileID: 8300000, guid: 365e07abc8415474397367ea6eb77eb9, type: 3}
+  bossTwo: {fileID: 8300000, guid: effe6d71cfa2d4689a4262969473dd08, type: 3}
+  bossThree: {fileID: 8300000, guid: af66162561d2eed40ad49268cab318bb, type: 3}
 --- !u!1 &9157553889644716388
 GameObject:
   m_ObjectHideFlags: 0
