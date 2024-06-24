@@ -1,10 +1,10 @@
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class StatsManager
 {
     private static StatsManager playerInstance;
+    private Dictionary<string, float> originalValues = new Dictionary<string, float>();
 
     // Default Player Stats
     private const float MOVESPEED = 4f;
@@ -43,7 +43,8 @@ public class StatsManager
         float atk = -1, float atkSpd = -1, float bulLife = -1, float bulSpd = -1)
     {
         // if no existing playerInstance
-        if (playerInstance == null) {
+        if (playerInstance == null)
+        {
             mvSpd = mvSpd == -1 ? MOVESPEED : mvSpd;
             maxHp = maxHp == -1 ? MAXHEALTH : maxHp;
             atk = atk == -1 ? ATTACK : atk;
@@ -128,39 +129,80 @@ public class StatsManager
         bulletLife = life;
     }
 
-    public float GetBulletSpeed(){
+    public float GetBulletSpeed()
+    {
         return bulletSpeed;
     }
 
-    public void SetBulletSpeed(float speed){
+    public void SetBulletSpeed(float speed)
+    {
         bulletSpeed = speed;
     }
 
-    public void IncreaseStat(string stat, float amount){
-        switch (stat){
-            // coral elixir 
+    public void IncreaseStat(string stat, float amount)
+    {
+        switch (stat)
+        {
             case "maxHealth":
-                maxHealth += amount; 
-                break; 
-            // dense ink 
-            case "bulletLife":
-                bulletLife += amount;
-                break; 
-            // jet boosters 
-            case "moveSpeed":
-                moveSpeed += amount; 
-                break; 
-            // toxic ink 
-            case "attack":
-                attack += amount; 
-                break; 
-            // turbo ink 
-            case "bulletSpeed":
-                bulletSpeed += amount; 
+                RememberOriginalValue(stat, maxHealth);
+                maxHealth += amount;
                 break;
-            default: 
+            case "bulletLife":
+                RememberOriginalValue(stat, bulletLife);
+                bulletLife += amount;
+                break;
+            case "moveSpeed":
+                RememberOriginalValue(stat, moveSpeed);
+                moveSpeed += amount;
+                break;
+            case "attack":
+                RememberOriginalValue(stat, attack);
+                attack += amount;
+                break;
+            case "bulletSpeed":
+                RememberOriginalValue(stat, bulletSpeed);
+                bulletSpeed += amount;
+                break;
+            default:
                 Debug.LogWarning("Stat not recognised: " + stat);
                 break;
+        }
+    }
+
+    public void RevertStat(string stat)
+    {
+        if (originalValues.ContainsKey(stat))
+        {
+            switch (stat)
+            {
+                case "maxHealth":
+                    maxHealth = originalValues[stat];
+                    break;
+                case "bulletLife":
+                    bulletLife = originalValues[stat];
+                    break;
+                case "moveSpeed":
+                    moveSpeed = originalValues[stat];
+                    break;
+                case "attack":
+                    attack = originalValues[stat];
+                    break;
+                case "bulletSpeed":
+                    bulletSpeed = originalValues[stat];
+                    break;
+                default:
+                    Debug.LogWarning("Stat not recognised: " + stat);
+                    break;
+            }
+            originalValues.Remove(stat);
+        }
+    }
+
+    private void RememberOriginalValue(string stat, float originalValue)
+    {
+        if (!originalValues.ContainsKey(stat))
+        {
+            originalValues.Add(stat, originalValue);
         }
     }
 }

@@ -1275,6 +1275,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &876137267 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2792576102933933761, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
+  m_PrefabInstance: {fileID: 1332797119}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &906124258 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 68574786085466668, guid: c3382ac9c803741aeaebc44feb7e097a, type: 3}
@@ -2594,7 +2599,7 @@ PrefabInstance:
     - target: {fileID: 7939045153601931480, guid: c3382ac9c803741aeaebc44feb7e097a, type: 3}
       propertyPath: GameOverMenu
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 876137267}
     - target: {fileID: 7939045153601931480, guid: c3382ac9c803741aeaebc44feb7e097a, type: 3}
       propertyPath: testParticleSystem
       value: 
@@ -2874,6 +2879,22 @@ PrefabInstance:
     - target: {fileID: 267156325852249618, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 575238094455277684, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
+      propertyPath: flashColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 575238094455277684, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
+      propertyPath: flashColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 575238094455277684, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
+      propertyPath: flashColor.r
+      value: 0.80906105
+      objectReference: {fileID: 0}
+    - target: {fileID: 575238094455277684, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
+      propertyPath: increaseDuration
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1095532002611605862, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
       propertyPath: m_AnchorMax.y
