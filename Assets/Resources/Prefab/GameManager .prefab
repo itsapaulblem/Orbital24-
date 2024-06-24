@@ -5245,7 +5245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 535c17633c4a8e94b8550ff62d5265c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  killText: {fileID: 0}
+  killText: {fileID: 5712952310392498657}
   isActive: 0
   marketplaceMenu: {fileID: 0}
 --- !u!1 &6440270199558047316
@@ -6947,7 +6947,6 @@ MonoBehaviour:
   confirmMenu: {fileID: 8284459628868176244}
   statToIncrease: 
   increaseAmount: 0
-  increaseDuration: 5
   inventoryMenu: {fileID: 3561198314540239957}
 --- !u!1 &8559607611286406687
 GameObject:

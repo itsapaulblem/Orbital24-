@@ -17,7 +17,7 @@ public class Confirm : MonoBehaviour
     private AudioManager audioManager;
     private Renderer playerRenderer;
     private Color originalColor;
-    private Color flashColor = new Color(0.5f, 0f, 0.5f); // Purple color
+    public Color flashColor = new Color(0.5f, 0f, 0.5f); // Purple color
     private float flashDuration = 0.5f; // Duration for each flash
 
     void Start()
@@ -118,8 +118,11 @@ public class Confirm : MonoBehaviour
     {
         while (isIncreaseActive)
         {
+            Color originalColor = playerRenderer.material.color;
             playerRenderer.material.color = flashColor;
+
             yield return new WaitForSeconds(flashDuration);
+
             playerRenderer.material.color = originalColor;
             yield return new WaitForSeconds(flashDuration);
         }

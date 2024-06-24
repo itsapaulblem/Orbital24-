@@ -6,6 +6,7 @@ using TMPro;
 
 public class MarketplaceManager : MonoBehaviour
 {
+    private AudioManager audioManager;
     public ShopItem[] shopItems; 
     public GameObject[] shopPanelsGameObject; 
     public ShopTemplate[] shopPanels; 
@@ -14,6 +15,7 @@ public class MarketplaceManager : MonoBehaviour
 
     void Start()
     {
+        audioManager = AudioManager.Instance;
         for (int i = 0; i < shopItems.Length; i++)
         {
             shopPanelsGameObject[i].SetActive(true);
@@ -57,6 +59,7 @@ public class MarketplaceManager : MonoBehaviour
             Inventory.SpendCoins(shopItems[num].baseCost);
             CheckPurchaseable();
             Inventory.AddItemToInventory(num); // Pass item index to add to inventory
+            audioManager.PlaySFX(audioManager.purchaseClick);
         }
     }
 }

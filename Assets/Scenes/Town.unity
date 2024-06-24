@@ -2894,7 +2894,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 575238094455277684, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
       propertyPath: increaseDuration
-      value: 0.5
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1095532002611605862, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
       propertyPath: m_AnchorMax.y
