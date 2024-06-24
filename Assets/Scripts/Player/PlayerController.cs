@@ -108,32 +108,42 @@ public class PlayerController : MonoBehaviour
     /// If fireButton is pressed, player shootContinuous, with timeBetweenShots
     /// delay (reload) between each shot. If player stops pressing fireButton while 
     /// still reloading, player will shootSingle once reloaded.
-    private void Update() 
-    {
-        float timeSinceLastFire = Time.time - lastFireTime;
-        if (shootContinuous || shootSingle)
-        {
-            if (timeSinceLastFire >= stats.GetAttackSpeed())
-            {
-                FireBullet();
-                lastFireTime = Time.time;
-                shootSingle = false;
-            }
-        }
-        Color temp = healthBar.GetComponent<SpriteRenderer>().color;
-        // Heal out of combat
-        float timeSinceCombat = Mathf.Min(Time.time - lastDamageTick,timeSinceLastFire);
-        if (!stats.isFullHp() && timeSinceCombat >= stats.GetAttackSpeed())
-        {
-            Heal(healRate*Time.deltaTime);
-        }
-        else if (stats.isFullHp() && temp.a > 0f) {
-            temp.a -= 1f * Time.deltaTime;
-            healthBar.GetComponent<SpriteRenderer>().color = temp;
-        }
+    private void Update()
+{
+    float timeSinceLastFire = Time.time - lastFireTime;
 
-        
+    if (shootContinuous)
+    {
+        if (timeSinceLastFire >= stats.GetAttackSpeed())
+        {
+            FireBullet();
+            lastFireTime = Time.time;
+        }
     }
+    else if (shootSingle)
+    {
+        if (timeSinceLastFire >= stats.GetAttackSpeed())
+        {
+            FireBullet();
+            lastFireTime = Time.time;
+            shootSingle = false; // Reset shootSingle after firing
+        }
+    }
+
+    // Heal out of combat
+    float timeSinceCombat = Mathf.Min(Time.time - lastDamageTick, timeSinceLastFire);
+    Color temp = healthBar.GetComponent<SpriteRenderer>().color;
+
+    if (!stats.isFullHp() && timeSinceCombat >= stats.GetAttackSpeed())
+    {
+        Heal(healRate * Time.deltaTime);
+    }
+    else if (stats.isFullHp() && temp.a > 0f)
+    {
+        temp.a -= 1f * Time.deltaTime;
+        healthBar.GetComponent<SpriteRenderer>().color = temp;
+    }
+}
 
     /// Obtains mousePos and instantiate a bullet to fire at angle relative to 
     /// player position
@@ -215,7 +225,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void OnBoosterButtonClicked(string stat){
-        stats.IncreaseStat(stat, 1f);
+        stats.IncreaseStat(stat, 1f, 10f);
     }
 
     

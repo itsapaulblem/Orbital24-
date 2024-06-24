@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,18 +6,17 @@ public class StatsManager
 {
     private static StatsManager playerInstance;
     private Dictionary<string, float> originalValues = new Dictionary<string, float>();
+    private Dictionary<string, Coroutine> statCoroutines = new Dictionary<string, Coroutine>(); // Coroutine references for stat increases
 
     // Default Player Stats
     private const float MOVESPEED = 4f;
     private const float MAXHEALTH = 100f;
     private const float ATTACK = 10f;
-    private const float ATTACKSPEED = 0.9f;
     private const float BULLETLIFE = 12f;
     private const float BULLETSPEED = 6f;
-
+    private float currentHealth;
     private float moveSpeed;
     private float maxHealth;
-    private float currentHealth;
     private float attack;
     private float attackSpeed;
     private float bulletLife;
@@ -26,21 +26,18 @@ public class StatsManager
     {
         moveSpeed = mvSpd;
         maxHealth = maxHp;
-        currentHealth = maxHealth;
         attack = atk;
-        attackSpeed = atkSpd;
+        attackSpeed = atkSpd; 
         bulletLife = bulLife;
         bulletSpeed = bulSpd;
     }
 
-    public static StatsManager of(float mvSpd, float maxHp, float atk,
-        float atkSpd = -1, float bulLife = -1, float bulSpd = -1)
+    public static StatsManager of(float mvSpd, float maxHp, float atk, float atkSpd, float bulLife = -1, float bulSpd = -1)
     {
         return new StatsManager(mvSpd, maxHp, atk, atkSpd, bulLife, bulSpd);
     }
 
-    public static StatsManager ofPlayer(float mvSpd = -1, float maxHp = -1,
-        float atk = -1, float atkSpd = -1, float bulLife = -1, float bulSpd = -1)
+    public static StatsManager ofPlayer(float mvSpd = -1, float maxHp = -1, float atk = -1, float atkSpd = 1, float bulLife = -1, float bulSpd = -1)
     {
         // if no existing playerInstance
         if (playerInstance == null)
@@ -48,7 +45,6 @@ public class StatsManager
             mvSpd = mvSpd == -1 ? MOVESPEED : mvSpd;
             maxHp = maxHp == -1 ? MAXHEALTH : maxHp;
             atk = atk == -1 ? ATTACK : atk;
-            atkSpd = atkSpd == -1 ? ATTACKSPEED : atkSpd;
             bulLife = bulLife == -1 ? BULLETLIFE : bulLife;
             bulSpd = bulSpd == -1 ? BULLETSPEED : bulSpd;
             playerInstance = new StatsManager(mvSpd, maxHp, atk, atkSpd, bulLife, bulSpd);
@@ -77,6 +73,44 @@ public class StatsManager
         maxHealth = health;
     }
 
+    public float GetAttack()
+    {
+        return attack;
+    }
+
+    public void SetAttack(float value)
+    {
+        attack = value;
+    }
+     public float GetAttackSpeed()
+    {
+        return attackSpeed;
+    }
+
+    public void SetAttackSpeed(float speed)
+    {
+        attackSpeed = speed;
+    }
+    public float GetBulletLife()
+    {
+        return bulletLife;
+    }
+
+    public void SetBulletLife(float life)
+    {
+        bulletLife = life;
+    }
+
+    public float GetBulletSpeed()
+    {
+        return bulletSpeed;
+    }
+
+    public void SetBulletSpeed(float speed)
+    {
+        bulletSpeed = speed;
+    }
+
     public float damage(float damage)
     {
         currentHealth = Mathf.Max(0f, currentHealth - damage);
@@ -99,110 +133,90 @@ public class StatsManager
         return currentHealth == 0;
     }
 
-    public float GetAttack()
+    // Increase stat method with coroutine
+    public void IncreaseStat(string stat, float amount, float duration)
     {
-        return attack;
+        if (statCoroutines.ContainsKey(stat))
+        {
+            Coroutine existingCoroutine = statCoroutines[stat];
+            CoroutineManager.Instance.StopCoroutine(existingCoroutine);
+        }
+
+        Coroutine newCoroutine = CoroutineManager.Instance.StartCoroutine(IncreaseStatWithDuration(stat, amount, duration));
+        statCoroutines[stat] = newCoroutine;
     }
 
-    public void SetAttack(float value)
+    private IEnumerator IncreaseStatWithDuration(string stat, float amount, float duration)
     {
-        attack = value;
+        float originalValue = GetStatValue(stat);
+        float newValue = originalValue + amount;
+
+        SetStatValue(stat, newValue);
+
+        // Flashing effect
+        Renderer playerRenderer = GameObject.FindGameObjectWithTag("Player").GetComponent<Renderer>();
+        Color originalColor = playerRenderer.material.color;
+        Color flashColor = new Color(0f, 0f, 1f); // Blue color
+        float flashDuration = 0.5f; // Duration for each flash
+
+        float endTime = Time.time + duration;
+        while (Time.time < endTime)
+        {
+            playerRenderer.material.color = flashColor;
+            yield return new WaitForSeconds(flashDuration);
+            playerRenderer.material.color = originalColor;
+            yield return new WaitForSeconds(flashDuration);
+        }
+
+        SetStatValue(stat, originalValue);
+        statCoroutines.Remove(stat);
+
+        playerRenderer.material.color = originalColor;
     }
 
-    public float GetAttackSpeed()
-    {
-        return attackSpeed;
-    }
-
-    public void SetAttackSpeed(float speed)
-    {
-        attackSpeed = speed;
-    }
-
-    public float GetBulletLife()
-    {
-        return bulletLife;
-    }
-
-    public void SetBulletLife(float life)
-    {
-        bulletLife = life;
-    }
-
-    public float GetBulletSpeed()
-    {
-        return bulletSpeed;
-    }
-
-    public void SetBulletSpeed(float speed)
-    {
-        bulletSpeed = speed;
-    }
-
-    public void IncreaseStat(string stat, float amount)
+    // Helper methods
+    private float GetStatValue(string stat)
     {
         switch (stat)
         {
-            case "maxHealth":
-                RememberOriginalValue(stat, maxHealth);
-                maxHealth += amount;
-                break;
-            case "bulletLife":
-                RememberOriginalValue(stat, bulletLife);
-                bulletLife += amount;
-                break;
             case "moveSpeed":
-                RememberOriginalValue(stat, moveSpeed);
-                moveSpeed += amount;
+                return moveSpeed;
+            case "maxHealth":
+                return maxHealth;
+            case "attack":
+                return attack;
+            case "bulletLife":
+                return bulletLife;
+            case "bulletSpeed":
+                return bulletSpeed;
+            default:
+                Debug.LogWarning("Stat not recognised: " + stat);
+                return 0f;
+        }
+    }
+
+    private void SetStatValue(string stat, float value)
+    {
+        switch (stat)
+        {
+            case "moveSpeed":
+                moveSpeed = value;
+                break;
+            case "maxHealth":
+                maxHealth = value;
                 break;
             case "attack":
-                RememberOriginalValue(stat, attack);
-                attack += amount;
+                attack = value;
+                break;
+            case "bulletLife":
+                bulletLife = value;
                 break;
             case "bulletSpeed":
-                RememberOriginalValue(stat, bulletSpeed);
-                bulletSpeed += amount;
+                bulletSpeed = value;
                 break;
             default:
                 Debug.LogWarning("Stat not recognised: " + stat);
                 break;
-        }
-    }
-
-    public void RevertStat(string stat)
-    {
-        if (originalValues.ContainsKey(stat))
-        {
-            switch (stat)
-            {
-                case "maxHealth":
-                    maxHealth = originalValues[stat];
-                    break;
-                case "bulletLife":
-                    bulletLife = originalValues[stat];
-                    break;
-                case "moveSpeed":
-                    moveSpeed = originalValues[stat];
-                    break;
-                case "attack":
-                    attack = originalValues[stat];
-                    break;
-                case "bulletSpeed":
-                    bulletSpeed = originalValues[stat];
-                    break;
-                default:
-                    Debug.LogWarning("Stat not recognised: " + stat);
-                    break;
-            }
-            originalValues.Remove(stat);
-        }
-    }
-
-    private void RememberOriginalValue(string stat, float originalValue)
-    {
-        if (!originalValues.ContainsKey(stat))
-        {
-            originalValues.Add(stat, originalValue);
         }
     }
 }

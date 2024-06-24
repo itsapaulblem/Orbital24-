@@ -26,7 +26,7 @@ public class ResetBehavior : MonoBehaviour
         PlayerController target = collision.GetComponent<PlayerController>();
         if (target != null) {
             foreach (GameObject obj in linkedObject) {
-                StartCoroutine(Reset(obj));
+                StartCoroutine(ResetCoroutine(obj));
             }
         }
     }
@@ -36,7 +36,7 @@ public class ResetBehavior : MonoBehaviour
         gameObject.transform.Find("Activated").gameObject.SetActive(false);
     }
 
-    private IEnumerator Reset(GameObject obj) 
+    private IEnumerator ResetCoroutine(GameObject obj) 
     {
         Rigidbody2D rb = obj.GetComponent<Rigidbody2D>();
         Vector2 origin = origins[obj];
