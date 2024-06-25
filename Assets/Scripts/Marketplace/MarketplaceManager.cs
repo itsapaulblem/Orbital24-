@@ -57,6 +57,7 @@ public class MarketplaceManager : MonoBehaviour
         if (Inventory.GetCoins() >= shopItems[num].baseCost)
         {
             Inventory.SpendCoins(shopItems[num].baseCost);
+            InventoryManager.UpdateCoinUI();
             CheckPurchaseable();
             Inventory.AddItemToInventory(num); // Pass item index to add to inventory
             audioManager.PlaySFX(audioManager.purchaseClick);

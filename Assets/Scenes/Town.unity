@@ -1627,7 +1627,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4691936696320082005, guid: 871fedc0b0d5c450aac532a1b4b5ab4d, type: 3}
       propertyPath: sight
-      value: 6
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4691936696320082005, guid: 871fedc0b0d5c450aac532a1b4b5ab4d, type: 3}
       propertyPath: scoreText
@@ -2896,6 +2896,10 @@ PrefabInstance:
       propertyPath: increaseDuration
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 1065793635166518434, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
+      propertyPath: itemIndex
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1095532002611605862, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -3004,6 +3008,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4381753704010630917, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
+      propertyPath: itemIndex
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5989707766269627223, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
+      propertyPath: itemIndex
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6263491298926081320, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
       propertyPath: m_Name
       value: 'GameManager '
@@ -3071,6 +3083,10 @@ PrefabInstance:
     - target: {fileID: 6788344014904843923, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7568892318597717041, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
+      propertyPath: itemIndex
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7973210802102701717, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
       propertyPath: m_AnchorMax.y
@@ -3978,7 +3994,7 @@ PrefabInstance:
     - target: {fileID: 2814162929133344553, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
       propertyPath: m_BoundingShape2D
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1939084209}
     - target: {fileID: 3289064270138888570, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
       propertyPath: m_CullingMask.m_Bits
       value: 63
@@ -4080,6 +4096,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1856685351}
   m_CullTransparentMesh: 1
+--- !u!60 &1939084209 stripped
+PolygonCollider2D:
+  m_CorrespondingSourceObject: {fileID: 837018791545889367, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
+  m_PrefabInstance: {fileID: 1825830830}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1997639299 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1188419898628119479, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}

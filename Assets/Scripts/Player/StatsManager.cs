@@ -5,8 +5,9 @@ using UnityEngine;
 public class StatsManager
 {
     private static StatsManager playerInstance;
-    private Dictionary<string, float> originalValues = new Dictionary<string, float>();
     private Dictionary<string, Coroutine> statCoroutines = new Dictionary<string, Coroutine>(); // Coroutine references for stat increases
+    private Dictionary<string, int> increaseDuration = new Dictionary<string, int>(); // duration intervals left
+    private Dictionary<string, float> originalStat = new Dictionary<string, float>(); // original before increase
 
     // Default Player Stats
     private const float MOVESPEED = 4f;
@@ -21,6 +22,9 @@ public class StatsManager
     private float attackSpeed;
     private float bulletLife;
     private float bulletSpeed;
+
+    // Temporary booster duration
+    private float boosterInterval = 100f;
 
     private StatsManager(float mvSpd, float maxHp, float atk, float atkSpd, float bulLife, float bulSpd)
     {
@@ -135,43 +139,46 @@ public class StatsManager
     }
 
     // Increase stat method with coroutine
-    public void IncreaseStat(string stat, float amount, float duration)
+    public void TemporaryIncreaseStat(string stat, float amount)
     {
-        if (statCoroutines.ContainsKey(stat))
+        if (!increaseDuration.ContainsKey(stat)) { increaseDuration.Add(stat, 0); }
+        increaseDuration[stat] += 1;
+        if (increaseDuration[stat] == 1)
         {
-            Coroutine existingCoroutine = statCoroutines[stat];
-            CoroutineManager.Instance.StopCoroutine(existingCoroutine);
+            Coroutine coroutine = CoroutineManager.Instance.StartCoroutine(IncreaseStatWithDuration(stat, amount));
         }
-
-        Coroutine newCoroutine = CoroutineManager.Instance.StartCoroutine(IncreaseStatWithDuration(stat, amount, duration));
-        statCoroutines[stat] = newCoroutine;
     }
 
-    private IEnumerator IncreaseStatWithDuration(string stat, float amount, float duration)
+    private IEnumerator IncreaseStatWithDuration(string stat, float amount)
     {
         float originalValue = GetStatValue(stat);
         float newValue = originalValue + amount;
 
         SetStatValue(stat, newValue);
 
-        // Flashing effect
+        Coroutine coroutine = CoroutineManager.Instance.StartCoroutine(FlashingIndicator(stat));
+        while (increaseDuration[stat] > 0) {
+            yield return new WaitForSeconds(boosterInterval);
+            increaseDuration[stat] -= 1;
+            Debug.Log("One interval complete");
+        }
+
+        SetStatValue(stat, originalValue);
+    }
+
+    private IEnumerator FlashingIndicator(string stat)
+    {
         Renderer playerRenderer = GameObject.FindGameObjectWithTag("Player").GetComponent<Renderer>();
         Color originalColor = playerRenderer.material.color;
         Color flashColor = new Color(0f, 0f, 1f); // Blue color
         float flashDuration = 0.5f; // Duration for each flash
-
-        float endTime = Time.time + duration;
-        while (Time.time < endTime)
+        while (increaseDuration[stat] > 0)
         {
             playerRenderer.material.color = flashColor;
             yield return new WaitForSeconds(flashDuration);
             playerRenderer.material.color = originalColor;
             yield return new WaitForSeconds(flashDuration);
         }
-
-        SetStatValue(stat, originalValue);
-        statCoroutines.Remove(stat);
-
         playerRenderer.material.color = originalColor;
     }
 

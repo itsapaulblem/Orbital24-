@@ -5,6 +5,7 @@ public class StatButtonHandler : MonoBehaviour
 {
     public string statToIncrease;  // The stat to increase, e.g., "moveSpeed"
     public float increaseAmount;   // The amount to increase the stat by
+    public int itemIndex;
     public GameObject confirmMenu; // Reference to the confirm menu GameObject
     public GameObject inventoryMenu;  // Reference to the inventory menu
 
@@ -28,10 +29,11 @@ public class StatButtonHandler : MonoBehaviour
             {
                 confirmScript.statToIncrease = statToIncrease;
                 confirmScript.increaseAmount = increaseAmount;
+                confirmScript.itemIndex = 1;
             }
 
             confirmMenu.SetActive(true); // Open the confirm menu
-            inventoryMenu.SetActive(false);
+            GameManager.Instance.ToggleInventoryMenu();
         }
     }
 }

@@ -64,7 +64,7 @@ public class EnemyAI : MonoBehaviour
                         p => p.gameObject.name == "HealthBar").gameObject;
         healthBar.transform.localScale = new Vector3(maxHealthBarScale, 0.1f, 1f);
 
-        SetInit(5f, 20f, 2f); // default initialize
+        SetInit(5f, 40f, 2f); // default initialize
     }
 
     /// Initialise enemy stats

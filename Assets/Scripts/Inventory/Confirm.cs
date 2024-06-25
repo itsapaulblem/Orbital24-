@@ -4,8 +4,8 @@ public class Confirm : MonoBehaviour
 {
     public GameObject confirmMenu;
     public string statToIncrease;  // The stat to increase, e.g., "moveSpeed"
+    public int itemIndex;
     public float increaseAmount;   // The amount to increase the stat by
-    private float increaseDuration = 20f;  // Duration for which the stat increase will be active
 
     public GameObject inventoryMenu;  // Reference to the inventory menu
 
@@ -21,12 +21,15 @@ public class Confirm : MonoBehaviour
     {
         if (StatsManager.ofPlayer() != null)
         {
+            // Consume item
+            Inventory.ConsumeItemFromInventory(itemIndex);
+
             // Increase the stat using StatsManager for a specific duration
-            StatsManager.ofPlayer().IncreaseStat(statToIncrease, increaseAmount, increaseDuration);
+            StatsManager.ofPlayer().TemporaryIncreaseStat(statToIncrease, increaseAmount);
             Debug.Log($"{statToIncrease} increased by {increaseAmount}");
 
             // Start the temporary increase
-            Debug.Log($"Temporary {statToIncrease} increase started for {increaseDuration} seconds.");
+            Debug.Log($"Temporary {statToIncrease} increase for (additional) 100 seconds.");
 
             confirmMenu.SetActive(false); // Close the confirm menu after confirming
 

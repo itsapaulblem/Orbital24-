@@ -155,12 +155,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void ToggleInventoryMenu()
+    public void ToggleInventoryMenu()
     {
         if (inventoryMenu != null)
         {
             isActive = !isActive; 
             inventoryMenu.SetActive(isActive);
+            InventoryManager.UpdateCoinUI();
             inventoryMenu.GetComponent<InventoryManager>().UpdateItemNumbers();
             UpdateKillText(); 
         }

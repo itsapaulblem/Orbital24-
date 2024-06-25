@@ -77,8 +77,12 @@ public class NPC : MonoBehaviour
         };
 
         // Subscribe to the EnemyDied event
-        EnemyAI.EnemyDied += EnemyDiedHandler;
-        Debug.Log("Subscribed to EnemyDied Event");
+        if (currName == "Mermaid") {
+            GameObject.Find("StarterEnemy").GetComponent<EnemyAI>().SetInit(1.5f, 20f, 2f);
+            EnemyAI.EnemyDied += EnemyDiedHandler;
+            Debug.Log("Subscribed to EnemyDied Event");
+        }
+        
     }
 
     void OnDestroy()
@@ -88,12 +92,14 @@ public class NPC : MonoBehaviour
         Debug.Log("Unsubscribed from EnemyDied Event");
     }
 
-    // Event handler for when an enemy dies
+    // Event handler for when an enemy dies, only for mermaid
     private void EnemyDiedHandler()
     {
         dialogueBlock = 2; // changed dialogue block from 1 to 2 when enemy dies 
         dialogueShown = false; // Reset dialogueShown when an enemy dies
         Debug.Log("Enemy died, setting dialogueBlock to 2 and resetting dialogueShown");
+        state = DialogueState.Next;
+        StartCoroutine(RunText());
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -117,11 +123,11 @@ public class NPC : MonoBehaviour
     void Update()
     {
         // Check if the dialogue block is 2 and display the saved message if it hasn't been shown yet
-        if (dialogueBlock == 2 && !dialogueShown)
-        {
-            Debug.Log("Update: Detected dialogue block 2 and dialogue not shown. Starting saved message coroutine.");
-            StartCoroutine(RunTextForSavedMessage());
-        }
+        //if (dialogueBlock == 2 && !dialogueShown)
+        //{
+        //    Debug.Log("Update: Detected dialogue block 2 and dialogue not shown. Starting saved message coroutine.");
+        //    StartCoroutine(RunTextForSavedMessage());
+        //}
 
         // Handle player input for dialogue interaction
         if (waitForPress && Input.GetKeyDown(KeyCode.E))
@@ -129,33 +135,30 @@ public class NPC : MonoBehaviour
             gameObject.transform.Find("Prompt").gameObject.SetActive(false);
             // Shows dialogue
             // TODO: track story progress for crab marketplace menu
-            if (!dialogueShown)
-            {
-                if (state != DialogueState.Next)
-                {
+            if (!dialogueShown && state != DialogueState.Next) {
+                state = DialogueState.Next;
+                StartCoroutine(RunText());
+            } else if (state == DialogueState.Next && !nextDialogue) {
+                nextDialogue = true;
+            } else if (dialogueShown && state == DialogueState.Idle) {
+                if (currName != "Crab") {
                     state = DialogueState.Next;
                     StartCoroutine(RunText());
-                }
-                else if (state == DialogueState.Next && !nextDialogue)
-                {
-                    nextDialogue = true;
-                }
-            }
-            else
-            {
-                if (marketplaceMenu == null) { marketplaceMenu = gameManager.marketplaceMenu; }
-                if (marketplaceMenu.activeSelf)
-                {
-                    marketplaceMenu.SetActive(false);
-                    // Reactivate killText when marketplace menu is hidden
-                    if (gameManager.killText != null)
+                } else {
+                    if (marketplaceMenu == null) { marketplaceMenu = gameManager.marketplaceMenu; }
+                    if (marketplaceMenu.activeSelf)
                     {
-                        gameManager.killText.gameObject.SetActive(true);
+                        marketplaceMenu.SetActive(false);
+                        // Reactivate killText when marketplace menu is hidden
+                        if (gameManager.killText != null)
+                        {
+                            gameManager.killText.gameObject.SetActive(true);
+                        }
                     }
-                }
-                else
-                {
-                    ShowMarketplaceMenu();
+                    else
+                    {
+                        ShowMarketplaceMenu();
+                    }
                 }
             }
         }
@@ -180,7 +183,7 @@ public class NPC : MonoBehaviour
         SetPanel(true);
         int index = 0;
         // discard previous dialogueBlocks
-        for (int i = 0; i < dialogueBlock; i++)
+        for (int i = 0; i < dialogueBlock && !dialogueShown; i++)
         {
             index = Array.IndexOf(dialogue, "-", index) + 1;
         }
@@ -188,6 +191,7 @@ public class NPC : MonoBehaviour
         // display dialogue on camera
         while (dialogue[index] != "-")
         {
+            nextDialogue = false;
             yield return TextScroll(dialogue[index]);
             index += 1;
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.E));
@@ -236,7 +240,6 @@ public class NPC : MonoBehaviour
                                            .GetComponent<TextMeshProUGUI>();
 
         thisText.text = "";
-        nextDialogue = false;
         while (!nextDialogue && (letter < lineOfText.Length))
         {
             thisText.text += lineOfText[letter];
@@ -252,6 +255,7 @@ public class NPC : MonoBehaviour
         if (marketplaceMenu != null && currName == "Crab")
         {
             marketplaceMenu.SetActive(true);
+            InventoryManager.UpdateCoinUI();
             if (gameManager.killText != null)
             {
                 gameManager.killText.gameObject.SetActive(false);

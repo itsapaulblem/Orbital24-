@@ -6,12 +6,13 @@ using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
-    private int[] itemCounts; // Array to store item counts
-
     // Reference to UI elements (assuming you have multiple item number texts)
     public TMP_Text[] itemNumbers;
     public Button[] shopItemButtons; 
     public TMP_Text coins_UI; 
+
+    // Data for UI
+    private int[] itemCounts; // Array to store item counts
     private static int coins; 
     private static List<TMP_Text> coinsUIList = new List<TMP_Text>();
 
@@ -26,6 +27,12 @@ public class InventoryManager : MonoBehaviour
         }
         UpdateItemNumbers();
         AddCoinUI(coins_UI);
+    }
+
+    private void Update()
+    {
+        UpdateItemNumbers();
+        UpdateCoinUI();
     }
 
     // Update UI for all item numbers

@@ -223,10 +223,4 @@ public class PlayerController : MonoBehaviour
 
         playerSpriteRenderer.color = originalColor;
     }
-
-    public void OnBoosterButtonClicked(string stat){
-        stats.IncreaseStat(stat, 5f, 15f);
-    }
-
-    
 }

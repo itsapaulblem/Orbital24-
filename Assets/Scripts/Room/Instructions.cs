@@ -27,7 +27,7 @@ public class Instructions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (controlsCanvasGroup == null) { controlsCanvasGroup = controls.GetComponent<CanvasGroup>(); }
+        if (controls != null && controlsCanvasGroup == null) { controlsCanvasGroup = controls.GetComponent<CanvasGroup>(); }
         if (controlsCanvasGroup == null) { return; }
         if (!exist && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)) {
             exist = true;
