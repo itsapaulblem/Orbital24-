@@ -26,6 +26,7 @@ public class StatsManager
     {
         moveSpeed = mvSpd;
         maxHealth = maxHp;
+        currentHealth = maxHp;
         attack = atk;
         attackSpeed = atkSpd; 
         bulletLife = bulLife;

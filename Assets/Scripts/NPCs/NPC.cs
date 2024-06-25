@@ -46,7 +46,7 @@ public class NPC : MonoBehaviour
         TextAsset dialogueData = Resources.Load<TextAsset>(path);
         dialogue = Regex.Split(dialogueData.text, "\n|\r|\r\n");
 
-        // TODO: retrieve dialogueBlock based on story progress
+        // retrieve dialogueBlock based on story progress
         dialogueBlock = 1;
 
         dialogueMain = GameObject.Find("DialogueMain");

@@ -225,7 +225,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void OnBoosterButtonClicked(string stat){
-        stats.IncreaseStat(stat, 1f, 10f);
+        stats.IncreaseStat(stat, 5f, 15f);
     }
 
     

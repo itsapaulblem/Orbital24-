@@ -64,13 +64,14 @@ public class EnemyAI : MonoBehaviour
                         p => p.gameObject.name == "HealthBar").gameObject;
         healthBar.transform.localScale = new Vector3(maxHealthBarScale, 0.1f, 1f);
 
-        SetInit(2f, 50f, 3f); // default initialize
+        SetInit(100f, 200f, 20f); // default initialize
     }
 
     /// Initialise enemy stats
-    public void SetInit(float mvSpd, float maxHp, float atk,
+    public void SetInit(float mvSpd, float maxHp, float atk, 
         float atkSpd = -1, float bulLife = -1, float bulSpd = -1)
     {
+     
         // Initialise StatsManager based on provided stats
         stats = StatsManager.of(mvSpd, maxHp, atk, atkSpd, bulLife, bulSpd);
 
@@ -151,6 +152,7 @@ public class EnemyAI : MonoBehaviour
         // check if enemy is dead
         if (stats.isDead())
         {
+            audioManager.PlaySFX(audioManager.enemyDied); // Play death sound effect
             // Instantiate the death particles
             if (deathParticlesPrefab != null)
             {

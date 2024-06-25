@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour
     private string PATHTOSPRITE = "Sprites/Bullets/";
     
     // Bullet Attribute
-    public float damage = 10f;  // Damage variable
+    public float damage = 5f;  // Damage variable
     private float bulletLife = 12f;
     private Vector2 origin;
     private bool randomSplat = true;
