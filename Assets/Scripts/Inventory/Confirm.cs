@@ -5,7 +5,7 @@ public class Confirm : MonoBehaviour
     public GameObject confirmMenu;
     public string statToIncrease;  // The stat to increase, e.g., "moveSpeed"
     public float increaseAmount;   // The amount to increase the stat by
-    private float increaseDuration = 5f;  // Duration for which the stat increase will be active
+    private float increaseDuration = 20f;  // Duration for which the stat increase will be active
 
     public GameObject inventoryMenu;  // Reference to the inventory menu
 
