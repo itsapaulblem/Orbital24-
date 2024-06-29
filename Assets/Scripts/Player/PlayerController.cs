@@ -118,6 +118,7 @@ public class PlayerController : MonoBehaviour
         {
             FireBullet();
             lastFireTime = Time.time;
+            shootSingle = false; // Reset shootSingle after firing
         }
     }
     else if (shootSingle)
@@ -173,11 +174,10 @@ public class PlayerController : MonoBehaviour
     ///   inputValue - player inputs
     private void OnFire(InputValue inputValue)
     {
-        shootContinuous = inputValue.isPressed;
-        if (inputValue.isPressed)
-        {
+        if (inputValue.isPressed) {
             shootSingle = true;
         }
+        shootContinuous = inputValue.isPressed;
     }
 
     /// Apply damage to player
