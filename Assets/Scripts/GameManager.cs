@@ -224,7 +224,10 @@ public class GameManager : MonoBehaviour
     {
         // Restart the current scene
         Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("Room");
+        PlayerController player = GameObject.Find("Player").GetComponent<PlayerController>();
+        player.Heal(-1);
 
         if (gameOverMenu != null)
         {

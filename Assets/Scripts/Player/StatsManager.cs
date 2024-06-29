@@ -124,7 +124,11 @@ public class StatsManager
 
     public float heal(float healing)
     {
-        currentHealth = Mathf.Min(maxHealth, currentHealth + healing);
+        if (healing == -1) {
+            currentHealth = maxHealth;
+        } else {
+            currentHealth = Mathf.Min(maxHealth, currentHealth + healing);
+        }
         return currentHealth / maxHealth;
     }
 

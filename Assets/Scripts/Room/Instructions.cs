@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; 
+using UnityEngine.SceneManagement;
 public class Instructions : MonoBehaviour
 {
     public GameObject controls;
@@ -22,6 +23,8 @@ public class Instructions : MonoBehaviour
 
         // TODO: Check story progress to see if player requires controls guide
         controls.SetActive(true);
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     // Update is called once per frame
@@ -49,5 +52,10 @@ public class Instructions : MonoBehaviour
         controlsCanvasGroup.alpha = 0; 
         controls.SetActive(false);
         exist = false;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class AreaCollider : MonoBehaviour
 {
     // Copies PolygonColider's points, and generate new EdgeCollider
-    void Awake()
+    void Start()
     {
         // retrieve/initialise polygon collider on background
         PolygonCollider2D poly = GetComponent<PolygonCollider2D>();
