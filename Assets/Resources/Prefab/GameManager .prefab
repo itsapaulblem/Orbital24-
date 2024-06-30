@@ -598,19 +598,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2610414645231252955}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Confirm, Assembly-CSharp
-        m_MethodName: onClick
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &6396089888961138099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -626,7 +614,7 @@ MonoBehaviour:
   statToIncrease: maxHealth
   increaseAmount: 10
   itemIndex: 0
-  confirmMenu: {fileID: 0}
+  confirmMenu: {fileID: 8284459628868176244}
   inventoryMenu: {fileID: 2551705768735749177}
 --- !u!1 &600009508106187949
 GameObject:
