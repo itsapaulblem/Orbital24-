@@ -29,7 +29,7 @@ public class StatButtonHandler : MonoBehaviour
             {
                 confirmScript.statToIncrease = statToIncrease;
                 confirmScript.increaseAmount = increaseAmount;
-                confirmScript.itemIndex = 1;
+                confirmScript.itemIndex = itemIndex;
             }
 
             confirmMenu.SetActive(true); // Open the confirm menu
