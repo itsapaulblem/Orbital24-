@@ -6,7 +6,7 @@ using TMPro;
 public static class Inventory
 {
     // Static variable to keep track of the number of coins 
-    private static int coins = 0; 
+    private static int coins = 23; 
     // Array to store the count of each item type 
     private static int[] itemCounts = new int[5];
 

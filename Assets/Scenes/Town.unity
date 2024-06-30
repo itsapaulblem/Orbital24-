@@ -1435,7 +1435,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextScene: Room
   xCoord: 0
-  yCoord: 0
+  yCoord: -1.3
 --- !u!114 &832117099
 MonoBehaviour:
   m_ObjectHideFlags: 0

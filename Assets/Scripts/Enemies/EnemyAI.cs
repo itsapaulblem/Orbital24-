@@ -78,7 +78,7 @@ public class EnemyAI : MonoBehaviour
         // Set starting length of healthbar
         maxHealthBarScale = stats.GetMaxHealth() / 50;
         healthBar.transform.localScale = new Vector3(maxHealthBarScale, 0.1f, 1f);
-        healthBar.transform.localPosition = new Vector3(0f, 1f, 1f);
+        // healthBar.transform.localPosition = new Vector3(0f, 1f, 1f);
 
         // Start async movement routine
         StartCoroutine(MovementRoutine());

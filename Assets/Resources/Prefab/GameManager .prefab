@@ -612,7 +612,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statToIncrease: maxHealth
-  increaseAmount: 10
+  increaseAmount: 30
   itemIndex: 0
   confirmMenu: {fileID: 8284459628868176244}
   inventoryMenu: {fileID: 2551705768735749177}
@@ -843,7 +843,7 @@ MonoBehaviour:
   statToIncrease: attack
   increaseAmount: 10
   itemIndex: 3
-  confirmMenu: {fileID: 0}
+  confirmMenu: {fileID: 8284459628868176244}
   inventoryMenu: {fileID: 2551705768735749177}
 --- !u!1 &769270773202405077
 GameObject:
@@ -3777,9 +3777,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statToIncrease: bulletSpeed
-  increaseAmount: 10
+  increaseAmount: 2
   itemIndex: 4
-  confirmMenu: {fileID: 0}
+  confirmMenu: {fileID: 8284459628868176244}
   inventoryMenu: {fileID: 2551705768735749177}
 --- !u!1 &3734396224652966046
 GameObject:
@@ -4385,9 +4385,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statToIncrease: bulletLife
-  increaseAmount: 10
+  increaseAmount: 7
   itemIndex: 1
-  confirmMenu: {fileID: 0}
+  confirmMenu: {fileID: 8284459628868176244}
   inventoryMenu: {fileID: 2551705768735749177}
 --- !u!1 &4583856984811336334
 GameObject:
@@ -7283,9 +7283,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statToIncrease: moveSpeed
-  increaseAmount: 10
+  increaseAmount: 2
   itemIndex: 2
-  confirmMenu: {fileID: 0}
+  confirmMenu: {fileID: 8284459628868176244}
   inventoryMenu: {fileID: 2551705768735749177}
 --- !u!1 &8360283131673470843
 GameObject:
