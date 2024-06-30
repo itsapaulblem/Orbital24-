@@ -7,6 +7,9 @@ using UnityEngine.SceneManagement;
 public class SceneChanger : MonoBehaviour
 {
     [SerializeField] private string nextScene;
+    [SerializeField] private float xCoord;
+    [SerializeField] private float yCoord;
+
     public void Start()
     {
         PlayableDirector director = gameObject.GetComponent<PlayableDirector>();
@@ -26,6 +29,7 @@ public class SceneChanger : MonoBehaviour
         PlayerController target = collision.GetComponent<PlayerController>();
         if (target != null) {
             SceneManager.LoadSceneAsync(nextScene);
+            PlayerController.SetCoords(xCoord, yCoord);
         }
     }
 }

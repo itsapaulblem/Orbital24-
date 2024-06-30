@@ -15,7 +15,16 @@ public class AudioManager : MonoBehaviour
     public AudioClip gameBackground;
     public AudioClip enemybeingshot; 
     public AudioClip bobbeingshot; 
-    public AudioClip bobshooting; 
+    public AudioClip bobdied; 
+    public AudioClip bobshooting;
+    public AudioClip coinCollection;  
+    public AudioClip confirmClick; 
+    public AudioClip bossOne; 
+    public AudioClip bossTwo; 
+    public AudioClip bossThree; 
+    public AudioClip bossFinal; 
+    public AudioClip purchaseClick;
+    public AudioClip enemyDied;
 
     public static AudioManager Instance;
     private enum MusicState { Start, Game }
@@ -32,8 +41,10 @@ public class AudioManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
     private  void Start()
     {
+        // check current scene to determine track to play
         string sceneName = SceneManager.GetActiveScene().name;
         if (Array.IndexOf(startScenes, sceneName) > -1) {
             musicState = MusicState.Start;
@@ -44,7 +55,6 @@ public class AudioManager : MonoBehaviour
             musicSource.clip = gameBackground;
             musicSource.Play();
         }
-        //_audioSource.Play();
     }
 
     public void PlayMusic()
@@ -62,6 +72,7 @@ public class AudioManager : MonoBehaviour
 
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        // on scene change, check current scene and change track if needed
         string sceneName = SceneManager.GetActiveScene().name;
         if (Array.IndexOf(startScenes, sceneName) > -1) {
             if (musicState == MusicState.Start) {

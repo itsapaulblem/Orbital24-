@@ -4,30 +4,31 @@ using UnityEngine;
 
 public class RangedEnemyAI : EnemyAI
 {
+
     // Combat Attributes
-    private string bulletPrefab = "Prefab/Bullet";
-    float bulletLife = 14f;
-    float bulletSpeed = 12f;
-    private float timeBetweenShots = 0.9f;
-    private float lastFireTime;
+    protected string bulletPrefab = "Prefab/Bullet";
+    protected float lastFireTime;
     // Seeking Attributes
-    private float distanceToStop = 7f;
+    protected float distanceToStop = 7f;
 
     void Start()
     {
-        SetInit(30, 10f, 2f);
-        lastFireTime = Time.time - timeBetweenShots;
+        SetInit(2f, 30, 10f, 0.9f, 14f, 12f);
+        lastFireTime = Time.time - stats.GetAttackSpeed();
     }
 
+    /// Roaming behaviour: enemy will attempt to return to origin point
     protected override Vector2 GetRoamingPosition()
     {
         return (origin - rb.position).normalized / 2;
     }
 
+    /// Seeking behaviour: enemy will seek player until distanceToStop, then attempts 
+    /// to maintain distanceToStop from the player
     protected override Vector2 GetSeekingPosition()
     {
         if (player == null) return Vector2.zero;
-
+        // get player distance
         float dist = Vector2.Distance(player.transform.position, transform.position);
         if (dist > distanceToStop) {
             return (player.transform.position - transform.position).normalized;
@@ -54,27 +55,34 @@ public class RangedEnemyAI : EnemyAI
     {
         if (player == null) return;
 
+        // tracks timeSinceLastFire, checks if can fire again
         float timeSinceLastFire = Time.time - lastFireTime;
-        float dist = Vector2.Distance(player.transform.position, transform.position);
-        if (timeSinceLastFire >= timeBetweenShots && state == State.Seeking)
+        if (timeSinceLastFire >= stats.GetAttackSpeed() && state == State.Seeking)
         {
             FireBullet();
             lastFireTime = Time.time;
         }
     }
 
-    private void FireBullet()
+    protected virtual void FireBullet()
     {
         if (player == null) return;
 
+        // get bullet direction based on player position
         Vector3 playerPos = player.transform.position;
         Vector3 originPos = transform.position;
         Vector2 bulletDir = playerPos - originPos;
         float bulletAngle = Mathf.Atan2(bulletDir.y, bulletDir.x) * Mathf.Rad2Deg;
 
+        // Instantiate bullet, and initialise bullet stats
         GameObject bullet = Instantiate(Resources.Load(bulletPrefab) as GameObject, transform.position, Quaternion.Euler(0, 0, bulletAngle));
         Bullet bulletScript = bullet.GetComponent<Bullet>();
-        bulletScript.SetInit(false, "shot_elec", attack, bulletLife, bulletSpeed, bulletDir, false); // initialise bullet
+        bulletScript.SetInit(false, "shot_elec", // not by player, shot_elec sprite
+                            stats.GetAttack(), 
+                            stats.GetBulletLife(), 
+                            stats.GetBulletSpeed(), 
+                            bulletDir, 
+                            false); 
     }
 
     protected override void OnCollisionStay2D(Collision2D collision)
@@ -82,7 +90,7 @@ public class RangedEnemyAI : EnemyAI
         PlayerController player = collision.gameObject.GetComponent<PlayerController>();
         if (player != null)
         {
-            player.TakeDamage(attack / 2);
+            player.TakeDamage(stats.GetAttack() / 2);
         }
     }
 }

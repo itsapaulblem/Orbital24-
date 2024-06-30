@@ -29,6 +29,7 @@ public class ObstacleLayering : MonoBehaviour
 
     void Update() 
     {
+        if (player == null) { return; }
         int order = (player.transform.position.y < transform.position.y) ? IN_BACK : IN_FRONT;
         if (order != currentSortOrder)
         {
