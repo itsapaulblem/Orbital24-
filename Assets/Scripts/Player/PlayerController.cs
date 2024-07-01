@@ -112,16 +112,7 @@ public class PlayerController : MonoBehaviour
 {
     float timeSinceLastFire = Time.time - lastFireTime;
 
-    if (shootContinuous)
-    {
-        if (timeSinceLastFire >= stats.GetAttackSpeed())
-        {
-            FireBullet();
-            lastFireTime = Time.time;
-            shootSingle = false; // Reset shootSingle after firing
-        }
-    }
-    else if (shootSingle)
+    if (shootContinuous || shootSingle)
     {
         if (timeSinceLastFire >= stats.GetAttackSpeed())
         {
