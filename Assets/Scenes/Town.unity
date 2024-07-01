@@ -2580,6 +2580,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!60 &1108720030 stripped
+PolygonCollider2D:
+  m_CorrespondingSourceObject: {fileID: 1051832460015257433, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
+  m_PrefabInstance: {fileID: 1825830830}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1152466661
 GameObject:
   m_ObjectHideFlags: 0
@@ -4827,7 +4832,7 @@ PrefabInstance:
       objectReference: {fileID: 906124258}
     - target: {fileID: 1320195265699661409, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
       propertyPath: m_ChildCameras.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1320195265699661409, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
       propertyPath: m_ChildCameras.Array.data[0]
@@ -4876,18 +4881,18 @@ PrefabInstance:
     - target: {fileID: 2814162929133344553, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
       propertyPath: m_BoundingShape2D
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1108720030}
     - target: {fileID: 3289064270138888570, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
       propertyPath: m_CullingMask.m_Bits
       value: 63
       objectReference: {fileID: 0}
     - target: {fileID: 3529020813528524534, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 24.96
+      value: 0.18163681
       objectReference: {fileID: 0}
     - target: {fileID: 3529020813528524534, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.61
+      value: -0.24999976
       objectReference: {fileID: 0}
     - target: {fileID: 3889840566685937691, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
       propertyPath: m_BackGroundColor.b
