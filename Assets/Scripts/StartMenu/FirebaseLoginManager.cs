@@ -63,12 +63,10 @@ public class FirebaseLoginManager : MonoBehaviour
         passwordLoginField.text = "";
     }
 
-    public void SignOutButton()
-    {
-        auth.SignOut();
-        LoginScreen.SetActive(true);
-        ClearLoginFields();
-    }
+   public void Back(){
+    ForgotPasswordScreen.SetActive(false);
+    LoginScreen.SetActive(true);
+   }
 
     public void LoginButton()
     {
@@ -190,10 +188,10 @@ public class FirebaseLoginManager : MonoBehaviour
 
     public void ResetPasswordButton()
     {
-        StartCoroutine(SendPasswordResetEmail(emailForgotPasswordField.text, passwordForgotPasswordField.text));
+        StartCoroutine(SendPasswordResetEmail(emailForgotPasswordField.text));
     }
 
-    private IEnumerator SendPasswordResetEmail(string _email, string _password)
+    private IEnumerator SendPasswordResetEmail(string _email)
     {
         var resetTask = auth.SendPasswordResetEmailAsync(_email);
 
@@ -233,7 +231,10 @@ public class FirebaseLoginManager : MonoBehaviour
             Debug.Log("Password reset email sent successfully.");
             confirmPasswordText.text = "Password reset email sent. Please check your email.";
 
-            StartCoroutine(SendVerificationEmail(auth.CurrentUser));
+            yield return new WaitForSeconds(3);
+
+            ForgotPasswordScreen.SetActive(false);
+            LoginScreen.SetActive(true);
         }
     }
 }
