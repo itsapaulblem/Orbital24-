@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using Firebase;
+using Firebase; 
 using Firebase.Database;
-using Firebase.Extensions;
-using System.Threading.Tasks;
+using Firebase.Extensions; 
+using System.Threading.Tasks; 
+
 
 public class GameManager : MonoBehaviour
 {
@@ -46,7 +47,6 @@ public class GameManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject); // Persist across scenes
             SceneManager.sceneLoaded += OnSceneLoaded; // Subscribe to the sceneLoaded event
-            LoadPlayerProgress(); // Load player progress when the game starts
         }
         else
         {
@@ -228,8 +228,9 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("SignOutMenu is missing.");
         }
     }
-    // function when player change their mind and resume playing the game 
-    public void noQuit(){
+    
+    // function when player changes their mind and resume playing the game 
+    public void Resume(){
         signoutMenu.SetActive(false);
     }
 
@@ -264,12 +265,12 @@ public class GameManager : MonoBehaviour
 
         ResetKillCount(); // Reset kill count when the game restarts
     }
-    // player clicks no in game over scene
+
     public void No()
     {
         // Quit to the start scene
         Time.timeScale = 1f;
-        SavePlayerProgress();
+        PlayerPrefs.SetInt("ShowUserDataUI", 1);
         SceneManager.LoadScene("Start");
         ResetKillCount(); // Reset kill count when the game restarts
     }
@@ -295,11 +296,9 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("InventoryMenu is missing");
         }
     }
-
     // Save player progress to Firebase
-    private void SavePlayerProgress()
-    {
-        // Create a dictionary to hold the player's progress data
+    private void SavePlayerProgress(){
+         // Create a dictionary to hold the player's progress data
         Dictionary<string, object> playerProgress = new Dictionary<string, object>()
         {
             { "kills", kills }
@@ -308,7 +307,6 @@ public class GameManager : MonoBehaviour
         // Store data to Firebase
         StoreData("playerProgress", playerProgress);
     }
-
     // Load player progress from Firebase
     private void LoadPlayerProgress()
     {
@@ -349,3 +347,4 @@ public class GameManager : MonoBehaviour
         return reference.Child(key).GetValueAsync();
     }
 }
+
