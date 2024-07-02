@@ -20,13 +20,13 @@ public class FirebaseLoginManager : MonoBehaviour
     public TMP_Text warningLoginText;
     public TMP_Text confirmLoginText;
 
-    [Header("UserData")]
-    public TMP_InputField usernameField;
-    public TMP_InputField timeField;
-    public TMP_InputField killField;
-    public TMP_InputField deathField;
-    public GameObject UserData_UI;
+    [Header("Forgot Password")]
+    public TMP_InputField emailForgotPasswordField;
+    public TMP_InputField passwordForgotPasswordField;
+    public GameObject ForgotPasswordScreen;
     public GameObject LoginScreen;
+    public TMP_Text warningPasswordText;
+    public TMP_Text confirmPasswordText;
 
     public void Awake()
     {
@@ -42,11 +42,6 @@ public class FirebaseLoginManager : MonoBehaviour
                 Debug.LogError("Could not resolve all Firebase dependencies: " + dependencyStatus);
             }
         });
-        if (PlayerPrefs.GetInt("ShowUserDataUI", 0) == 1)
-        {
-            ShowUserDataUI();
-            PlayerPrefs.SetInt("ShowUserDataUI", 0);
-        }
     }
 
     private void InitializeFirebase()
@@ -72,28 +67,21 @@ public class FirebaseLoginManager : MonoBehaviour
     {
         auth.SignOut();
         LoginScreen.SetActive(true);
-        UserData_UI.SetActive(false);
         ClearLoginFields();
-    }
-
-    public void SaveDataButton()
-    {
-        StartCoroutine(UpdateUsernameAuth(usernameField.text));
-        StartCoroutine(UpdateUsernameDataBase(usernameField.text));
-        StartCoroutine(UpdateKills(int.Parse(killField.text)));
-        StartCoroutine(UpdateDeaths(int.Parse(deathField.text)));
-        StartCoroutine(UpdateTime(float.Parse(timeField.text)));
     }
 
     public void LoginButton()
     {
-        if (emailLoginField == null || passwordLoginField == null)
+        string email = emailLoginField.text.Trim();
+        string password = passwordLoginField.text;
+
+        if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
         {
-            Debug.LogError("Email or Password input field is not set.");
+            Debug.LogError("Email or Password input is empty.");
             return;
         }
 
-        StartCoroutine(Login(emailLoginField.text, passwordLoginField.text));
+        StartCoroutine(Login(email, password));
     }
 
     private IEnumerator Login(string _email, string _password)
@@ -109,7 +97,8 @@ public class FirebaseLoginManager : MonoBehaviour
 
         if (loginTask.Exception != null)
         {
-            Debug.LogWarning($"Failed to login with {loginTask.Exception}");
+            Debug.LogError($"Failed to login with {_email}: {loginTask.Exception}");
+
             FirebaseException firebaseEx = loginTask.Exception.GetBaseException() as FirebaseException;
             AuthError errorCode = (AuthError)firebaseEx.ErrorCode;
 
@@ -150,7 +139,6 @@ public class FirebaseLoginManager : MonoBehaviour
         {
             user = loginTask.Result.User;
 
-            // Check if email is verified
             if (!user.IsEmailVerified)
             {
                 if (warningLoginText != null)
@@ -162,18 +150,15 @@ public class FirebaseLoginManager : MonoBehaviour
                 {
                     Debug.LogError("Warning Login Text is not set.");
                 }
-                yield break; // Stop the login process
+                yield break;
             }
 
             warningLoginText.text = "";
             confirmLoginText.text = "Logged in";
-            StartCoroutine(LoadUserData());
 
             yield return new WaitForSeconds(2);
             confirmLoginText.text = "";
-            usernameField.text = user.DisplayName;
 
-            UserData_UI.SetActive(true);
             LoginScreen.SetActive(false);
             ClearLoginFields();
 
@@ -189,7 +174,7 @@ public class FirebaseLoginManager : MonoBehaviour
 
         if (emailTask.Exception != null)
         {
-            Debug.LogWarning($"Failed to send verification email with {emailTask.Exception}");
+            Debug.LogError($"Failed to send verification email: {emailTask.Exception}");
         }
         else
         {
@@ -197,93 +182,58 @@ public class FirebaseLoginManager : MonoBehaviour
         }
     }
 
-    private IEnumerator UpdateUsernameAuth(string username)
+    public void ShowForgotPasswordScreen()
     {
-        UserProfile profile = new UserProfile { DisplayName = username };
-        var profileTask = user.UpdateUserProfileAsync(profile);
-        yield return new WaitUntil(() => profileTask.IsCompleted);
-        if (profileTask.Exception != null)
-        {
-            Debug.LogWarning($"Failed to register task with {profileTask.Exception}");
-        }
+        ForgotPasswordScreen.SetActive(true);
+        LoginScreen.SetActive(false);
     }
 
-    private IEnumerator UpdateUsernameDataBase(string username)
+    public void ResetPasswordButton()
     {
-        var dbTask = DBreference.Child("users").Child(user.UserId).Child("username").SetValueAsync(username);
-        yield return new WaitUntil(() => dbTask.IsCompleted);
-        if (dbTask.Exception != null)
-        {
-            Debug.LogWarning($"Failed to register task with {dbTask.Exception}");
-        }
+        StartCoroutine(SendPasswordResetEmail(emailForgotPasswordField.text, passwordForgotPasswordField.text));
     }
 
-    private IEnumerator UpdateKills(int kills)
+    private IEnumerator SendPasswordResetEmail(string _email, string _password)
     {
-        var dbTask = DBreference.Child("users").Child(user.UserId).Child("kills").SetValueAsync(kills);
-        yield return new WaitUntil(() => dbTask.IsCompleted);
-        if (dbTask.Exception != null)
-        {
-            Debug.LogWarning($"Failed to register task with {dbTask.Exception}");
-        }
-    }
+        var resetTask = auth.SendPasswordResetEmailAsync(_email);
 
-    private IEnumerator UpdateDeaths(int deaths)
-    {
-        var dbTask = DBreference.Child("users").Child(user.UserId).Child("deaths").SetValueAsync(deaths);
-        yield return new WaitUntil(() => dbTask.IsCompleted);
-        if (dbTask.Exception != null)
-        {
-            Debug.LogWarning($"Failed to register task with {dbTask.Exception}");
-        }
-    }
+        yield return new WaitUntil(() => resetTask.IsCompleted);
 
-    private IEnumerator UpdateTime(float time)
-    {
-        var dbTask = DBreference.Child("users").Child(user.UserId).Child("time").SetValueAsync(time);
-        yield return new WaitUntil(() => dbTask.IsCompleted);
-        if (dbTask.Exception != null)
+        if (resetTask.Exception != null)
         {
-            Debug.LogWarning($"Failed to register task with {dbTask.Exception}");
-        }
-    }
+            Debug.LogError($"Failed to send password reset email: {resetTask.Exception}");
 
-    private IEnumerator LoadUserData()
-    {
-        var dbTask = DBreference.Child("users").Child(user.UserId).GetValueAsync();
-        yield return new WaitUntil(() => dbTask.IsCompleted);
+            FirebaseException firebaseEx = resetTask.Exception.GetBaseException() as FirebaseException;
+            AuthError errorCode = (AuthError)firebaseEx.ErrorCode;
 
-        if (dbTask.Exception != null)
-        {
-            Debug.LogWarning($"Failed to register task with {dbTask.Exception}");
-        }
-        else if (dbTask.Result.Value == null)
-        {
-            Debug.Log("No data found, setting default values.");
-            killField.text = "0";
-            deathField.text = "0";
-            timeField.text = "0.00";
+            string message = "Password reset failed";
+            switch (errorCode)
+            {
+                case AuthError.InvalidEmail:
+                    message = "Invalid email address.";
+                    break;
 
-            killField.ForceLabelUpdate();
-            deathField.ForceLabelUpdate();
-            timeField.ForceLabelUpdate();
+                case AuthError.UserNotFound:
+                    message = "User with this email does not exist.";
+                    break;
+
+                case AuthError.NetworkRequestFailed:
+                    message = "Network error. Please check your connection and try again.";
+                    break;
+
+                default:
+                    message = "Failed to reset password. Please try again later.";
+                    break;
+            }
+
+            warningPasswordText.text = message;
         }
         else
         {
-            DataSnapshot snapshot = dbTask.Result;
-            killField.text = snapshot.Child("kills").Value.ToString();
-            deathField.text = snapshot.Child("deaths").Value.ToString();
-            timeField.text = snapshot.Child("time").Value.ToString();
+            Debug.Log("Password reset email sent successfully.");
+            confirmPasswordText.text = "Password reset email sent. Please check your email.";
 
-            killField.ForceLabelUpdate();
-            deathField.ForceLabelUpdate();
-            timeField.ForceLabelUpdate();
+            StartCoroutine(SendVerificationEmail(auth.CurrentUser));
         }
-    }
-
-    private void ShowUserDataUI()
-    {
-        UserData_UI.SetActive(true);
-        LoginScreen.SetActive(false);
     }
 }
