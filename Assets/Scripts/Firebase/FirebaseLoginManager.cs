@@ -22,7 +22,6 @@ public class FirebaseLoginManager : MonoBehaviour
 
     [Header("Forgot Password")]
     public TMP_InputField emailForgotPasswordField;
-    public TMP_InputField passwordForgotPasswordField;
     public GameObject ForgotPasswordScreen;
     public GameObject LoginScreen;
     public TMP_Text warningPasswordText;
@@ -42,6 +41,8 @@ public class FirebaseLoginManager : MonoBehaviour
                 Debug.LogError("Could not resolve all Firebase dependencies: " + dependencyStatus);
             }
         });
+
+
     }
 
     private void InitializeFirebase()

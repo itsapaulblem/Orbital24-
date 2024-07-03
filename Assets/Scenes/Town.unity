@@ -3660,8 +3660,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5969221236952222133, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5969221236952222133, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1705968461}
+    - target: {fileID: 5969221236952222133, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: noQuit
+      value: Resume
+      objectReference: {fileID: 0}
+    - target: {fileID: 5969221236952222133, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5989707766269627223, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
       propertyPath: itemIndex
