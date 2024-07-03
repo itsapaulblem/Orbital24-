@@ -42,7 +42,6 @@ public class GameManager : MonoBehaviour
     public bool isSignOutActive = false; // Initialize isSignOutActive to false
     private FirebaseAuth auth; 
 
-    private Vector3 lastPlayerPosition; // tracks the player's last position
     private string lastScene; // tracks the last scene name 
 
     private void Awake()
@@ -96,7 +95,7 @@ public class GameManager : MonoBehaviour
         if (miniMapWindow == null) {
             Debug.LogWarning("MinimapWindow not found in the scene: " + scene.name);
         } else {
-            miniMapWindow.SetActive(false); // Ensure MinimapWindow is inactive
+            miniMapWindow.SetActive(isMiniMapActive); // Ensure MinimapWindow is in correct state
         }
 
         if (killText == null) { killText = GameObject.Find("KillText")?.GetComponent<Text>(); }
@@ -118,8 +117,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("SignOutMenu found and set to inactive");
         }
 
-        // Reset kill count when a new scene is loaded
-        ResetKillCount();
+        LoadPlayerProgress();
     }
 
     private void Update()
@@ -287,6 +285,7 @@ public class GameManager : MonoBehaviour
     {
         // Reset the kill count and update the kill text
         kills = 0;
+        PlayerPrefsManager.SetKills(0);
         UpdateKillText();
     }
 
@@ -304,35 +303,19 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("InventoryMenu is missing");
         }
     }
-    // Save player progress to Firebase
+    // Save player progress
     public void SavePlayerProgress(){
-        PlayerPrefs.SetInt("kills", kills);
-        PlayerPrefs.SetString("lastScene", SceneManager.GetActiveScene().name); 
-        PlayerPrefs.SetFloat("lastPosX", lastPlayerPosition.x);
-        PlayerPrefs.SetFloat("lastPosY", lastPlayerPosition.y);
-        PlayerPrefs.SetFloat("lastPosZ", lastPlayerPosition.z);
-        PlayerPrefs.Save(); // Save PlayerPrefs data immediately
+        PlayerPrefsManager.SetKills(kills);
+        PlayerPrefsManager.SetLastScene(SceneManager.GetActiveScene().name);
+
+        PlayerController player = GameObject.FindObjectOfType<PlayerController>();
+        PlayerPrefsManager.SetCoords(player.transform.position.x, player.transform.position.y);
     }
-    // Load player progress from Firebase
+    // Load player progress
     public void LoadPlayerProgress()
     {
-        // Load player progress including position from PlayerPrefs
-        kills = PlayerPrefs.GetInt("kills", 0);
-        lastScene = PlayerPrefs.GetString("lastScene", "Cutscene1");
-        float posX = PlayerPrefs.GetFloat("lastPosX", 0f);
-        float posY = PlayerPrefs.GetFloat("lastPosY", 0f);
-        float posZ = PlayerPrefs.GetFloat("lastPosZ", 0f);
-        lastPlayerPosition = new Vector3(posX, posY, posZ);
-
-        // Load the last scene the player was in
-        SceneManager.LoadScene(lastScene);
-
-        // Move the player to the last saved position
-        PlayerController player = GameObject.FindObjectOfType<PlayerController>();
-        if (player != null)
-        {
-            player.transform.position = lastPlayerPosition;
-        }
+        // Load player progress from PlayerPrefs
+        kills = PlayerPrefsManager.LoadKills();
 
         // Update UI or perform other actions based on loaded data
         UpdateKillText();
