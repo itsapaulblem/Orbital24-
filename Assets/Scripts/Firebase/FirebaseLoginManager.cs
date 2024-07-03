@@ -41,8 +41,6 @@ public class FirebaseLoginManager : MonoBehaviour
                 Debug.LogError("Could not resolve all Firebase dependencies: " + dependencyStatus);
             }
         });
-
-
     }
 
     private void InitializeFirebase()
@@ -64,10 +62,11 @@ public class FirebaseLoginManager : MonoBehaviour
         passwordLoginField.text = "";
     }
 
-   public void Back(){
-    ForgotPasswordScreen.SetActive(false);
-    LoginScreen.SetActive(true);
-   }
+    public void Back()
+    {
+        ForgotPasswordScreen.SetActive(false);
+        LoginScreen.SetActive(true);
+    }
 
     public void LoginButton()
     {
@@ -80,10 +79,10 @@ public class FirebaseLoginManager : MonoBehaviour
             return;
         }
 
-        StartCoroutine(Login(email, password));
+        StartCoroutine(LoginRoutine(email, password));
     }
 
-    private IEnumerator Login(string _email, string _password)
+    private IEnumerator LoginRoutine(string _email, string _password)
     {
         if (auth == null)
         {
@@ -161,7 +160,16 @@ public class FirebaseLoginManager : MonoBehaviour
             LoginScreen.SetActive(false);
             ClearLoginFields();
 
-            SceneManager.LoadScene("CutScene1");
+            // Check GameManager.Instance before accessing it
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.LoadPlayerProgress();
+                Debug.Log("Loading game...");
+            }
+            else
+            {
+                Debug.LogError("GameManager.Instance is null or not properly initialized.");
+            }
         }
     }
 

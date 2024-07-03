@@ -4,9 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Firebase; 
+using Firebase.Auth; 
 using Firebase.Database;
 using Firebase.Extensions; 
-using System.Threading.Tasks; 
+using System.Threading.Tasks;
+
 
 
 public class GameManager : MonoBehaviour
@@ -38,6 +40,10 @@ public class GameManager : MonoBehaviour
     // Sign Out Menu
     public GameObject signoutMenu;
     public bool isSignOutActive = false; // Initialize isSignOutActive to false
+    private FirebaseAuth auth; 
+
+    private Vector3 lastPlayerPosition; // tracks the player's last position
+    private string lastScene; // tracks the last scene name 
 
     private void Awake()
     {
@@ -62,6 +68,7 @@ public class GameManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        
         Debug.Log("Scene loaded: " + scene.name);
 
         if (pauseMenu == null) { pauseMenu = GameObject.Find("PauseMenu"); }
@@ -213,8 +220,8 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         isPaused = false;
     }
-
-    public void Quit()
+    // For the sign out menu to pop up 
+    public void SignOutMenu()
     {
         // Quit the game and sign out 
         Time.timeScale = 1f;
@@ -265,12 +272,13 @@ public class GameManager : MonoBehaviour
 
         ResetKillCount(); // Reset kill count when the game restarts
     }
-
-    public void No()
+    // function used when player signs out in pause menu or says no in game over menu 
+    public void Quit()
     {
         // Quit to the start scene
         Time.timeScale = 1f;
-        PlayerPrefs.SetInt("ShowUserDataUI", 1);
+        SavePlayerProgress();
+        auth.SignOut();
         SceneManager.LoadScene("Start");
         ResetKillCount(); // Reset kill count when the game restarts
     }
@@ -297,54 +305,39 @@ public class GameManager : MonoBehaviour
         }
     }
     // Save player progress to Firebase
-    private void SavePlayerProgress(){
-         // Create a dictionary to hold the player's progress data
-        Dictionary<string, object> playerProgress = new Dictionary<string, object>()
-        {
-            { "kills", kills }
-        };
-
-        // Store data to Firebase
-        StoreData("playerProgress", playerProgress);
+    public void SavePlayerProgress(){
+        PlayerPrefs.SetInt("kills", kills);
+        PlayerPrefs.SetString("lastScene", SceneManager.GetActiveScene().name); 
+        PlayerPrefs.SetFloat("lastPosX", lastPlayerPosition.x);
+        PlayerPrefs.SetFloat("lastPosY", lastPlayerPosition.y);
+        PlayerPrefs.SetFloat("lastPosZ", lastPlayerPosition.z);
+        PlayerPrefs.Save(); // Save PlayerPrefs data immediately
     }
     // Load player progress from Firebase
-    private void LoadPlayerProgress()
+    public void LoadPlayerProgress()
     {
-        GetData("playerProgress").ContinueWithOnMainThread(task =>
+        // Load player progress including position from PlayerPrefs
+        kills = PlayerPrefs.GetInt("kills", 0);
+        lastScene = PlayerPrefs.GetString("lastScene", "Cutscene1");
+        float posX = PlayerPrefs.GetFloat("lastPosX", 0f);
+        float posY = PlayerPrefs.GetFloat("lastPosY", 0f);
+        float posZ = PlayerPrefs.GetFloat("lastPosZ", 0f);
+        lastPlayerPosition = new Vector3(posX, posY, posZ);
+
+        // Load the last scene the player was in
+        SceneManager.LoadScene(lastScene);
+
+        // Move the player to the last saved position
+        PlayerController player = GameObject.FindObjectOfType<PlayerController>();
+        if (player != null)
         {
-            if (task.IsCompleted && task.Result != null)
-            {
-                Dictionary<string, object> playerProgress = (Dictionary<string, object>)task.Result.Value;
+            player.transform.position = lastPlayerPosition;
+        }
 
-                if (playerProgress != null && playerProgress.ContainsKey("kills"))
-                {
-                    kills = System.Convert.ToInt32(playerProgress["kills"]);
-                    UpdateKillText();
-                }
-            }
-        });
+        // Update UI or perform other actions based on loaded data
+        UpdateKillText();
     }
 
-    private void StoreData(string key, Dictionary<string, object> data)
-    {
-        DatabaseReference reference = FirebaseDatabase.DefaultInstance.RootReference;
-        reference.Child(key).SetValueAsync(data).ContinueWithOnMainThread(task =>
-        {
-            if (task.IsCompleted)
-            {
-                Debug.Log("Data saved successfully.");
-            }
-            else
-            {
-                Debug.LogWarning("Failed to save data.");
-            }
-        });
-    }
-
-    private Task<DataSnapshot> GetData(string key)
-    {
-        DatabaseReference reference = FirebaseDatabase.DefaultInstance.RootReference;
-        return reference.Child(key).GetValueAsync();
-    }
+   
 }
 
