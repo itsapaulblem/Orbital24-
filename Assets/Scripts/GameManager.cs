@@ -276,8 +276,9 @@ public class GameManager : MonoBehaviour
     {
         // Quit to the start scene
         Time.timeScale = 1f;
-        SavePlayerProgress();
-        //auth.SignOut();
+        PlayerPrefsManager.SetCoords(lastPlayerPosition.x, lastPlayerPosition.y);
+        PlayerPrefsManager.SetLastScene(lastScene);
+        PlayerPrefsManager.SetKills(kills);
         SceneManager.LoadScene("Start");
         ResetKillCount(); // Reset kill count when the game restarts
     }
@@ -303,39 +304,7 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("InventoryMenu is missing");
         }
     }
-    // Save player progress to Firebase
-    public void SavePlayerProgress(){
-        PlayerPrefs.SetInt("kills", kills);
-        PlayerPrefs.SetString("lastScene", SceneManager.GetActiveScene().name); 
-        PlayerPrefs.SetFloat("lastPosX", lastPlayerPosition.x);
-        PlayerPrefs.SetFloat("lastPosY", lastPlayerPosition.y);
-        PlayerPrefs.SetFloat("lastPosZ", lastPlayerPosition.z);
-        PlayerPrefs.Save(); // Save PlayerPrefs data immediately
-    }
-    // Load player progress from Firebase
-    public void LoadPlayerProgress()
-    {
-        // Load player progress including position from PlayerPrefs
-        kills = PlayerPrefs.GetInt("kills", 0);
-        lastScene = PlayerPrefs.GetString("lastScene", "Cutscene1");
-        float posX = PlayerPrefs.GetFloat("lastPosX", 0f);
-        float posY = PlayerPrefs.GetFloat("lastPosY", 0f);
-        float posZ = PlayerPrefs.GetFloat("lastPosZ", 0f);
-        lastPlayerPosition = new Vector3(posX, posY, posZ);
-
-        // Load the last scene the player was in
-        SceneManager.LoadScene(lastScene);
-
-        // Move the player to the last saved position
-        PlayerController player = GameObject.FindObjectOfType<PlayerController>();
-        if (player != null)
-        {
-            player.transform.position = lastPlayerPosition;
-        }
-
-        // Update UI or perform other actions based on loaded data
-        UpdateKillText();
-    }
+   
 
    
 }
