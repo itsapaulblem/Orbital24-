@@ -277,7 +277,7 @@ public class GameManager : MonoBehaviour
         // Quit to the start scene
         Time.timeScale = 1f;
         SavePlayerProgress();
-        auth.SignOut();
+        //auth.SignOut();
         SceneManager.LoadScene("Start");
         ResetKillCount(); // Reset kill count when the game restarts
     }
