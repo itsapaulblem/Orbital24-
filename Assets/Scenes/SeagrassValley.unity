@@ -6874,7 +6874,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a04f8213fc558f74b9f4c368cf3f1f01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rewardObject: {fileID: 259209996}
+  rewardObjectPrefab: {fileID: 259209996}
   spawnPosition: {x: -33.5, y: -34.7, z: 0}
 --- !u!1 &313098708
 GameObject:

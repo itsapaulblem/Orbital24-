@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class Puzzle1 : MonoBehaviour
 {
-    public GameObject rewardObject;
-    // specify the reward spawn position 
-    public Vector3 spawnPosition;
+    public Vector3 spawnPosition; // Specify the reward spawn position
+    public GameObject rewardObject; // Reference to the instantiated reward object
     private bool puzzleSolved = false;
 
     // Start is called before the first frame update
@@ -14,22 +13,21 @@ public class Puzzle1 : MonoBehaviour
     {
         // Initialize puzzle state
         puzzleSolved = false;
+
+         // Move the reward object to the spawn position and set it inactive
+        rewardObject.transform.position = spawnPosition;
+        rewardObject.SetActive(false);
     }
 
     public void CheckPuzzleState()
     {
         if (!puzzleSolved && PlateBehavior.AllPlatesTriggered())
         {
-            // if puzzle solved, spawn the reward object
-            spawnReward();
+            // If puzzle solved, activate the reward object
+            rewardObject.SetActive(true);
 
-            // mark puzzle as solved to prevent spawning multiple times
+            // Mark puzzle as solved to prevent activating multiple times
             puzzleSolved = true;
         }
-    }
-
-    private void spawnReward()
-    {
-        Instantiate(rewardObject, spawnPosition, Quaternion.identity);
     }
 }
