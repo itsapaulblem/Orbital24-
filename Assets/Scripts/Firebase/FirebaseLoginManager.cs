@@ -27,6 +27,8 @@ public class FirebaseLoginManager : MonoBehaviour
     public TMP_Text warningPasswordText;
     public TMP_Text confirmPasswordText;
 
+    public string defaultSceneName = "Cutscene1";
+
     public void Awake()
     {
         FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
@@ -160,16 +162,16 @@ public class FirebaseLoginManager : MonoBehaviour
             LoginScreen.SetActive(false);
             ClearLoginFields();
 
-            // Check GameManager.Instance before accessing it
-            if (GameManager.Instance != null)
+            Debug.Log("Loading last scene and player progress...");
+            string lastScene = PlayerPrefsManager.LoadLastScene();
+            if (string.IsNullOrEmpty(lastScene))
             {
-                GameManager.Instance.LoadPlayerProgress();
-                Debug.Log("Loading game...");
+                lastScene = defaultSceneName;
             }
-            else
-            {
-                Debug.LogError("GameManager.Instance is null or not properly initialized.");
-            }
+
+            PlayerPrefsManager.LoadCoords();
+            PlayerPrefsManager.LoadKills();
+            SceneManager.LoadScene(lastScene);
         }
     }
 
