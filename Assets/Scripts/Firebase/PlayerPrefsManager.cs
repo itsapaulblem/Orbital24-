@@ -15,7 +15,7 @@ public static class PlayerPrefsManager //: MonoBehaviour
     }
 
     public static string LoadLastScene() {
-        return PlayerPrefs.GetString("lastScene", "Cutscene1");
+        return PlayerPrefs.GetString("lastScene", "Room");
     }
 
     public static void SetLastScene(string scene) {
@@ -24,8 +24,8 @@ public static class PlayerPrefsManager //: MonoBehaviour
     
     /// Load and set coords based on saved coord data
     public static void LoadCoords() {
-        float xCoord = PlayerPrefs.GetFloat("xCoord", 0);
-        float yCoord = PlayerPrefs.GetFloat("yCoord", 0);
+        float xCoord = PlayerPrefs.GetFloat("xCoord", float.PositiveInfinity);
+        float yCoord = PlayerPrefs.GetFloat("yCoord", float.PositiveInfinity);
         PlayerController.SetCoords(xCoord, yCoord);
     }
 

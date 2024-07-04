@@ -117,8 +117,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("SignOutMenu found and set to inactive");
         }
 
-        // Reset kill count when a new scene is loaded
-        ResetKillCount();
+        kills = PlayerPrefsManager.LoadKills();
     }
 
     private void Update()
@@ -287,6 +286,7 @@ public class GameManager : MonoBehaviour
     {
         // Reset the kill count and update the kill text
         kills = 0;
+        PlayerPrefsManager.SetKills(0);
         UpdateKillText();
     }
 
