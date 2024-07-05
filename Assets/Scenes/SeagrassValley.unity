@@ -19978,13 +19978,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 769166467}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20.9, y: -93, z: 0.38143086}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 105.362785, y: -9.200928, z: 2.593385}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1062571874}
-  m_Father: {fileID: 1994743372}
+  m_Father: {fileID: 1386422789}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &769166470
 CircleCollider2D:
@@ -21860,13 +21860,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 828548792}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.6, y: -92.8, z: 0.38143086}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 91.06278, y: -9.000931, z: 2.593385}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2095177377}
-  m_Father: {fileID: 1994743372}
+  m_Father: {fileID: 1386422789}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &828548795
 CircleCollider2D:
@@ -24395,13 +24395,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 976858367}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14, y: -91.8, z: 0.38143086}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 98.46278, y: -8.000931, z: 2.593385}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 676912165}
-  m_Father: {fileID: 1994743372}
+  m_Father: {fileID: 1386422789}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &976858369
 MonoBehaviour:
@@ -30226,7 +30226,7 @@ GameObject:
   - component: {fileID: 1186756129}
   - component: {fileID: 1186756128}
   m_Layer: 0
-  m_Name: Movable Rock (10)
+  m_Name: Movable Rock (2)
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30241,12 +30241,12 @@ Transform:
   m_GameObject: {fileID: 1186756126}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 18.75, y: -84.79, z: 0.38143086}
+  m_LocalPosition: {x: 103.21278, y: -0.99092865, z: 2.593385}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 70447300}
-  m_Father: {fileID: 1994743372}
+  m_Father: {fileID: 1386422789}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1186756128
 MonoBehaviour:
@@ -34378,7 +34378,7 @@ GameObject:
   - component: {fileID: 1367574035}
   - component: {fileID: 1367574034}
   m_Layer: 0
-  m_Name: Movable Rock (8)
+  m_Name: Movable Rock (3)
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34393,12 +34393,12 @@ Transform:
   m_GameObject: {fileID: 1367574032}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 25.95, y: -92.56, z: 0.38143086}
+  m_LocalPosition: {x: 110.41278, y: -8.760925, z: 2.593385}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1948910094}
-  m_Father: {fileID: 1994743372}
+  m_Father: {fileID: 1386422789}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1367574034
 MonoBehaviour:
@@ -35291,6 +35291,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58e0c85224e964a929b32ac07d760c36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1386422788
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1386422789}
+  m_Layer: 0
+  m_Name: Puzzle1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1386422789
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1386422788}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -131.79079, y: -18.517044, z: -2.593385}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 828548793}
+  - {fileID: 769166468}
+  - {fileID: 1942470958}
+  - {fileID: 976858368}
+  - {fileID: 1728922312}
+  - {fileID: 1186756127}
+  - {fileID: 1367574033}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1388593605
 GameObject:
   m_ObjectHideFlags: 0
@@ -43912,7 +43950,7 @@ GameObject:
   - component: {fileID: 1728922314}
   - component: {fileID: 1728922313}
   m_Layer: 0
-  m_Name: Movable Rock (9)
+  m_Name: Movable Rock (1)
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43927,12 +43965,12 @@ Transform:
   m_GameObject: {fileID: 1728922311}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.12, y: -92.19, z: 0.38143086}
+  m_LocalPosition: {x: 86.58278, y: -8.39093, z: 2.593385}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 979845223}
-  m_Father: {fileID: 1994743372}
+  m_Father: {fileID: 1386422789}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1728922313
 MonoBehaviour:
@@ -49016,13 +49054,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1942470957}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14, y: -85.5, z: 0.38143086}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 98.46278, y: -1.7009277, z: 2.593385}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2111150008}
-  m_Father: {fileID: 1994743372}
+  m_Father: {fileID: 1386422789}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &1942470960
 CircleCollider2D:
@@ -50868,14 +50906,7 @@ Transform:
   - {fileID: 934333303}
   - {fileID: 884722397}
   - {fileID: 1070960052}
-  - {fileID: 1367574033}
-  - {fileID: 1728922312}
-  - {fileID: 1186756127}
   - {fileID: 1464621621}
-  - {fileID: 828548793}
-  - {fileID: 769166468}
-  - {fileID: 1942470958}
-  - {fileID: 976858368}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1994775030
@@ -54402,6 +54433,7 @@ SceneRoots:
   - {fileID: 408391628}
   - {fileID: 1994743372}
   - {fileID: 1533495594}
+  - {fileID: 1386422789}
   - {fileID: 1191477588}
   - {fileID: 8088129561982460274}
   - {fileID: 7093016466193512103}
