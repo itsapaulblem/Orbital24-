@@ -31,9 +31,11 @@ public class PlateBehavior : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Obstacle"))
+        //if (other.CompareTag("Obstacle"))
+        // alternative if check
+        if (other.name.Contains("Movable Rock") || other.name.Contains("Player"))
         {
             gameObject.transform.Find("Activated").gameObject.SetActive(true);
             // Increment the count of obstacles touching this plate
@@ -44,13 +46,17 @@ public class PlateBehavior : MonoBehaviour
         }
     }
 
-    void OnTriggerExit(Collider other)
+    void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Obstacle"))
+        //if (other.CompareTag("Obstacle"))
+        if (other.name.Contains("Movable Rock") || other.name.Contains("Player"))
         {
-            gameObject.transform.Find("Activated").gameObject.SetActive(false);
             // Decrement the count of obstacles touching this plate
             obstaclesCount--;
+        }
+        if (obstaclesCount == 0){
+            gameObject.transform.Find("Activated").gameObject.SetActive(false);
+            
             Debug.Log("Obstacle exited: " + other.name + ", Plate: " + gameObject.name + ", Obstacles count: " + obstaclesCount);
             // Puzzle should not be considered solved if an obstacle leaves
             puzzleSolved = false; 

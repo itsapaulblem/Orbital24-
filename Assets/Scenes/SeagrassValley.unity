@@ -18821,17 +18821,17 @@ PolygonCollider2D:
       - {x: -34.875, y: 40}
       - {x: -34.625, y: 38.5}
       - {x: -34.875, y: 38.25}
-      - {x: -34.875, y: 34.5}
-      - {x: -34.625, y: 34.125}
-      - {x: -34.25, y: 33.875}
-      - {x: -31.5, y: 33.75}
-      - {x: -28.375, y: 33.875}
-      - {x: -27.75, y: 34.25}
-      - {x: -27.5, y: 35.125}
-      - {x: -27.625, y: 37.125}
-      - {x: -25.25, y: 36.875}
-      - {x: -24.625, y: 37.375}
-      - {x: -24.375, y: 38.25}
+      - {x: -34.55919, y: 34.71054}
+      - {x: -34.51973, y: 34.370632}
+      - {x: -34.25, y: 34.278538}
+      - {x: -31.53509, y: 34.18863}
+      - {x: -28.462725, y: 34.208355}
+      - {x: -28.118448, y: 34.407906}
+      - {x: -27.93863, y: 35.26536}
+      - {x: -28.010992, y: 37.247818}
+      - {x: -25.267544, y: 37.225903}
+      - {x: -24.677635, y: 37.673267}
+      - {x: -24.603086, y: 38.35527}
       - {x: -24.5, y: 40.25}
       - {x: -22.125, y: 40}
       - {x: -21.5, y: 40.5}
@@ -24416,14 +24416,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   linkedObject:
-  - {fileID: 1175484040}
-  - {fileID: 596457304}
-  - {fileID: 307733791}
-  - {fileID: 2018541027}
-  - {fileID: 614164541}
-  - {fileID: 934333302}
-  - {fileID: 884722396}
-  - {fileID: 1070960048}
+  - {fileID: 1728922311}
+  - {fileID: 1186756126}
+  - {fileID: 1367574032}
 --- !u!58 &976858370
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -30331,7 +30326,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 6
+  m_Constraints: 4
 --- !u!212 &1186756131
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -34483,7 +34478,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 6
+  m_Constraints: 4
 --- !u!212 &1367574037
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -43965,7 +43960,7 @@ Transform:
   m_GameObject: {fileID: 1728922311}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 86.58278, y: -8.39093, z: 2.593385}
+  m_LocalPosition: {x: 86.94, y: -8.39093, z: 2.593385}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -44055,7 +44050,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 6
+  m_Constraints: 4
 --- !u!212 &1728922316
 SpriteRenderer:
   m_ObjectHideFlags: 0
