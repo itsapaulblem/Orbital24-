@@ -35,6 +35,7 @@ public class PlateBehavior : MonoBehaviour
     {
         if (other.CompareTag("Obstacle"))
         {
+            gameObject.transform.Find("Activated").gameObject.SetActive(true);
             // Increment the count of obstacles touching this plate
             obstaclesCount++;
             Debug.Log("Obstacle entered: " + other.name + ", Plate: " + gameObject.name + ", Obstacles count: " + obstaclesCount);
@@ -47,6 +48,7 @@ public class PlateBehavior : MonoBehaviour
     {
         if (other.CompareTag("Obstacle"))
         {
+            gameObject.transform.Find("Activated").gameObject.SetActive(false);
             // Decrement the count of obstacles touching this plate
             obstaclesCount--;
             Debug.Log("Obstacle exited: " + other.name + ", Plate: " + gameObject.name + ", Obstacles count: " + obstaclesCount);
