@@ -5793,6 +5793,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1748646948611651795, guid: 38a8f282b63225c43b6d961400a8c7c4, type: 3}
   m_PrefabInstance: {fileID: 1068012252}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &259210001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 259209996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fee791a84abff46db9a3d4c579231156, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: 1
 --- !u!1 &263007538
 GameObject:
   m_ObjectHideFlags: 0
@@ -6874,8 +6887,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a04f8213fc558f74b9f4c368cf3f1f01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rewardObjectPrefab: {fileID: 259209996}
   spawnPosition: {x: -33.5, y: -34.7, z: 0}
+  rewardObject: {fileID: 259209996}
 --- !u!1 &313098708
 GameObject:
   m_ObjectHideFlags: 0
@@ -19696,7 +19709,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 68574786085466668, guid: c3382ac9c803741aeaebc44feb7e097a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -97.5
+      value: -23.1
       objectReference: {fileID: 0}
     - target: {fileID: 68574786085466668, guid: c3382ac9c803741aeaebc44feb7e097a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -19968,7 +19981,6 @@ GameObject:
   - component: {fileID: 769166468}
   - component: {fileID: 769166471}
   - component: {fileID: 769166470}
-  - component: {fileID: 769166469}
   - component: {fileID: 769166472}
   m_Layer: 0
   m_Name: Pressure Plate (2)
@@ -19993,27 +20005,6 @@ Transform:
   - {fileID: 1062571874}
   m_Father: {fileID: 1994743372}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &769166469
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 769166467}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97b9a8a8312f3482ba19de1e95410bfd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  linkedObject:
-  - {fileID: 1175484040}
-  - {fileID: 596457304}
-  - {fileID: 307733791}
-  - {fileID: 2018541027}
-  - {fileID: 614164541}
-  - {fileID: 934333302}
-  - {fileID: 884722396}
-  - {fileID: 1070960048}
 --- !u!58 &769166470
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -20113,6 +20104,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74a385d527892e243b7842a2b5c0473f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  linkedObstacles:
+  - {fileID: 1367574032}
+  - {fileID: 1728922311}
+  - {fileID: 1186756126}
 --- !u!1 &769441610
 GameObject:
   m_ObjectHideFlags: 0
@@ -21870,7 +21865,6 @@ GameObject:
   - component: {fileID: 828548793}
   - component: {fileID: 828548796}
   - component: {fileID: 828548795}
-  - component: {fileID: 828548794}
   - component: {fileID: 828548797}
   m_Layer: 0
   m_Name: Pressure Plate (1)
@@ -21895,27 +21889,6 @@ Transform:
   - {fileID: 2095177377}
   m_Father: {fileID: 1994743372}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &828548794
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 828548792}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97b9a8a8312f3482ba19de1e95410bfd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  linkedObject:
-  - {fileID: 1175484040}
-  - {fileID: 596457304}
-  - {fileID: 307733791}
-  - {fileID: 2018541027}
-  - {fileID: 614164541}
-  - {fileID: 934333302}
-  - {fileID: 884722396}
-  - {fileID: 1070960048}
 --- !u!58 &828548795
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -22015,6 +21988,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74a385d527892e243b7842a2b5c0473f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  linkedObstacles:
+  - {fileID: 1367574032}
+  - {fileID: 1728922311}
+  - {fileID: 1186756126}
 --- !u!1 &828935786
 GameObject:
   m_ObjectHideFlags: 0
@@ -24427,7 +24404,7 @@ GameObject:
   - component: {fileID: 976858370}
   - component: {fileID: 976858369}
   m_Layer: 0
-  m_Name: Pressure Plate (4)
+  m_Name: Reset Plate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27105,7 +27082,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1748646948611651795, guid: 38a8f282b63225c43b6d961400a8c7c4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 259210001}
   m_SourcePrefab: {fileID: 100100000, guid: 38a8f282b63225c43b6d961400a8c7c4, type: 3}
 --- !u!1 &1070960048
 GameObject:
@@ -30287,7 +30267,7 @@ Transform:
   m_GameObject: {fileID: 1186756126}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 25, y: -84, z: 0.38143086}
+  m_LocalPosition: {x: 18.75, y: -84.79, z: 0.38143086}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -34439,7 +34419,7 @@ Transform:
   m_GameObject: {fileID: 1367574032}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 32.1, y: -87, z: 0.38143086}
+  m_LocalPosition: {x: 25.95, y: -92.56, z: 0.38143086}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -43973,7 +43953,7 @@ Transform:
   m_GameObject: {fileID: 1728922311}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 30.4, y: -77.5, z: 0.38143086}
+  m_LocalPosition: {x: 2.12, y: -92.19, z: 0.38143086}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -45845,7 +45825,7 @@ PrefabInstance:
       objectReference: {fileID: 714469947}
     - target: {fileID: 1188419898628119479, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
       propertyPath: m_Lens.OrthographicSize
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1320195265699661409, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
       propertyPath: m_ChildCameras.Array.size
@@ -45897,7 +45877,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3289064270138888570, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
       propertyPath: orthographic size
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3289064270138888570, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
       propertyPath: m_CullingMask.m_Bits
@@ -45925,7 +45905,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7099115373997084846, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -102.95485
+      value: -28.554848
       objectReference: {fileID: 0}
     - target: {fileID: 7212824224852072538, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
       propertyPath: GameOverMenu
@@ -49046,7 +49026,6 @@ GameObject:
   - component: {fileID: 1942470958}
   - component: {fileID: 1942470961}
   - component: {fileID: 1942470960}
-  - component: {fileID: 1942470959}
   - component: {fileID: 1942470962}
   m_Layer: 0
   m_Name: Pressure Plate (3)
@@ -49071,27 +49050,6 @@ Transform:
   - {fileID: 2111150008}
   m_Father: {fileID: 1994743372}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1942470959
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1942470957}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97b9a8a8312f3482ba19de1e95410bfd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  linkedObject:
-  - {fileID: 1175484040}
-  - {fileID: 596457304}
-  - {fileID: 307733791}
-  - {fileID: 2018541027}
-  - {fileID: 614164541}
-  - {fileID: 934333302}
-  - {fileID: 884722396}
-  - {fileID: 1070960048}
 --- !u!58 &1942470960
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -49191,6 +49149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74a385d527892e243b7842a2b5c0473f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  linkedObstacles: []
 --- !u!1 &1943996718
 GameObject:
   m_ObjectHideFlags: 0

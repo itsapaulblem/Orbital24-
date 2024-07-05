@@ -14,20 +14,38 @@ public class Puzzle1 : MonoBehaviour
         // Initialize puzzle state
         puzzleSolved = false;
 
-         // Move the reward object to the spawn position and set it inactive
-        rewardObject.transform.position = spawnPosition;
-        rewardObject.SetActive(false);
+        // Move the reward object to the spawn position and set it inactive
+        if (rewardObject != null)
+        {
+            rewardObject.transform.position = spawnPosition;
+            rewardObject.SetActive(false);
+            Debug.Log("Reward object set to inactive at position: " + spawnPosition);
+        }
+        else
+        {
+            Debug.LogError("Reward object is not assigned.");
+        }
     }
 
     public void CheckPuzzleState()
     {
+        Debug.Log("Checking puzzle state...");
         if (!puzzleSolved && PlateBehavior.AllPlatesTriggered())
         {
-            // If puzzle solved, activate the reward object
-            rewardObject.SetActive(true);
-
-            // Mark puzzle as solved to prevent activating multiple times
+            Debug.Log("Puzzle solved! Activating reward object.");
+            if (rewardObject != null)
+            {
+                rewardObject.SetActive(true);
+            }
+            else
+            {
+                Debug.LogError("Reward object is not assigned.");
+            }
             puzzleSolved = true;
+        }
+        else
+        {
+            Debug.Log("Puzzle not solved yet or already solved.");
         }
     }
 }
