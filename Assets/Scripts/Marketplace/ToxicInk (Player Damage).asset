@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Toxic Ink
   description: 'An enhancement that makes Bob ink toxic '
-  baseCost: 10
+  baseCost: 0
   sprite: {fileID: 0}
