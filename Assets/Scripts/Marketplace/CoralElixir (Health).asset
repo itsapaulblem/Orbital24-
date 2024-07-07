@@ -15,5 +15,5 @@ MonoBehaviour:
   title: Coral Elixir
   description: A mystical elixir made from coral extracts that increases Bob's health
     for a period of time
-  baseCost: 0
+  baseCost: 10
   sprite: {fileID: 0}
