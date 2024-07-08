@@ -27,9 +27,6 @@ public class DungeonManager : MonoBehaviour
     public string[] Room = { "TBL", "TBR", "TLR", "BLR", "TBL", "TBR", "TBLR", "TB", "LR", "TL", "TR", "BL", "BR"};
     public string[] End = { "T", "B", "L", "R" };
 
-    public int DungeonWidth { get; private set; }
-    public int DungeonHeight { get; private set; }
-
     private string[,] Rooms; // row, col
 
     Dictionary<char, int> rm = new Dictionary<char, int>(){ {'T',-1}, {'B',1}, {'L',0}, {'R',0} };
@@ -39,29 +36,33 @@ public class DungeonManager : MonoBehaviour
 
     private void InitRoom(int row, int col)
     {
-        DungeonWidth = col;
-        DungeonHeight = row;
         Rooms = new string[row, col];
 
         // Place starting room
         Rooms[10, 5] = "TLR"; // Assume hardcoded 11,11 
     }
 
-    public void GenerateDungeon(int roomCount, float connectionProbability)
+    public void GenerateDungeon()
     {
         // Initialise room map
         InitRoom(11,11);
 
         // Recursively generate rooms until desired count is reached
-        GenerateDungeonRecursive(10, 4, 0, 4); // left
-        GenerateDungeonRecursive(9, 5, 0, 6); // top
-        GenerateDungeonRecursive(10, 6, 0, 4); // right
+        //GenerateDungeonRecursive(10, 4, 0, 4); // left
+        //GenerateDungeonRecursive(9, 5, 0, 6); // top
+        //GenerateDungeonRecursive(10, 6, 0, 4); // right
+
+        StartCoroutine(GenerateDungeonRecursive(10, 4, 0, 4)); // left
+        StartCoroutine(GenerateDungeonRecursive(9, 5, 0, 6)); // top
+        StartCoroutine(GenerateDungeonRecursive(10, 6, 0, 4)); // right
     }
 
 
-    private void GenerateDungeonRecursive(int r, int c, float endProb, int minRm)
+    private IEnumerator GenerateDungeonRecursive(int r, int c, float endProb, int minRm)
     {
-        if (Rooms[r,c] != null) { return; }
+        if (Rooms[r,c] != null) { yield break; }
+        Rooms[r,c] = "-";
+        started += 1;
         string curr = "";
         string must = "";
         string cannot = "";
@@ -97,8 +98,9 @@ public class DungeonManager : MonoBehaviour
         Rooms[r, c] = curr;
 
         foreach (char _ in Rooms[r, c]) {
-            GenerateDungeonRecursive(r+rm[_], c+cm[_], endProb + 0.02f, minRm - 1);
+            StartCoroutine(GenerateDungeonRecursive(r+rm[_], c+cm[_], endProb + prb, minRm - 1));
         }
+        terminated += 1;
     }
 
     private bool CheckValid(int r, int c, string room) {
@@ -115,10 +117,33 @@ public class DungeonManager : MonoBehaviour
     {
         
     }
-
+    public bool run = false;
+    public float prb = 0.08f;
+    private int started = 0;
+    private int terminated = 0;
     // Update is called once per frame
     void Update()
     {
-        
+        if (run) {
+            run = false;
+            GenerateDungeon();
+
+            IEnumerator WaitForAll() {
+                while (terminated < started) {
+                    yield return null;
+                }
+                string table = "";
+                for (int y = 0; y < 11; y++) {
+                    string row = "";
+                    for (int x = 0; x < 11; x++) {
+                        string t = Rooms[y,x] == null? "---  ":Rooms[y,x].PadRight(5,' ');
+                        row = row + t;
+                    }
+                    table = table + row + "\n";
+                }
+                Debug.Log(table);
+            }
+            StartCoroutine(WaitForAll());
+        }
     }
 }
