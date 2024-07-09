@@ -6,27 +6,72 @@ using Firebase.Database;
 using TMPro;
 using UnityEngine.SceneManagement;
 
+/**
+ * FirebaseLoginManager is a script that handles user login and password reset functionality using Firebase Authentication.
+ */
 public class FirebaseLoginManager : MonoBehaviour
 {
     [Header("Firebase")]
+    /**
+     * The dependency status of Firebase.
+     */
     public DependencyStatus dependencyStatus;
+    /**
+     * The Firebase authentication instance.
+     */
     public FirebaseAuth auth;
+    /**
+     * The current Firebase user.
+     */
     public FirebaseUser user;
+    /**
+     * The Firebase database reference.
+     */
     public DatabaseReference DBreference;
 
     [Header("Login")]
+    /**
+     * The email input field for login.
+     */
     public TMP_InputField emailLoginField;
+    /**
+     * The password input field for login.
+     */
     public TMP_InputField passwordLoginField;
+    /**
+     * The warning text for login errors.
+     */
     public TMP_Text warningLoginText;
+    /**
+     * The confirmation text for successful login.
+     */
     public TMP_Text confirmLoginText;
 
     [Header("Forgot Password")]
+    /**
+     * The email input field for forgot password.
+     */
     public TMP_InputField emailForgotPasswordField;
+    /**
+     * The forgot password screen game object.
+     */
     public GameObject ForgotPasswordScreen;
+    /**
+     * The login screen game object.
+     */
     public GameObject LoginScreen;
+    /**
+     * The warning text for password reset errors.
+     */
     public TMP_Text warningPasswordText;
+    /**
+     * The confirmation text for successful password reset.
+     */
     public TMP_Text confirmPasswordText;
 
+    /**
+     * Initializes the Firebase authentication and database.
+     */
     public void Awake()
     {
         FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
@@ -43,6 +88,9 @@ public class FirebaseLoginManager : MonoBehaviour
         });
     }
 
+    /**
+     * Initializes the Firebase authentication and database.
+     */
     private void InitializeFirebase()
     {
         Debug.Log("Setting up Firebase Auth");
@@ -56,18 +104,27 @@ public class FirebaseLoginManager : MonoBehaviour
         }
     }
 
+    /**
+     * Clears the login fields.
+     */
     public void ClearLoginFields()
     {
         emailLoginField.text = "";
         passwordLoginField.text = "";
     }
 
+    /**
+     * Goes back to the login screen from the forgot password screen.
+     */
     public void Back()
     {
         ForgotPasswordScreen.SetActive(false);
         LoginScreen.SetActive(true);
     }
 
+    /**
+     * Handles the login button click.
+     */
     public void LoginButton()
     {
         string email = emailLoginField.text.Trim();
@@ -82,6 +139,12 @@ public class FirebaseLoginManager : MonoBehaviour
         StartCoroutine(LoginRoutine(email, password));
     }
 
+    /**
+     * Logs in the user with the provided email and password.
+     * 
+     * @param _email The email address of the user.
+     * @param _password The password of the user.
+     */
     private IEnumerator LoginRoutine(string _email, string _password)
     {
         if (auth == null)
@@ -160,10 +223,13 @@ public class FirebaseLoginManager : MonoBehaviour
             LoginScreen.SetActive(false);
             ClearLoginFields();
 
-            Debug.Log("Loading last scene and player progress...");
-            if (PlayerPrefsManager.CheckCutscene(1)) {
+            Debug.Log("Loading last scene and player progress");
+            if (PlayerPrefsManager.CheckCutscene(1))
+            {
                 SceneManager.LoadScene("Cutscene1");
-            } else {
+            }
+            else
+            {
                 string lastScene = PlayerPrefsManager.LoadLastScene();
                 PlayerPrefsManager.LoadCoords();
                 // TODO: change to last scene
@@ -172,13 +238,18 @@ public class FirebaseLoginManager : MonoBehaviour
         }
     }
 
+    /**
+     * Sends a verification email to the user.
+     * 
+     * @param user The Firebase user to send the verification email to.
+     */
     private IEnumerator SendVerificationEmail(FirebaseUser user)
     {
         var emailTask = user.SendEmailVerificationAsync();
 
         yield return new WaitUntil(() => emailTask.IsCompleted);
 
-        if (emailTask.Exception != null)
+        if (emailTask.Exception!= null)
         {
             Debug.LogError($"Failed to send verification email: {emailTask.Exception}");
         }
@@ -188,24 +259,35 @@ public class FirebaseLoginManager : MonoBehaviour
         }
     }
 
+    /**
+     * Shows the forgot password screen.
+     */
     public void ShowForgotPasswordScreen()
     {
         ForgotPasswordScreen.SetActive(true);
         LoginScreen.SetActive(false);
     }
 
+    /**
+     * Handles the reset password button click.
+     */
     public void ResetPasswordButton()
     {
         StartCoroutine(SendPasswordResetEmail(emailForgotPasswordField.text));
     }
 
+    /**
+     * Sends a password reset email to the user.
+     * 
+     * @param _email The email address of the user to send the password reset email to.
+     */
     private IEnumerator SendPasswordResetEmail(string _email)
     {
         var resetTask = auth.SendPasswordResetEmailAsync(_email);
 
         yield return new WaitUntil(() => resetTask.IsCompleted);
 
-        if (resetTask.Exception != null)
+        if (resetTask.Exception!= null)
         {
             Debug.LogError($"Failed to send password reset email: {resetTask.Exception}");
 
