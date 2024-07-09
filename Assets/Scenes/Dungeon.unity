@@ -443,7 +443,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1320195265699661409, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
       propertyPath: m_ChildCameras.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1320195265699661409, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
       propertyPath: m_ChildCameras.Array.data[0]
@@ -1906,6 +1906,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 575238094455277684, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
+      propertyPath: inventoryMenu
+      value: 
+      objectReference: {fileID: 2142511164}
     - target: {fileID: 1745842633434570824, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -2495,6 +2499,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   run: 0
+  indiv: 0
   testing:
   - TBLR
   - TBL
@@ -2544,6 +2549,11 @@ Transform:
 PolygonCollider2D:
   m_CorrespondingSourceObject: {fileID: 1051832460015257433, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
   m_PrefabInstance: {fileID: 488588888}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2142511164 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2551705768735749177, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
+  m_PrefabInstance: {fileID: 1455001578}
   m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
