@@ -15,7 +15,15 @@ public class Instructions : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (controls == null){
+            Debug.Log("Controls GameObject is not assigned");
+            return; 
+        }
         controlsCanvasGroup = controls.GetComponent<CanvasGroup>();
+        if (controlsCanvasGroup == null){
+            Debug.LogError("CanvasGroup Component missing on Controls GameObject");
+            return; 
+        }
         if (scoreText != null){
             scoreText.SetActive(false);
         }
