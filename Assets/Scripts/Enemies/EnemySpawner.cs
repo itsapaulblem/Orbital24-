@@ -69,7 +69,7 @@ public class EnemySpawner : MonoBehaviour
                 EnemyAI enemyAI = spawnedEnemy.GetComponent<EnemyAI>();
                 if (enemyAI != null){
                     enemyAI.SetInit(2f, 50f, 3f);
-                }
+                } // TODO: Delete
             }
             yield return wait;
         }

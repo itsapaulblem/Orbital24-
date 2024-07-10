@@ -9,7 +9,7 @@ public class MB3_AI : RangedEnemyAI
     void Start()
     {
         // TODO: Check if undefeated, or if game completed, else destroy
-        SetInit(2f, 150, 10f, 1f, 14f, 12f);
+        SetInit(2f, 180f, 18f, 1f, 14f, 8f);
         bulletPrefab = "Prefab/ExBullet";
         lastFireTime = Time.time - stats.GetAttackSpeed();
         audioManager = AudioManager.Instance;

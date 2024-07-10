@@ -2,16 +2,25 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D.Animation;
 using Cinemachine;
 
 public class DungeonManager : MonoBehaviour
 {
     private string[,] Rooms; // row, col
+    private List<GameObject>[,] Entities;
+    private int row; private int col;
     private List<Coords> Ends;
-    private Coords PlayerRoom = new Coords(10,5);
+
+    // Spawn management
+    Dictionary<string, Func<GameObject>> Spawn;
+
+    // Scene management
+    private Coords PlayerRoom;
     private GameObject DungeonMap;
     private GameObject BossRoom;
 
+    // Scene coords for rooms
     Dictionary<string,Vector3> SceneMap = new Dictionary<string,Vector3>(){
         {"TBLR", new Vector3(42.25f, -50f, 0f)},
         {"TBL", new Vector3(0f, -50f, 0f)}, {"TBR", new Vector3(-42.125f, -50f, 0f)}, 
@@ -24,12 +33,14 @@ public class DungeonManager : MonoBehaviour
         {"Boss", new Vector3(0f, 0f, 0f)}, {"Empty", new Vector3(200f, 200f, 0f)}
     };
 
+    // Player coords for entering room
     Dictionary<string,Vector3> EnterPos = new Dictionary<string,Vector3>(){
-        {"T", new Vector3(0f, -9f, 0f)}, {"B", new Vector3(0f, 9f, 0f)}, 
+        {"T", new Vector3(0f, -9f, 0f)}, {"B", new Vector3(0f, 9.5f, 0f)}, 
         {"L", new Vector3(16f, 0f, 0f)}, {"R", new Vector3(-16f, 0f, 0f)},
         {"Boss", new Vector3(0f, -20f, 0f)}
     };
 
+    // Helpers
     Dictionary<char, int> rm = new Dictionary<char, int>(){ {'T',-1}, {'B',1}, {'L',0}, {'R',0} };
     Dictionary<char, int> cm = new Dictionary<char, int>(){ {'L',-1}, {'R',1}, {'T',0}, {'B',0} };
     Dictionary<char, char> checkroom = new Dictionary<char, char>(){ {'L','R'}, {'R','L'}, {'T','B'}, {'B','T'} };
@@ -43,6 +54,37 @@ public class DungeonManager : MonoBehaviour
         DungeonMap = GameObject.Find("Dungeon Rooms");
         BossRoom = GameObject.Find("Boss Room");
 
+        // Init Spawners
+        Spawn = new Dictionary<string, Func<GameObject>>() {
+            {"Coin", () => {
+                GameObject coinPrefab = Resources.Load<GameObject>("Prefab/Coin");
+                return Instantiate(coinPrefab, new Vector3(UnityEngine.Random.Range(-14f,14f), 
+                        UnityEngine.Random.Range(-7f,7.5f), 0), Quaternion.identity); 
+            }},
+            {"Melee", () => {
+                GameObject meleePrefab = Resources.Load<GameObject>("Prefab/Enemy");
+                GameObject enemy = Instantiate(meleePrefab, new Vector3(UnityEngine.Random.Range(-14f,14f), 
+                        UnityEngine.Random.Range(-7f,7.5f), 0), Quaternion.identity); 
+                SpriteLibrary sl = enemy.GetComponent<SpriteLibrary>();
+                sl.spriteLibraryAsset = Resources.Load<SpriteLibraryAsset>("Sprites/Enemies/Side Animation/m_enemy_" + UnityEngine.Random.Range(1,2)); 
+                enemy.GetComponent<EnemyAI>().sight = 100f;
+                return enemy;
+            }},
+            {"Ranged", () => {
+                GameObject rangedPrefab = Resources.Load<GameObject>("Prefab/RangedEnemy");
+                GameObject enemy = Instantiate(rangedPrefab, new Vector3(UnityEngine.Random.Range(-14f,14f), 
+                        UnityEngine.Random.Range(-7f,7.5f), 0), Quaternion.identity); 
+                SpriteLibrary sl = enemy.GetComponent<SpriteLibrary>();
+                sl.spriteLibraryAsset = Resources.Load<SpriteLibraryAsset>("Sprites/Enemies/Side Animation/r_enemy_" + UnityEngine.Random.Range(1,2)); 
+                enemy.GetComponent<EnemyAI>().sight = 100f;
+                return enemy;
+            }},
+            {"Mixed", () => {
+                if (UnityEngine.Random.value < 0.5) { return Spawn["Melee"](); }
+                else { return Spawn["Ranged"](); }
+            }}
+        };
+
         // Generate and Load scene.
         GenerateDungeon();
 
@@ -51,8 +93,8 @@ public class DungeonManager : MonoBehaviour
             while (terminated < started) {
                 yield return null;
             }
-            for (int r = 0; r < 11; r++) {
-                for (int c = 0; c < 11; c++) {
+            for (int r = 0; r < row; r++) {
+                for (int c = 0; c < col; c++) {
                     FixRoom(r,c);
                 }
             }
@@ -67,13 +109,13 @@ public class DungeonManager : MonoBehaviour
                 yield return null;
             }
             string table = "";
-            for (int y = 0; y < 11; y++) {
-                string row = "";
-                for (int x = 0; x < 11; x++) {
-                    string t = Rooms[y,x] == null? "---  ":Rooms[y,x].PadRight(5,' ');
-                    row = row + t;
+            for (int r = 0; r < row; r++) {
+                string printrow = "";
+                for (int c = 0; c < col; c++) {
+                    string t = Rooms[r,c] == null? "---  ":Rooms[r,c].PadRight(5,' ');
+                    printrow = printrow + t;
                 }
-                table = table + row + "\n";
+                table = table + printrow + "\n";
             }
             Debug.Log(table);
         }
@@ -81,23 +123,29 @@ public class DungeonManager : MonoBehaviour
     }
 
     // Reset and Initialise
-    private void InitRoom(int row, int col)
+    private void InitRoom(int r, int c)
     {
+        row = r;
+        col = c;
         Rooms = new string[row, col];
+        Entities = new List<GameObject>[row, col];
         Ends = new List<Coords>();
+
         // Place starting room
-        Rooms[10, 5] = "TLR"; // Assume hardcoded 11,11 
+        Rooms[row-1, col/2] = "TLR"; 
+        Entities[row-1, col/2] = new List<GameObject>();
+        PlayerRoom = new Coords(row-1, col/2);
     }
 
     public void GenerateDungeon()
     {
         // Initialise room map
-        InitRoom(11,11);
+        InitRoom(7,9);
 
         // Generate Map Async
-        StartCoroutine(GenerateDungeonRecursive(10, 4, 0, 4)); // left
-        StartCoroutine(GenerateDungeonRecursive(9, 5, 0, 6)); // top
-        StartCoroutine(GenerateDungeonRecursive(10, 6, 0, 4)); // right
+        StartCoroutine(GenerateDungeonRecursive(row-2, col/2, 0, 3)); // top
+        StartCoroutine(GenerateDungeonRecursive(row-1, col/2-1, 0, 2)); // left
+        StartCoroutine(GenerateDungeonRecursive(row-1, col/2+1, 0, 2)); // right
 
         // Select Farthest endpoint to be Boss room. 
         IEnumerator SelectBossWhenReady() {
@@ -142,7 +190,7 @@ public class DungeonManager : MonoBehaviour
 
         // Identify compulsory and invalid paths
         foreach (char _ in "TBLR") {
-            if (r+rm[_] < 0 || r+rm[_] > 10 || c+cm[_] < 0 || c+cm[_] > 10) {
+            if (r+rm[_] < 0 || r+rm[_] >= row || c+cm[_] < 0 || c+cm[_] >= col) {
                 cannot = cannot + _;
             } else if (Rooms[r+rm[_], c+cm[_]] != null && Rooms[r+rm[_], c+cm[_]].Contains(checkroom[_])) {
                 must = must + _;
@@ -195,7 +243,7 @@ public class DungeonManager : MonoBehaviour
         if (room == "") { return false; }
         if (room == "Boss") { return true; }
         foreach (char d in room) {
-            if (r+rm[d] < 0 || r+rm[d] > 10 || c+cm[d] < 0 || c+cm[d] > 10) { return false; }
+            if (r+rm[d] < 0 || r+rm[d] >= row || c+cm[d] < 0 || c+cm[d] >= col) { return false; }
             if (Rooms[r+rm[d], c+cm[d]] != null && !Rooms[r+rm[d], c+cm[d]].Contains(checkroom[d])) { return false; }
         }
         return true;
@@ -207,7 +255,7 @@ public class DungeonManager : MonoBehaviour
         if (room == null || room == "Boss") { return; }
         string valid = "";
         foreach (char d in room) {
-            if (r+rm[d] < 0 || r+rm[d] > 10 || c+cm[d] < 0 || c+cm[d] > 10) { continue; }
+            if (r+rm[d] < 0 || r+rm[d] >= row || c+cm[d] < 0 || c+cm[d] >= col) { continue; }
             if (Rooms[r+rm[d], c+cm[d]] != null && !Rooms[r+rm[d], c+cm[d]].Contains(checkroom[d])) { continue; }
             valid = valid + d;
         }
@@ -216,6 +264,7 @@ public class DungeonManager : MonoBehaviour
 
     public void ChangeRoom(string direction) {
         if (Rooms[PlayerRoom.row, PlayerRoom.col] == "Boss") { return; }
+        DeactivateRoom();
         PlayerRoom.Move(direction);
         LoadRoom();
         if (Rooms[PlayerRoom.row, PlayerRoom.col] == "Boss") {
@@ -224,7 +273,7 @@ public class DungeonManager : MonoBehaviour
         GameObject.Find("Player").transform.position = EnterPos[direction];
     }
 
-    public void LoadRoom() {
+    private void LoadRoom() {
         string room = Rooms[PlayerRoom.row, PlayerRoom.col];
         if (room == "Boss") {
             BossRoom.transform.position = SceneMap[room];
@@ -238,6 +287,48 @@ public class DungeonManager : MonoBehaviour
         } else {
             DungeonMap.transform.position = SceneMap[room];
             BossRoom.transform.position = SceneMap["Empty"];
+            ActivateRoom();
+        }
+    }
+
+    // Activate entities in room if exist, otherwise spawn entities
+    private void ActivateRoom() {
+        List<GameObject> ent = Entities[PlayerRoom.row, PlayerRoom.col];
+        if (ent != null) {
+            ent.RemoveAll(e => e == null);
+            foreach (GameObject g in ent) {
+                g.SetActive(true);
+            }
+        } else {
+            ent = new List<GameObject>();
+            // Types: Coin(.2), Melee(.3), Ranged(.3), MixedEnemies(.2)
+            float rand = UnityEngine.Random.value;
+            string type = rand<0.2 ? "Coin" : (rand<0.5 ? "Melee" : (rand<0.8 ? "Ranged" : "Mixed"));
+            for (int _ = 0; _ < 3; _++) {
+                ent.Add(Spawn[type]());
+            }
+            Entities[PlayerRoom.row, PlayerRoom.col] = ent;
+        }
+    }
+
+    // Deactivate entities in room
+    private void DeactivateRoom() {
+        List<GameObject> ent = Entities[PlayerRoom.row, PlayerRoom.col];
+
+        // Store coins as part of room
+        Coin[] newCoins = UnityEngine.Object.FindObjectsOfType<Coin>();
+        foreach (Coin c in newCoins) {
+            ent.Add(c.gameObject);
+        }
+        ent.RemoveAll(e => e == null); // Remove destroyed gameObjects
+        foreach (GameObject g in ent) {
+            g.SetActive(false);
+        }
+        
+        // Destroy all bullets
+        Bullet[] existingBullet = UnityEngine.Object.FindObjectsOfType<Bullet>();
+        foreach (Bullet b in existingBullet) {
+            Destroy(b.gameObject);
         }
     }
 
@@ -254,14 +345,14 @@ public class DungeonManager : MonoBehaviour
         if (run && !indiv) {
             run = false;
             string table = "";
-            for (int y = 0; y < 11; y++) {
-                string row = "";
-                for (int x = 0; x < 11; x++) {
-                    if (Rooms[y,x] != null && !CheckValid(y,x,Rooms[y,x])) { Debug.Log(y + " " + x); }
-                    string t = Rooms[y,x] == null? "---  ":Rooms[y,x].PadRight(5,' ');
-                    row = row + t;
+            for (int r = 0; r < row; r++) {
+                string printrow = "";
+                for (int c = 0; c < col; c++) {
+                    if (Rooms[r,c] != null && !CheckValid(r,c,Rooms[r,c])) { Debug.Log(r + " " + c); }
+                    string t = Rooms[r,c] == null? "---  ":Rooms[r,c].PadRight(5,' ');
+                    printrow = printrow + t;
                 }
-                table = table + row + "\n";
+                table = table + printrow + "\n";
             }
             Debug.Log(table);
         } else if (run && indiv) {
@@ -280,13 +371,13 @@ public class DungeonManager : MonoBehaviour
                     yield return null;
                 }
                 string table = "";
-                for (int y = 0; y < 11; y++) {
-                    string row = "";
-                    for (int x = 0; x < 11; x++) {
+                for (int r = 0; r < row; r++) {
+                    string printrow = "";
+                    for (int c = 0; c < col; c++) {
                         string t = Rooms[y,x] == null? "---  ":Rooms[y,x].PadRight(5,' ');
-                        row = row + t;
+                        printrow = printrow + t;
                     }
-                    table = table + row + "\n";
+                    table = table + printrow + "\n";
                 }
                 Debug.Log(table);
             }

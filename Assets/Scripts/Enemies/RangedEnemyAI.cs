@@ -13,7 +13,7 @@ public class RangedEnemyAI : EnemyAI
 
     void Start()
     {
-        SetInit(2f, 30, 10f, 0.9f, 14f, 12f);
+        SetInit(2f, 20, 10f, 0.9f, 14f, 12f);
         lastFireTime = Time.time - stats.GetAttackSpeed();
     }
 

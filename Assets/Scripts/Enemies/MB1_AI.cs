@@ -11,7 +11,7 @@ public class MB1_AI : EnemyAI
     {
         // TODO: Check if undefeated, or if game completed, else destroy
         sight = 20f;
-        SetInit(3f, 150f, 5f, 3f);
+        SetInit(3f, 80f, 5f, 3f);
         audioManager = AudioManager.Instance;
     }
 

@@ -72,7 +72,7 @@ public class Bullet : MonoBehaviour
         BoxCollider2D boxCollider = collision as BoxCollider2D;
         PolygonCollider2D polygonCollider = collision as PolygonCollider2D;
         if ((boxCollider != null && boxCollider.isTrigger && active) || (polygonCollider != null && active)){
-            StartCoroutine(End());
+            if (active) { StartCoroutine(End()); }
             active = false; 
         }
     }
