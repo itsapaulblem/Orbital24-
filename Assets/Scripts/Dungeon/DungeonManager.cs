@@ -30,14 +30,14 @@ public class DungeonManager : MonoBehaviour
         {"BL", new Vector3(42.25f, 25f, 0f)}, {"BR", new Vector3(0f, 25f, 0f)},
         {"T", new Vector3(-42.125f, 25f, 0f)}, {"B", new Vector3(42.25f, 50f, 0f)}, 
         {"L", new Vector3(0f, 50f, 0f)}, {"R", new Vector3(-42.125f, 50f, 0f)},
-        {"Boss", new Vector3(0f, 0f, 0f)}, {"Empty", new Vector3(200f, 200f, 0f)}
+        {"Boss", new Vector3(0f, 10.675f, 0f)}, {"Empty", new Vector3(200f, 200f, 0f)}
     };
 
     // Player coords for entering room
     Dictionary<string,Vector3> EnterPos = new Dictionary<string,Vector3>(){
         {"T", new Vector3(0f, -9f, 0f)}, {"B", new Vector3(0f, 9.5f, 0f)}, 
         {"L", new Vector3(16f, 0f, 0f)}, {"R", new Vector3(-16f, 0f, 0f)},
-        {"Boss", new Vector3(0f, -20f, 0f)}
+        {"Boss", new Vector3(0f, -9f, 0f)}
     };
 
     // Helpers
