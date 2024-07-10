@@ -32,7 +32,7 @@ public class FieldbossAI : RangedEnemyAI
     {
         if (player == null) return;
         if (audioManager == null) { audioManager = AudioManager.Instance; }
-            audioManager.PlaySFX(audioManager.bossFinal); // Play hit sound effect
+            audioManager.PlaySFX(audioManager.bossField); // Play hit sound effect
 
         Vector3 playerPos = player.transform.position;
         Vector3 originPos = transform.position;

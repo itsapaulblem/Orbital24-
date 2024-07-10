@@ -99,7 +99,7 @@ public class EnemyAI : MonoBehaviour
                 if (state == State.Roaming)
                 {
                     movement = GetRoamingPosition();
-                    yield return new WaitForSeconds(Time.fixedDeltaTime);   
+                    yield return new WaitForSeconds(3f);   
                 }
                 if (state == State.Seeking)
                 {

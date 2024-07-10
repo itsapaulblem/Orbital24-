@@ -82,6 +82,12 @@ public class DungeonManager : MonoBehaviour
             {"Mixed", () => {
                 if (UnityEngine.Random.value < 0.5) { return Spawn["Melee"](); }
                 else { return Spawn["Ranged"](); }
+            }},
+            {"Boss", () => {
+                GameObject bossPrefab = Resources.Load<GameObject>("Prefab/FinalBoss");
+                GameObject enemy = Instantiate(bossPrefab, new Vector3(0, 22.5f, 0), Quaternion.identity); 
+                enemy.GetComponent<EnemyAI>().sight = 35f;
+                return enemy;
             }}
         };
 
@@ -284,6 +290,13 @@ public class DungeonManager : MonoBehaviour
                         .m_BoundingShape2D = gameObject.transform.Find("Boss Confiner").GetComponent<PolygonCollider2D>();
 
             GameObject.Find("Virtual Camera").GetComponent<Cinemachine.CinemachineVirtualCamera>().m_Lens.OrthographicSize = 15;
+
+            GameObject.Find("Top").SetActive(false);
+            GameObject.Find("Bottom").SetActive(false);
+            GameObject.Find("Left").SetActive(false);
+            GameObject.Find("Right").SetActive(false);
+
+            ActivateRoom(true);
         } else {
             DungeonMap.transform.position = SceneMap[room];
             BossRoom.transform.position = SceneMap["Empty"];
@@ -292,9 +305,13 @@ public class DungeonManager : MonoBehaviour
     }
 
     // Activate entities in room if exist, otherwise spawn entities
-    private void ActivateRoom() {
+    private void ActivateRoom(bool isBoss = false) {
         List<GameObject> ent = Entities[PlayerRoom.row, PlayerRoom.col];
-        if (ent != null) {
+        if (isBoss) {
+            GameObject boss = Spawn["Boss"]();
+            // TODO: Spawn ritual items
+            // TODO: IEnum to track boss defeat, link to cutscene
+        } else if (ent != null) {
             ent.RemoveAll(e => e == null);
             foreach (GameObject g in ent) {
                 g.SetActive(true);
@@ -343,6 +360,7 @@ public class DungeonManager : MonoBehaviour
     void Update()
     {
         if (run && !indiv) {
+
             run = false;
             string table = "";
             for (int r = 0; r < row; r++) {
