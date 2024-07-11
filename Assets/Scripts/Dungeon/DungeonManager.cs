@@ -309,8 +309,9 @@ public class DungeonManager : MonoBehaviour
         List<GameObject> ent = Entities[PlayerRoom.row, PlayerRoom.col];
         if (isBoss) {
             GameObject boss = Spawn["Boss"]();
-            // TODO: Spawn ritual items
-            // TODO: IEnum to track boss defeat, link to cutscene
+            GameObject.Find("Ritual").SetActive(true);
+            // Add listener for Boss defeat
+            boss.GetComponent<EnemyAI>().EnemyDied += BossDiedHandler;
         } else if (ent != null) {
             ent.RemoveAll(e => e == null);
             foreach (GameObject g in ent) {
@@ -347,6 +348,11 @@ public class DungeonManager : MonoBehaviour
         foreach (Bullet b in existingBullet) {
             Destroy(b.gameObject);
         }
+    }
+
+    // Event handler for when an enemy dies, only for mermaid
+    private void BossDiedHandler() {
+        // TODO: Go to cutscene/start convo
     }
 
 

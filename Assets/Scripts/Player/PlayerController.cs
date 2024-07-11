@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     // Movement Attributes
     private Vector2 movement;
     private Rigidbody2D rb;
+    public bool canMove = true;
 
     // Animation Attributes
     private Animator playerAnimator;
@@ -74,8 +75,10 @@ public class PlayerController : MonoBehaviour
     /// player inputs
     private void FixedUpdate() 
     {
-        UpdatePlayerFacingDirection();
-        Move();
+        if (canMove) {
+            UpdatePlayerFacingDirection();
+            Move();
+        }
     }
 
     /// When player triggers movement inputs, OnMove sets direction of motion
@@ -109,10 +112,10 @@ public class PlayerController : MonoBehaviour
     /// delay (reload) between each shot. If player stops pressing fireButton while 
     /// still reloading, player will shootSingle once reloaded.
     private void Update()
-{
+    {
     float timeSinceLastFire = Time.time - lastFireTime;
 
-    if (shootContinuous || shootSingle)
+    if (canMove && (shootContinuous || shootSingle))
     {
         if (timeSinceLastFire >= stats.GetAttackSpeed())
         {
