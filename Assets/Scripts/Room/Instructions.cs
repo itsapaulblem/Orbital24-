@@ -23,9 +23,7 @@ public class Instructions : MonoBehaviour
             Debug.LogError("CanvasGroup Component missing on Controls GameObject");
             return; 
         }
-        if (scoreText != null){
-            scoreText.SetActive(false);
-        }
+        
         controlsCanvasGroup.alpha = 1;
         if (PlayerPrefsManager.CheckCutscene(1)) {
             controls.SetActive(true);

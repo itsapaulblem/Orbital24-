@@ -39,7 +39,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private GameObject coinPrefab;
 
     // Event to notify NPC of enemy death
-    public static event Action EnemyDied;
+    public event Action EnemyDied;
   
 
     private void Awake()

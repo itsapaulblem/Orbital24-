@@ -79,18 +79,12 @@ public class NPC : MonoBehaviour
 
         // Subscribe to the EnemyDied event
         if (currName == "Mermaid") {
-            GameObject.Find("StarterEnemy").GetComponent<EnemyAI>().SetInit(1.5f, 20f, 2f);
-            EnemyAI.EnemyDied += EnemyDiedHandler;
+            EnemyAI starter = GameObject.Find("StarterEnemy").GetComponent<EnemyAI>();
+            starter.SetInit(1.5f, 20f, 2f);
+            starter.EnemyDied += EnemyDiedHandler;
             Debug.Log("Subscribed to EnemyDied Event");
         }
         
-    }
-
-    void OnDestroy()
-    {
-        // Unsubscribe from the EnemyDied event
-        EnemyAI.EnemyDied -= EnemyDiedHandler;
-        Debug.Log("Unsubscribed from EnemyDied Event");
     }
 
     // Event handler for when an enemy dies, only for mermaid
