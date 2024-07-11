@@ -22,6 +22,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip bossOne; 
     public AudioClip bossTwo; 
     public AudioClip bossThree; 
+    public AudioClip bossField;
     public AudioClip bossFinal; 
     public AudioClip purchaseClick;
     public AudioClip enemyDied;

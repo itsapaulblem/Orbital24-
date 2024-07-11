@@ -26,7 +26,7 @@ public class Bullet : MonoBehaviour
         origin = transform.position;
         if (spriteLibrary.spriteLibraryAsset == null)
         {
-            // get default sprite
+            // Get default sprite
             spriteLibrary.spriteLibraryAsset = Resources.Load<SpriteLibraryAsset>(PATHTOSPRITE + "shot_main"); 
         }
     }
@@ -67,7 +67,14 @@ public class Bullet : MonoBehaviour
                 active = false;
             }
         }
-        
+
+        // If the bullet collides with a BoxCollider2D that is a trigger, start the End Coroutine
+        BoxCollider2D boxCollider = collision as BoxCollider2D;
+        PolygonCollider2D polygonCollider = collision as PolygonCollider2D;
+        if ((boxCollider != null && boxCollider.isTrigger && active) || (polygonCollider != null && active)){
+            if (active) { StartCoroutine(End()); }
+            active = false; 
+        }
     }
 
     private void Update()

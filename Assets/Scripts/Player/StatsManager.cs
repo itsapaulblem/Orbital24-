@@ -11,8 +11,8 @@ public class StatsManager
 
     // Default Player Stats
     private const float MOVESPEED = 4f;
-    private const float MAXHEALTH = 100f;
-    private const float ATTACK = 10f;
+    private const float MAXHEALTH = 50f;
+    private const float ATTACK = 6f;
     private const float BULLETLIFE = 12f;
     private const float BULLETSPEED = 6f;
     private float currentHealth;

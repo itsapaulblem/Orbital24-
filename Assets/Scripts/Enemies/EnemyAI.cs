@@ -23,7 +23,7 @@ public class EnemyAI : MonoBehaviour
     protected Vector2 movement;
 
     // for Seeking
-    [SerializeField] protected float sight = 12f;
+    [SerializeField] public float sight = 12f;
     protected GameObject player;
 
     // Animation Attributes
@@ -64,7 +64,7 @@ public class EnemyAI : MonoBehaviour
                         p => p.gameObject.name == "HealthBar").gameObject;
         healthBar.transform.localScale = new Vector3(maxHealthBarScale, 0.1f, 1f);
 
-        SetInit(5f, 40f, 2f); // default initialize
+        SetInit(2.5f, 30f, 6f); // default initialize
     }
 
     /// Initialise enemy stats
@@ -81,6 +81,10 @@ public class EnemyAI : MonoBehaviour
         // healthBar.transform.localPosition = new Vector3(0f, 1f, 1f);
 
         // Start async movement routine
+        //StartCoroutine(MovementRoutine());
+    }
+
+    public void OnEnable() {
         StartCoroutine(MovementRoutine());
     }
 
@@ -132,9 +136,11 @@ public class EnemyAI : MonoBehaviour
         if (player != null)
         {
             // tracks player distance and update enemy state
+            State prev = state;
             state = Vector2.Distance(player.transform.position, rb.position) <= sight
                 ? State.Seeking
                 : State.Roaming;
+            if (state != prev && state == State.Seeking) { movement = GetSeekingPosition(); }
 
             // move enemy based on movement position (from movement routine)
             rb.MovePosition(rb.position + movement * stats.GetMoveSpeed() * Time.fixedDeltaTime);

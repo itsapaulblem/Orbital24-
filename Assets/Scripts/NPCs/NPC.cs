@@ -73,7 +73,8 @@ public class NPC : MonoBehaviour
             { "Goldfish", "Finlay" },
             { "Crab", "Krabtain Kidd" },
             { "Mermaid", "Lorelei" },
-            { "Field boss", "Ezekill" }
+            { "Fieldboss", "Ezekill" },
+            { "BossDialogue", "Finlay" }
         };
 
         // Subscribe to the EnemyDied event
@@ -99,6 +100,7 @@ public class NPC : MonoBehaviour
         dialogueShown = false; // Reset dialogueShown when an enemy dies
         Debug.Log("Enemy died, setting dialogueBlock to 2 and resetting dialogueShown");
         state = DialogueState.Next;
+        waitForPress = true;
         StartCoroutine(RunText());
     }
 
@@ -149,6 +151,7 @@ public class NPC : MonoBehaviour
                     if (marketplaceMenu.activeSelf)
                     {
                         marketplaceMenu.SetActive(false);
+                        GameObject.Find("Player").GetComponent<PlayerController>().canMove = true;
                         // Reactivate killText when marketplace menu is hidden
                         if (gameManager.killText != null)
                         {
@@ -255,6 +258,7 @@ public class NPC : MonoBehaviour
         if (marketplaceMenu != null && currName == "Crab")
         {
             marketplaceMenu.SetActive(true);
+            GameObject.Find("Player").GetComponent<PlayerController>().canMove = false;
             InventoryManager.UpdateCoinUI();
             if (gameManager.killText != null)
             {
