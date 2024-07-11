@@ -16,7 +16,7 @@ public class PlateBehavior : MonoBehaviour
         plates.Add(this);
         Debug.Log("Plate added to list: " + gameObject.name);
         // Initialize puzzle state
-        puzzleSolved = false;
+        puzzleSolved = !PlayerPrefsManager.CheckItem("The Blue Bloodstone");
 
         // Move the reward object to the spawn position and set it inactive
         if (rewardObject != null)
@@ -27,7 +27,7 @@ public class PlateBehavior : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Reward object is not assigned.");
+            Debug.LogError("Reward object is not assigned or collected.");
         }
     }
 
@@ -58,8 +58,6 @@ public class PlateBehavior : MonoBehaviour
             gameObject.transform.Find("Activated").gameObject.SetActive(false);
             
             Debug.Log("Obstacle exited: " + other.name + ", Plate: " + gameObject.name + ", Obstacles count: " + obstaclesCount);
-            // Puzzle should not be considered solved if an obstacle leaves
-            puzzleSolved = false; 
         }
     }
 

@@ -85,4 +85,11 @@ public static class Inventory
         PlayerPrefsManager.DecrDialogueBlock("Goldfish");
         return output;
     }
+
+    public static bool QuestDone() {
+        foreach (int s in questItemState) {
+            if (s != 2) return false;
+        }
+        return true;
+    }
 }

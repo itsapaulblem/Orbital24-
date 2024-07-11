@@ -86,6 +86,11 @@ public class NPC : MonoBehaviour
         } else if (currName == "Mermaid") {
             Destroy(GameObject.Find("StarterEnemy"));
         }
+
+        if (currName == "Goldfish" && Inventory.QuestDone()) {
+            Instantiate(Resources.Load<GameObject>("Prefab/Sign"), transform.position, Quaternion.identity);
+            Destroy(gameObject);
+        }
         
     }
 

@@ -9,7 +9,7 @@ public class QuestItem : MonoBehaviour
     // Initialize the audioManager instance at the start 
     void Start(){
         // Uncomment for repeated testing
-        //PlayerPrefs.SetInt(gameObject.name, 0);
+        PlayerPrefs.SetInt(gameObject.name, 0);
         
         if (!PlayerPrefsManager.CheckItem(gameObject.name)) { Destroy(gameObject); }
         audioManager = AudioManager.Instance;
