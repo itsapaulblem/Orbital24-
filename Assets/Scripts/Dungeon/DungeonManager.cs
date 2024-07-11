@@ -377,36 +377,6 @@ public class DungeonManager : MonoBehaviour
             Destroy(b.gameObject);
         }
     }
-
-    // TODO: For Debugging purpose, can remove afterwards
-    public bool run = false;
-    public bool indiv = false;
-    public string[] testing = {"TBLR", "TBL", "TBR", "TLR", "BLR", "TB", "LR", "TL", 
-                               "TR", "BL", "BR", "T", "B", "L", "R", "Boss"};
-    public int ir = 0;
-    public int ic = 0;
-    void Update()
-    {
-        if (run && !indiv) {
-
-            run = false;
-            string table = "";
-            for (int r = 0; r < row; r++) {
-                string printrow = "";
-                for (int c = 0; c < col; c++) {
-                    if (Rooms[r,c] != null && !CheckValid(r,c,Rooms[r,c])) { Debug.Log(r + " " + c); }
-                    string t = Rooms[r,c] == null? "---  ":Rooms[r,c].PadRight(5,' ');
-                    printrow = printrow + t;
-                }
-                table = table + printrow + "\n";
-            }
-            Debug.Log(table);
-        } else if (run && indiv) {
-            Debug.Log(Rooms[ir,ic] + " " + CheckValid(ir,ic,Rooms[ir,ic]));
-        }
-    }
-
-    
 }
 
 
