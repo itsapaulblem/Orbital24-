@@ -6,3 +6,9 @@ That explains all the broken pots and trashed coral gardens.
 You want to go and retrieve your treasure?
 Then you must gear up, no point losing a tentacle with no reason, right?
 -
+Hey! Could you help me collect some stuff from the Seagrass Valley?
+The Blue Bloodstone, A Vial of Salty Brine, and A Luminous Pearl.
+They are hidden behind various challenges, help me retrieve them.
+-
+Thank you for retrieving {0}!
+-

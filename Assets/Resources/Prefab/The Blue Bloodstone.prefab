@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 298295529502263552}
   - component: {fileID: 990698961305352125}
   - component: {fileID: 6735200869011059827}
+  - component: {fileID: 7081037086256090585}
   m_Layer: 0
-  m_Name: BlueBloodStone
+  m_Name: The Blue Bloodstone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -101,7 +102,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -142,9 +143,21 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.014917463, y: 0.0048617125}
   m_Size: {x: 0.9145437, y: 1.5225055}
   m_Direction: 0
+--- !u!114 &7081037086256090585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1552699159636351806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bfdd7696a47e440bb8fd58ad34538a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

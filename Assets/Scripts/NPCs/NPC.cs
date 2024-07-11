@@ -46,8 +46,8 @@ public class NPC : MonoBehaviour
         TextAsset dialogueData = Resources.Load<TextAsset>(path);
         dialogue = Regex.Split(dialogueData.text, "\n|\r|\r\n");
 
-        // retrieve dialogueBlock based on story progress
-        dialogueBlock = 1;
+        // TODO: retrieve dialogueBlock based on story progress
+        dialogueBlock = PlayerPrefsManager.GetDialogueBlock(currName);
 
         dialogueMain = GameObject.Find("DialogueMain");
         if (dialogueMain == null)
@@ -77,12 +77,14 @@ public class NPC : MonoBehaviour
             { "BossDialogue", "Finlay" }
         };
 
-        // Subscribe to the EnemyDied event
-        if (currName == "Mermaid") {
+        // Subscribe to the EnemyDied event, if need tutorial
+        if (currName == "Mermaid" && PlayerPrefsManager.GetDialogueBlock(currName) <= 2) {
             EnemyAI starter = GameObject.Find("StarterEnemy").GetComponent<EnemyAI>();
             starter.SetInit(1.5f, 20f, 2f);
             starter.EnemyDied += EnemyDiedHandler;
             Debug.Log("Subscribed to EnemyDied Event");
+        } else if (currName == "Mermaid") {
+            Destroy(GameObject.Find("StarterEnemy"));
         }
         
     }
@@ -128,8 +130,10 @@ public class NPC : MonoBehaviour
         }
     }
 
+    public bool reset = false;
     void Update()
     {
+        if (reset) { PlayerPrefs.SetInt(currName, 1); reset = false; }
         // Check if the dialogue block is 2 and display the saved message if it hasn't been shown yet
         //if (dialogueBlock == 2 && !dialogueShown)
         //{
@@ -196,8 +200,25 @@ public class NPC : MonoBehaviour
         for (int i = 0; i < dialogueBlock && !dialogueShown; i++)
         {
             index = Array.IndexOf(dialogue, "-", index) + 1;
+            // Check for invalid block, default to idle dialogue
+            if (index >= dialogue.Length-1) {
+                index = 0;
+                break;
+            }
         }
-
+        if (index != 0 && !dialogue[index].Contains("collect some stuff")) {
+            PlayerPrefsManager.IncrDialogueBlock(currName);
+        }
+        if (currName == "Goldfish" && !dialogueShown && dialogueBlock == 3) {
+            string form = Inventory.RedeemQuestItem();
+            if (form == "") {
+                dialogueBlock--;
+                PlayerPrefsManager.DecrDialogueBlock(currName);
+                StartCoroutine(RunText());
+                yield break;
+            }
+            dialogue[index] = string.Format(dialogue[index],form);
+        }
         // display dialogue on camera
         while (dialogue[index] != "-")
         {

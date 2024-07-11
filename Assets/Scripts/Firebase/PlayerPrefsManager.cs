@@ -97,4 +97,19 @@ public static class PlayerPrefsManager
     {
         return PlayerPrefs.GetInt("progress", 0) < curr;
     }
+
+    public static int GetDialogueBlock(string key) {
+        return PlayerPrefs.GetInt(key, 1);
+    }
+
+    public static void IncrDialogueBlock(string key) {
+        PlayerPrefs.SetInt(key, PlayerPrefs.GetInt(key, 1) + 1);
+    }
+    public static void DecrDialogueBlock(string key) {
+        PlayerPrefs.SetInt(key, PlayerPrefs.GetInt(key, 1) - 1);
+    }
+
+    public static bool CheckItem(string key) {
+        return PlayerPrefs.GetInt(key, 0) == 0;
+    }
 }
