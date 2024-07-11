@@ -22,11 +22,11 @@ public class NPC : MonoBehaviour
     private Dictionary<string, string> npcNames;
 
     // Player Inputs
-    private bool waitForPress = false;
+    public bool waitForPress = false;
     private PlayerController player;
 
     // Track if dialogue has been shown
-    private bool dialogueShown = false;
+    public bool dialogueShown = false;
 
     // Reference to Marketplace menu
     private GameObject marketplaceMenu;
@@ -88,7 +88,7 @@ public class NPC : MonoBehaviour
     }
 
     // Event handler for when an enemy dies, only for mermaid
-    private void EnemyDiedHandler()
+    public void EnemyDiedHandler()
     {
         dialogueBlock = 2; // changed dialogue block from 1 to 2 when enemy dies 
         dialogueShown = false; // Reset dialogueShown when an enemy dies
@@ -98,11 +98,22 @@ public class NPC : MonoBehaviour
         StartCoroutine(RunText());
     }
 
+    // Event handler for when finalboss dies, for DungeonManager
+    public void BossDiedHandler()
+    {
+        dialogueBlock = 1; // set dialogue block to 1 when boss dies 
+        dialogueShown = false; // Reset dialogueShown when an enemy dies
+        state = DialogueState.Next;
+        waitForPress = true;
+        StartCoroutine(RunText());
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            gameObject.transform.Find("Prompt").gameObject.SetActive(true);
+            GameObject prompt = gameObject.transform.Find("Prompt").gameObject;
+            if (prompt != null) { prompt.SetActive(true); }
             waitForPress = true;
         }
     }
@@ -111,7 +122,8 @@ public class NPC : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            gameObject.transform.Find("Prompt").gameObject.SetActive(false);
+            GameObject prompt = gameObject.transform.Find("Prompt").gameObject;
+            if (prompt != null) { prompt.SetActive(false); }
             waitForPress = false;
         }
     }
@@ -128,7 +140,8 @@ public class NPC : MonoBehaviour
         // Handle player input for dialogue interaction
         if (waitForPress && Input.GetKeyDown(KeyCode.E))
         {
-            gameObject.transform.Find("Prompt").gameObject.SetActive(false);
+            GameObject prompt = gameObject.transform.Find("Prompt").gameObject;
+            if (prompt != null) { prompt.SetActive(false); }
             // Shows dialogue
             // TODO: track story progress for crab marketplace menu
             if (!dialogueShown && state != DialogueState.Next) {

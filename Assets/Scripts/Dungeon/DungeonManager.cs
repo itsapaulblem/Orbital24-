@@ -20,6 +20,7 @@ public class DungeonManager : MonoBehaviour
     private GameObject DungeonMap;
     private GameObject BossRoom;
     private GameObject Ritual;
+    private GameObject Dialogue;
 
     // Scene coords for rooms
     Dictionary<string,Vector3> SceneMap = new Dictionary<string,Vector3>(){
@@ -54,8 +55,10 @@ public class DungeonManager : MonoBehaviour
     {
         DungeonMap = GameObject.Find("Dungeon Rooms");
         BossRoom = GameObject.Find("Boss Room");
-        Ritual = GameObject.Find("Ritual");
+        Ritual = GameObject.Find("Ritual").gameObject;
         Ritual.SetActive(false);
+        Dialogue = GameObject.Find("BossDialogue");
+        
 
         // Init Spawners
         Spawn = new Dictionary<string, Func<GameObject>>() {
@@ -88,7 +91,7 @@ public class DungeonManager : MonoBehaviour
             }},
             {"Boss", () => {
                 GameObject bossPrefab = Resources.Load<GameObject>("Prefab/FinalBoss");
-                GameObject enemy = Instantiate(bossPrefab, new Vector3(0, 22.5f, 0), Quaternion.identity); 
+                GameObject enemy = Instantiate(bossPrefab, new Vector3(0, 16f, 0), Quaternion.identity); 
                 enemy.GetComponent<EnemyAI>().sight = 35f;
                 return enemy;
             }}
@@ -149,7 +152,7 @@ public class DungeonManager : MonoBehaviour
     public void GenerateDungeon()
     {
         // Initialise room map
-        InitRoom(7,9);
+        InitRoom(5,7);
 
         // Generate Map Async
         StartCoroutine(GenerateDungeonRecursive(row-2, col/2, 0, 3)); // top
@@ -236,7 +239,7 @@ public class DungeonManager : MonoBehaviour
 
         // GenerateRecursive Async
         foreach (char _ in Rooms[r, c]) {
-            StartCoroutine(GenerateDungeonRecursive(r+rm[_], c+cm[_], endProb + 0.15f, minRm - 1));
+            StartCoroutine(GenerateDungeonRecursive(r+rm[_], c+cm[_], endProb + 0.2f, minRm - 1));
         }
 
         // Store Endpoints
@@ -265,7 +268,8 @@ public class DungeonManager : MonoBehaviour
         string valid = "";
         foreach (char d in room) {
             if (r+rm[d] < 0 || r+rm[d] >= row || c+cm[d] < 0 || c+cm[d] >= col) { continue; }
-            if (Rooms[r+rm[d], c+cm[d]] != null && !Rooms[r+rm[d], c+cm[d]].Contains(checkroom[d])) { continue; }
+            string tmp = Rooms[r+rm[d], c+cm[d]];
+            if (tmp != null && !tmp.Contains(checkroom[d]) && tmp != "Boss") { continue; }
             valid = valid + d;
         }
         Rooms[r,c] = valid;
@@ -314,7 +318,28 @@ public class DungeonManager : MonoBehaviour
             GameObject boss = Spawn["Boss"]();
             Ritual.SetActive(true);
             // Add listener for Boss defeat
-            boss.GetComponent<EnemyAI>().EnemyDied += BossDiedHandler;
+            NPC npc = Dialogue.GetComponent<NPC>();
+            boss.GetComponent<EnemyAI>().EnemyDied += npc.BossDiedHandler;
+            IEnumerator AfterDialogue() {
+                while (!npc.dialogueShown) {
+                    yield return null;
+                }
+                SpriteRenderer bsr = boss.GetComponent<SpriteRenderer>();
+                float rate = 1.0f/ 0.5f;
+                float progress = 0.0f; 
+                Color tmp = bsr.color;
+
+                while (progress < 2.0f){
+                    tmp.a = Mathf.Lerp(1, 0 , progress);
+                    bsr.color = tmp;
+                    progress += rate * Time.deltaTime;
+                    yield return null; 
+                }
+                Destroy(boss);
+
+                // TODO: Spawn sword, then to cutscene in room
+            }
+            StartCoroutine(AfterDialogue());
         } else if (ent != null) {
             ent.RemoveAll(e => e == null);
             foreach (GameObject g in ent) {
@@ -352,12 +377,6 @@ public class DungeonManager : MonoBehaviour
             Destroy(b.gameObject);
         }
     }
-
-    // Event handler for when an enemy dies, only for mermaid
-    private void BossDiedHandler() {
-        // TODO: Go to cutscene/start convo
-    }
-
 
     // TODO: For Debugging purpose, can remove afterwards
     public bool run = false;

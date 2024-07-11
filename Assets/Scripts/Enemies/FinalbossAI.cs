@@ -7,8 +7,8 @@ public class FinalbossAI : RangedEnemyAI
     void Start()
     {
         // TODO: Check if undefeated, or if game completed, else destroy
-        SetInit(0f, 350f, 15f, 0.8f, 50f, 7f);
-        sight = 30f;
+        SetInit(0f, 350f, 15f, 0.8f, 50f, 7f); 
+        sight = 23f;
         lastFireTime = Time.time - stats.GetAttackSpeed();
         audioManager = AudioManager.Instance;
     }
@@ -19,7 +19,7 @@ public class FinalbossAI : RangedEnemyAI
 
     protected override void FireBullet()
     {
-        if (player == null) return;
+        if (player == null || stats.isDead()) return;
         if (audioManager == null) { audioManager = AudioManager.Instance; }
         audioManager.PlaySFX(audioManager.bossFinal); // Play hit sound effect
 
@@ -34,6 +34,28 @@ public class FinalbossAI : RangedEnemyAI
                             stats.GetBulletSpeed(), bulletAngle * Vector2.right, false);
             
             bulletAngle = bulletAngle * angleMod;
+        }
+    }
+
+    public override void TakeDamage(float damage)
+    {
+        if (stats.isDead()) { return; }
+        // update healthbar to reflect damage taken
+        Vector3 healthBarChange = new Vector3(stats.damage(damage) * maxHealthBarScale, 0.1f, 1f);
+        healthBar.transform.localScale = healthBarChange;
+
+        // check if enemy is dead
+        if (stats.isDead())
+        {
+            audioManager.PlaySFX(audioManager.enemyDied); // Play death sound effect
+            // Notify listeners that the enemy has died
+            TriggerListener();
+            GameManager.Instance.AddKill();
+        } else {    
+            // If enemy not dead
+            StartCoroutine(FlashEffect());
+            if (audioManager == null) { audioManager = AudioManager.Instance; }
+            audioManager.PlaySFX(audioManager.enemybeingshot); // Play hit sound effect
         }
     }
 }

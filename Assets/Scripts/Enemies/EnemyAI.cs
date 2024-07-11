@@ -30,10 +30,10 @@ public class EnemyAI : MonoBehaviour
     protected SpriteRenderer enemySpriteRenderer;
 
     // Combat Attributes
-    private GameObject healthBar;
-    private float maxHealthBarScale;
-    [SerializeField] private float flashDuration = 0.2f; 
-    [SerializeField] private Color flashColor = Color.red;
+    protected GameObject healthBar;
+    protected float maxHealthBarScale;
+    [SerializeField] protected float flashDuration = 0.2f; 
+    [SerializeField] protected Color flashColor = Color.red;
 
     // Coin prefab 
     [SerializeField] private GameObject coinPrefab;
@@ -149,7 +149,7 @@ public class EnemyAI : MonoBehaviour
     }
 
     /// Apply damage to enemy
-    public void TakeDamage(float damage)
+    public virtual void TakeDamage(float damage)
     {
         // update healthbar to reflect damage taken
         Vector3 healthBarChange = new Vector3(stats.damage(damage) * maxHealthBarScale, 0.1f, 1f);
@@ -177,12 +177,7 @@ public class EnemyAI : MonoBehaviour
             }
 
             // Notify listeners that the enemy has died
-            if (EnemyDied != null)
-            {
-                EnemyDied();
-                Debug.Log("Enemy died");
-            }
-            GameManager.Instance.AddKill();
+            TriggerListener();
             
             // Destroy the enemy game object
             Destroy(gameObject);
@@ -193,8 +188,15 @@ public class EnemyAI : MonoBehaviour
             audioManager.PlaySFX(audioManager.enemybeingshot); // Play hit sound effect
         }
     }
-
-    private IEnumerator FlashEffect()
+    protected void TriggerListener() {
+        if (EnemyDied != null)
+        {
+            EnemyDied();
+            Debug.Log("Enemy died");
+        }
+        GameManager.Instance.AddKill();
+    }
+    protected IEnumerator FlashEffect()
     {
         Color originalColor = enemySpriteRenderer.color;
         enemySpriteRenderer.color = flashColor;
