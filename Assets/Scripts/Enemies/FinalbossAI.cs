@@ -8,7 +8,7 @@ public class FinalbossAI : RangedEnemyAI
     {
         // TODO: Check if undefeated, or if game completed, else destroy
         SetInit(0f, 350f, 15f, 0.8f, 50f, 7f);
-        sight = 35f;
+        sight = 30f;
         lastFireTime = Time.time - stats.GetAttackSpeed();
         audioManager = AudioManager.Instance;
     }

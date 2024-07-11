@@ -19,6 +19,7 @@ public class DungeonManager : MonoBehaviour
     private Coords PlayerRoom;
     private GameObject DungeonMap;
     private GameObject BossRoom;
+    private GameObject Ritual;
 
     // Scene coords for rooms
     Dictionary<string,Vector3> SceneMap = new Dictionary<string,Vector3>(){
@@ -53,6 +54,8 @@ public class DungeonManager : MonoBehaviour
     {
         DungeonMap = GameObject.Find("Dungeon Rooms");
         BossRoom = GameObject.Find("Boss Room");
+        Ritual = GameObject.Find("Ritual");
+        Ritual.SetActive(false);
 
         // Init Spawners
         Spawn = new Dictionary<string, Func<GameObject>>() {
@@ -309,7 +312,7 @@ public class DungeonManager : MonoBehaviour
         List<GameObject> ent = Entities[PlayerRoom.row, PlayerRoom.col];
         if (isBoss) {
             GameObject boss = Spawn["Boss"]();
-            GameObject.Find("Ritual").SetActive(true);
+            Ritual.SetActive(true);
             // Add listener for Boss defeat
             boss.GetComponent<EnemyAI>().EnemyDied += BossDiedHandler;
         } else if (ent != null) {
