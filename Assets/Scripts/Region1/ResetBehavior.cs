@@ -22,9 +22,9 @@ public class ResetBehavior : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        gameObject.transform.Find("Activated").gameObject.SetActive(true);
         PlayerController target = collision.GetComponent<PlayerController>();
         if (target != null) {
+            gameObject.transform.Find("Activated").gameObject.SetActive(true);
             foreach (GameObject obj in linkedObject) {
                 StartCoroutine(ResetCoroutine(obj));
             }

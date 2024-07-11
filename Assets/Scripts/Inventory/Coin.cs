@@ -37,3 +37,5 @@ public class Coin : MonoBehaviour
         InventoryManager.UpdateCoinUI();
     }
 }
+
+
