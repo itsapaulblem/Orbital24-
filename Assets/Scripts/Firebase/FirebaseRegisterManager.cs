@@ -7,23 +7,60 @@ using TMPro;
 using System.Threading.Tasks;
 using UnityEngine.SceneManagement;
 
+/**
+ * Manages user registration with Firebase Authentication.
+ */
 public class FirebaseRegisterManager : MonoBehaviour
 {
     [Header("Firebase")]
+    /**
+     * The dependency status of Firebase.
+     */
     public DependencyStatus dependencyStatus;
+    /**
+     * The Firebase authentication instance.
+     */
     public FirebaseAuth auth; 
+    /**
+     * The current Firebase user.
+     */
     public FirebaseUser user; 
 
     [Header("Register")]
+    /**
+     * The input field for the username.
+     */
     public TMP_InputField usernameRegisterField;
+    /**
+     * The input field for the email.
+     */
     public TMP_InputField emailRegisterField; 
+    /**
+     * The input field for the password.
+     */
     public TMP_InputField passwordRegisterField;
+    /**
+     * The input field for verifying the password.
+     */
     public TMP_InputField passwordRegisterVerifyField; 
+    /**
+     * The text component to display warnings.
+     */
     public TMP_Text warningRegisterText; 
+    /**
+     * The text component to display email-related messages.
+     */
     public TMP_Text emailText; 
+    /**
+     * The text component to display success messages.
+     */
     public TMP_Text successText; 
 
+    /**
+     * The email menu game object.
+     */
     public GameObject EmailMenu; 
+
     // Called when the script instance is being loaded
     public void Awake()
     {
@@ -42,20 +79,30 @@ public class FirebaseRegisterManager : MonoBehaviour
         });
     }
 
-    // Initialize Firebase authentication
+    /**
+     * Initializes Firebase authentication.
+     */
     private void InitializeFirebase()
     {
         Debug.Log("Setting up Firebase Auth");
         auth = FirebaseAuth.DefaultInstance;
     }
 
-    // Called when the register button is pressed
+    /**
+     * Called when the register button is pressed.
+     */
     public void RegisterButton()
     {
         StartCoroutine(Register(emailRegisterField.text, passwordRegisterField.text, usernameRegisterField.text));
     }
 
-    // Coroutine to handle user registration
+    /**
+     * Coroutine to handle user registration.
+     * 
+     * @param _email The email address to register with.
+     * @param _password The password to register with.
+     * @param _username The username to register with.
+     */
     private IEnumerator Register(string _email, string _password, string _username)
     {
         // Check if username is empty
@@ -126,16 +173,23 @@ public class FirebaseRegisterManager : MonoBehaviour
             }
         }
     }
-     public void SendEmailForVerification(){
+
+    /**
+     * Sends an email verification request to the user.
+     */
+    public void SendEmailForVerification(){
         StartCoroutine(SendEmailForVerificationAsync());
     }
 
+    /**
+     * Coroutine to send an email verification request to the user.
+     */
     private IEnumerator SendEmailForVerificationAsync(){
-        if (user != null){
+        if (user!= null){
             var sendEmailTask = user.SendEmailVerificationAsync();
             yield return new WaitUntil(()=> sendEmailTask.IsCompleted);
 
-            if (sendEmailTask.Exception != null){
+            if (sendEmailTask.Exception!= null){
                 FirebaseException firebaseException = sendEmailTask.Exception.GetBaseException() as FirebaseException;
                 AuthError error = (AuthError) firebaseException.ErrorCode; 
                 emailText.text = "Unknown Error: Please try again later"; 

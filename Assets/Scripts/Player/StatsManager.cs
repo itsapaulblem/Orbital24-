@@ -25,6 +25,13 @@ public class StatsManager
 
     // Temporary booster duration
     private float boosterInterval = 100f;
+    private Dictionary<string, Color> statFlashColors = new Dictionary<string, Color>(){
+        {"moveSpeed", Color.grey},
+        {"maxHealth", Color.black},
+        {"attack", Color.blue},
+        {"bulletLife", Color.yellow},
+        {"bulletSpeed", Color.cyan}
+    };
 
     private StatsManager(float mvSpd, float maxHp, float atk, float atkSpd, float bulLife, float bulSpd)
     {
@@ -174,8 +181,13 @@ public class StatsManager
     {
         Renderer playerRenderer = GameObject.FindGameObjectWithTag("Player").GetComponent<Renderer>();
         Color originalColor = playerRenderer.material.color;
-        Color flashColor = new Color(0f, 0f, 1f); // Blue color
+         if (!statFlashColors.TryGetValue(stat, out Color flashColor))
+        {
+            flashColor = Color.white; // Default flash color if not found
+        }
+        Debug.Log($"Flashing {stat} with color {flashColor}");
         float flashDuration = 0.5f; // Duration for each flash
+
         while (increaseDuration[stat] > 0)
         {
             playerRenderer.material.color = flashColor;

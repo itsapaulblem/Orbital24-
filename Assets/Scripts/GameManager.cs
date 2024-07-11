@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Firebase; 
+using Firebase.Auth; 
+using Firebase.Database;
+using Firebase.Extensions; 
+using System.Threading.Tasks;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -30,6 +36,14 @@ public class GameManager : MonoBehaviour
     // Marketplace Menu
     public GameObject marketplaceMenu;
 
+    // Sign Out Menu
+    public GameObject signoutMenu;
+    public bool isSignOutActive = false; // Initialize isSignOutActive to false
+    private FirebaseAuth auth; 
+
+    private Vector3 lastPlayerPosition; // tracks the player's last position
+    private string lastScene; // tracks the last scene name 
+
     private void Awake()
     {
         // Singleton pattern to ensure only one instance of GameManager exists
@@ -53,7 +67,9 @@ public class GameManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // Re-establish references when a new scene is loaded
+        
+        Debug.Log("Scene loaded: " + scene.name);
+
         if (pauseMenu == null) { pauseMenu = GameObject.Find("PauseMenu"); }
         if (pauseMenu == null) {
             Debug.LogWarning("PauseMenu not found in the scene: " + scene.name);
@@ -70,11 +86,11 @@ public class GameManager : MonoBehaviour
 
         if (inventoryMenu == null) { inventoryMenu = GameObject.Find("InventoryMenu"); }
         if (inventoryMenu == null) {
-            Debug.LogWarning("Inventory Menu not found in the scene: " + scene.name);
+            Debug.LogWarning("InventoryMenu not found in the scene: " + scene.name);
         } else {
-            inventoryMenu.SetActive(false); // Ensure Inventory Menu is inactive 
+            inventoryMenu.SetActive(false); // Ensure InventoryMenu is inactive 
         }
-        
+
         if (miniMapWindow == null) { miniMapWindow = GameObject.Find("MinimapWindow"); }
         if (miniMapWindow == null) {
             Debug.LogWarning("MinimapWindow not found in the scene: " + scene.name);
@@ -91,11 +107,17 @@ public class GameManager : MonoBehaviour
         if (marketplaceMenu == null) {
             Debug.LogWarning("MarketplaceMenu not found in the scene: " + scene.name);
         } else {
-            marketplaceMenu.SetActive(false); // Ensure PauseMenu is inactive
+            marketplaceMenu.SetActive(false); // Ensure MarketplaceMenu is inactive
         }
 
-        // Reset kill count when a new scene is loaded
-        ResetKillCount();
+        if (signoutMenu == null) {
+            Debug.LogWarning("SignOutMenu not found in the scene: " + scene.name);
+        } else {
+            signoutMenu.SetActive(false); // Ensure SignOutMenu is inactive
+            Debug.Log("SignOutMenu found and set to inactive");
+        }
+
+        kills = PlayerPrefsManager.LoadKills();
     }
 
     private void Update()
@@ -196,13 +218,25 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         isPaused = false;
     }
-
-    public void Quit()
+    // For the sign out menu to pop up 
+    public void SignOutMenu()
     {
-        // Quit the game and load the start scene
+        // Quit the game and sign out 
         Time.timeScale = 1f;
-        PlayerPrefs.SetInt("ShowUserDataUI", 1);
-        SceneManager.LoadScene("Start");
+        if (signoutMenu != null)
+        {
+            pauseMenu.SetActive(false);
+            signoutMenu.SetActive(true);
+        }
+        else
+        {
+            Debug.LogWarning("SignOutMenu is missing.");
+        }
+    }
+    
+    // function when player changes their mind and resume playing the game 
+    public void Resume(){
+        signoutMenu.SetActive(false);
     }
 
     public void GameOver()
@@ -236,14 +270,15 @@ public class GameManager : MonoBehaviour
 
         ResetKillCount(); // Reset kill count when the game restarts
     }
-
-    public void No()
+    // function used when player signs out in pause menu or says no in game over menu 
+    public void Quit()
     {
         // Quit to the start scene
         Time.timeScale = 1f;
-        PlayerPrefs.SetInt("ShowUserDataUI", 1);
+        PlayerPrefsManager.SetCoords(lastPlayerPosition.x, lastPlayerPosition.y);
+        PlayerPrefsManager.SetLastScene(lastScene);
+        PlayerPrefsManager.SetKills(kills);
         SceneManager.LoadScene("Start");
-
         ResetKillCount(); // Reset kill count when the game restarts
     }
 
@@ -251,6 +286,7 @@ public class GameManager : MonoBehaviour
     {
         // Reset the kill count and update the kill text
         kills = 0;
+        PlayerPrefsManager.SetKills(0);
         UpdateKillText();
     }
 
@@ -268,4 +304,8 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("InventoryMenu is missing");
         }
     }
+   
+
+   
 }
+

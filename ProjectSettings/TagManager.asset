@@ -9,6 +9,7 @@ TagManager:
   - 'continueButton '
   - Music
   - Audio
+  - Obstacle
   layers:
   - Default
   - TransparentFX

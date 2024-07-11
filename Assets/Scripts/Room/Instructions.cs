@@ -6,10 +6,9 @@ using UnityEngine.SceneManagement;
 public class Instructions : MonoBehaviour
 {
     public GameObject controls;
-    public GameObject scoreText; 
     private CanvasGroup controlsCanvasGroup; 
     public float fadeDuration = 1f; 
-    private bool exist = false;
+    private bool faded = false;
 
 
     // Start is called before the first frame update
@@ -28,10 +27,13 @@ public class Instructions : MonoBehaviour
             scoreText.SetActive(false);
         }
         controlsCanvasGroup.alpha = 1;
-
-        // TODO: Check story progress to see if player requires controls guide
-        controls.SetActive(true);
-
+        if (PlayerPrefsManager.CheckCutscene(1)) {
+            controls.SetActive(true);
+            faded = false;
+        } else {
+            controls.SetActive(false);
+            faded = true;
+        }
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
@@ -40,8 +42,9 @@ public class Instructions : MonoBehaviour
     {
         if (controls != null && controlsCanvasGroup == null) { controlsCanvasGroup = controls.GetComponent<CanvasGroup>(); }
         if (controlsCanvasGroup == null) { return; }
-        if (!exist && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)) {
-            exist = true;
+
+        if (!faded && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)) {
+            faded = true;
             StartCoroutine(Fade());
         }
     }
@@ -59,11 +62,25 @@ public class Instructions : MonoBehaviour
         }
         controlsCanvasGroup.alpha = 0; 
         controls.SetActive(false);
-        exist = false;
+
+        // TODO: Set increment to disable instructions
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        
+        if (SceneManager.GetActiveScene().name == "Room") {
+            if (controls == null) { controls = GameObject.Find("Controls"); }
+
+            controlsCanvasGroup = controls.GetComponent<CanvasGroup>();
+            controlsCanvasGroup.alpha = 1;
+            if (PlayerPrefsManager.CheckCutscene(1)) {
+                controls.SetActive(true);
+                faded = false;
+            } else {
+                controls.SetActive(false);
+                faded = true;
+            }
+            Debug.Log(faded);
+        }
     }
 }

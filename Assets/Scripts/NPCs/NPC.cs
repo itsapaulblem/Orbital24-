@@ -68,7 +68,7 @@ public class NPC : MonoBehaviour
 
         player = FindObjectOfType<PlayerController>();
 
-        // Hardcoded npc names
+        // Hardcoded npc names using a dictionary
         npcNames = new Dictionary<string, string>(){
             { "Goldfish", "Finlay" },
             { "Crab", "Krabtain Kidd" },
