@@ -13,6 +13,7 @@ public class AudioManager : MonoBehaviour
     [Header("----- Audio Clip -----")]
     public AudioClip startBackground;
     public AudioClip gameBackground;
+    public AudioClip dungeonBackground;
     public AudioClip enemybeingshot; 
     public AudioClip bobbeingshot; 
     public AudioClip bobdied; 
@@ -28,7 +29,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip enemyDied;
 
     public static AudioManager Instance;
-    private enum MusicState { Start, Game }
+    private enum MusicState { Start, Game, Dungeon }
     private MusicState musicState;
     private string[] startScenes = { "Start" , "RegisterMenu" };
 
@@ -51,6 +52,10 @@ public class AudioManager : MonoBehaviour
             musicState = MusicState.Start;
             musicSource.clip = startBackground;
             musicSource.Play(); 
+        } else if (sceneName == "Dungeon") {
+            musicSource.clip = dungeonBackground;
+            musicSource.Play();
+            musicState = MusicState.Dungeon;
         } else {
             musicState = MusicState.Game;
             musicSource.clip = gameBackground;
@@ -58,23 +63,11 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlayMusic()
-    {
-        //if (_audioSource.isPlaying) return;
-        //_audioSource.Play();
-        return;
-    }
-
-    public void StopMusic()
-    {
-        //_audioSource.Stop();
-        return;
-    }
-
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         // on scene change, check current scene and change track if needed
         string sceneName = SceneManager.GetActiveScene().name;
+        Debug.Log(sceneName);
         if (Array.IndexOf(startScenes, sceneName) > -1) {
             if (musicState == MusicState.Start) {
                 return;
@@ -82,6 +75,10 @@ public class AudioManager : MonoBehaviour
             musicSource.clip = startBackground;
             musicSource.Play(); 
             musicState = MusicState.Start;
+        } else if (sceneName == "Dungeon") {
+            musicSource.clip = dungeonBackground;
+            musicSource.Play();
+            musicState = MusicState.Dungeon;
         } else {
             if (musicState == MusicState.Game) {
                 return;

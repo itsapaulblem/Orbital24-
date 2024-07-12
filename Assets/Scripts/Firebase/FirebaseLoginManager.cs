@@ -232,8 +232,7 @@ public class FirebaseLoginManager : MonoBehaviour
             {
                 string lastScene = PlayerPrefsManager.LoadLastScene();
                 PlayerPrefsManager.LoadCoords();
-                // TODO: change to last scene
-                SceneManager.LoadScene("Cutscene1");
+                SceneManager.LoadScene(lastScene);
             }
         }
     }

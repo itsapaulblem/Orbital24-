@@ -46,7 +46,7 @@ public class PlateBehavior : MonoBehaviour
         }
     }
 
-    void OnDestriy(){
+    void OnDestroy(){
         // Remove this plate from the static list of plates
         plates.Remove(this);
         Debug.Log("Plate removed from list: " + gameObject.name);

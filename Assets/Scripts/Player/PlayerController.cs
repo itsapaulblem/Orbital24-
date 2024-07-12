@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
     ///   inputValue - player inputs
     private void OnMove(InputValue inputValue) 
     {
-        
+        if (!canMove) return;
         movement = inputValue.Get<Vector2>();
         movement.Normalize();
         playerAnimator.SetFloat("moveX", movement.x);
@@ -168,6 +168,7 @@ public class PlayerController : MonoBehaviour
     ///   inputValue - player inputs
     private void OnFire(InputValue inputValue)
     {
+        if (!canMove) return;
         if (inputValue.isPressed) {
             shootSingle = true;
         }

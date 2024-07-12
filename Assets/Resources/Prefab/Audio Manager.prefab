@@ -178,6 +178,7 @@ MonoBehaviour:
   SFXSource: {fileID: 9070298834707765126}
   startBackground: {fileID: 8300000, guid: 06906d718be5b6a4cb2df8732bf39832, type: 3}
   gameBackground: {fileID: 8300000, guid: 7aece2f4e2ff5483c8b6649a74ae1b0d, type: 3}
+  dungeonBackground: {fileID: 8300000, guid: 48ba0d2bf4ba0d441b19627ca36bf913, type: 3}
   enemybeingshot: {fileID: 8300000, guid: b31abebe929a6476a9fdc2ccaa86f89d, type: 3}
   bobbeingshot: {fileID: 8300000, guid: ab297b593498a6e47ba84de770477cbe, type: 3}
   bobdied: {fileID: 8300000, guid: 4f5bc64a69b9741b49c08897fbf40c67, type: 3}

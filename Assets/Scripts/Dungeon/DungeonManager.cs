@@ -37,8 +37,8 @@ public class DungeonManager : MonoBehaviour
 
     // Player coords for entering room
     Dictionary<string,Vector3> EnterPos = new Dictionary<string,Vector3>(){
-        {"T", new Vector3(0f, -9f, 0f)}, {"B", new Vector3(0f, 9.5f, 0f)}, 
-        {"L", new Vector3(16f, 0f, 0f)}, {"R", new Vector3(-16f, 0f, 0f)},
+        {"T", new Vector3(0f, -8f, 0f)}, {"B", new Vector3(0f, 8.5f, 0f)}, 
+        {"L", new Vector3(15.5f, 0f, 0f)}, {"R", new Vector3(-15.5f, 0f, 0f)},
         {"Boss", new Vector3(0f, -9f, 0f)}
     };
 
@@ -378,24 +378,3 @@ public class DungeonManager : MonoBehaviour
         }
     }
 }
-
-
-/*
-
-            IEnumerator WaitForAll() {
-                while (terminated < started) {
-                    yield return null;
-                }
-                string table = "";
-                for (int r = 0; r < row; r++) {
-                    string printrow = "";
-                    for (int c = 0; c < col; c++) {
-                        string t = Rooms[y,x] == null? "---  ":Rooms[y,x].PadRight(5,' ');
-                        printrow = printrow + t;
-                    }
-                    table = table + printrow + "\n";
-                }
-                Debug.Log(table);
-            }
-            StartCoroutine(WaitForAll());
-*/

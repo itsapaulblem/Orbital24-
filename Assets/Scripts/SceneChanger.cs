@@ -28,6 +28,8 @@ public class SceneChanger : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D collision) {
         PlayerController target = collision.GetComponent<PlayerController>();
         if (target != null) {
+            GameManager.Instance.lastScene = (nextScene == "Dungeon" ? "Room" : nextScene);
+            PlayerPrefsManager.SetLastScene(nextScene == "Dungeon" ? "Room" : nextScene);
             SceneManager.LoadSceneAsync(nextScene);
             PlayerController.SetCoords(xCoord, yCoord);
         }

@@ -170,6 +170,7 @@ public class GameManager : MonoBehaviour
 
             // Pause or unpause the game
             Time.timeScale = isPaused ? 0f : 1f;
+            GameObject.Find("Player").GetComponent<PlayerController>().canMove = !isPaused;
         }
         else
         {
@@ -209,23 +210,15 @@ public class GameManager : MonoBehaviour
 
     public void ResumeGame()
     {
-        // Resume the game from the pause state
-        if (pauseMenu != null)
-        {
-            pauseMenu.SetActive(false);
-        }
-
-        Time.timeScale = 1f;
-        isPaused = false;
+        TogglePauseMenu();
     }
     // For the sign out menu to pop up 
     public void SignOutMenu()
     {
+        TogglePauseMenu();
         // Quit the game and sign out 
-        Time.timeScale = 1f;
         if (signoutMenu != null)
         {
-            pauseMenu.SetActive(false);
             signoutMenu.SetActive(true);
         }
         else
@@ -275,8 +268,15 @@ public class GameManager : MonoBehaviour
     {
         // Quit to the start scene
         Time.timeScale = 1f;
-        PlayerPrefsManager.SetCoords(lastPlayerPosition.x, lastPlayerPosition.y);
-        PlayerPrefsManager.SetLastScene(lastScene);
+
+        lastScene = SceneManager.GetActiveScene().name;
+        if (lastScene == "Dungeon") {
+            PlayerPrefsManager.SetLastScene("Room");
+            PlayerPrefsManager.SetCoords(float.PositiveInfinity, float.PositiveInfinity);
+        } else {
+            PlayerPrefsManager.SetLastScene(lastScene);
+            PlayerPrefsManager.SetCoords(lastPlayerPosition.x, lastPlayerPosition.y);
+        }
         PlayerPrefsManager.SetKills(kills);
         SceneManager.LoadScene("Start");
         ResetKillCount(); // Reset kill count when the game restarts
