@@ -1,14 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.U2D.Animation;
 
 public class EnemySpawner : MonoBehaviour
 {
-    // Reference to the rate at which enemies spawn (in seconds)
     [SerializeField] private float spawnRate = 1f; 
-    // Reference to array of enemy prefabs to spawn 
-    [SerializeField] private GameObject[] enemyPrefabs; 
-    // Reference to maximum number of enemies allowed to be spawned at any time 
+    private Dictionary<string, Func<Vector2, GameObject>> Spawn;
+
+    // Maximum number of enemies allowed to be spawned at any time 
     [SerializeField] private int enemyCap = 3;
     // Reference to the player GameObject 
     private GameObject player;
@@ -17,11 +18,38 @@ public class EnemySpawner : MonoBehaviour
     private bool canSpawn = false;
     // Distance within which the player must be to start spawing enemies 
     private float spawnSight = 35f; 
+    [SerializeField] private float spawnRange = 5; 
+    [SerializeField] private int internalDifficulty = 0;
     
 
     private void Start()
     {
         player = GameObject.Find("Player");
+        Spawn = new Dictionary<string, Func<Vector2, GameObject>>() {
+            {"Melee", (loc) => {
+                GameObject meleePrefab = Resources.Load<GameObject>("Prefab/Enemy");
+                GameObject enemy = Instantiate(meleePrefab, loc, Quaternion.identity); 
+                SpriteLibrary sl = enemy.GetComponent<SpriteLibrary>();
+                sl.spriteLibraryAsset = Resources.Load<SpriteLibraryAsset>("Sprites/Enemies/Side Animation/m_enemy_1"); 
+                float difficultyMod = 1 + internalDifficulty * 0.05f;
+                enemy.GetComponent<EnemyAI>().SetInit(2.5f * difficultyMod, 30f * difficultyMod, 6f * difficultyMod);
+                return enemy;
+            }},
+            {"Ranged", (loc) => {
+                GameObject rangedPrefab = Resources.Load<GameObject>("Prefab/RangedEnemy");
+                GameObject enemy = Instantiate(rangedPrefab, loc, Quaternion.identity); 
+                SpriteLibrary sl = enemy.GetComponent<SpriteLibrary>();
+                sl.spriteLibraryAsset = Resources.Load<SpriteLibraryAsset>("Sprites/Enemies/Side Animation/r_enemy_1"); 
+                float difficultyMod = 1 + internalDifficulty * 0.05f;
+                enemy.GetComponent<EnemyAI>().SetInit(2f * difficultyMod, 20f * difficultyMod, 10f * difficultyMod,
+                    0.9f * difficultyMod, 14f * difficultyMod, 12f * difficultyMod);
+                return enemy;
+            }},
+            {"Mixed", (loc) => {
+                if (UnityEngine.Random.value < 0.5) { return Spawn["Melee"](loc); }
+                else { return Spawn["Ranged"](loc); }
+            }}
+        };
     }
 
     private void Update() 
@@ -57,19 +85,11 @@ public class EnemySpawner : MonoBehaviour
             }
             // If there are fewer enemies than the cap, spawn a new one 
             if (enemies.Count < enemyCap) {
-                int rand = UnityEngine.Random.Range(0, enemyPrefabs.Length); // Changed here
-                GameObject enemyToSpawn = enemyPrefabs[rand];
-
-                Vector2 spawnLocation = transform.position + new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0).normalized * 5;
-
-                GameObject spawnedEnemy = Instantiate(enemyToSpawn, spawnLocation, Quaternion.identity);
+                Vector2 spawnLocation = transform.position + 
+                    new Vector3(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f), 0) * spawnRange;
+                GameObject spawnedEnemy = Spawn["Mixed"](spawnLocation);
 
                 enemies.Add(spawnedEnemy);
-                // Initialize the enemy AI if it exists 
-                EnemyAI enemyAI = spawnedEnemy.GetComponent<EnemyAI>();
-                if (enemyAI != null){
-                    enemyAI.SetInit(2f, 50f, 3f);
-                } // TODO: Delete
             }
             yield return wait;
         }

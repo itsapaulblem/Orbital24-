@@ -13,11 +13,6 @@ public class Coin : MonoBehaviour
     // Value of one coin, default is 1
     public int value = 1;
 
-    // Method to set the value of the coin 
-    public void SetValue(int val) {
-        value = val;
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         PlayerController target = collision.GetComponent<PlayerController>();

@@ -71,7 +71,7 @@ public class Bullet : MonoBehaviour
         // If the bullet collides with a Collider2D that is a trigger, start the End Coroutine
         BoxCollider2D boxCollider = collision as BoxCollider2D;
         PolygonCollider2D polygonCollider = collision as PolygonCollider2D;
-        if ((boxCollider != null && !boxCollider.isTrigger && active) || (polygonCollider != null && active)){
+        if ((boxCollider != null && !boxCollider.isTrigger && active) || (polygonCollider != null && !polygonCollider.isTrigger && active)){
             if (active) { StartCoroutine(End()); }
             active = false; 
         }
