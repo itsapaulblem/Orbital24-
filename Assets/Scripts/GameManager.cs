@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
     private FirebaseAuth auth; 
 
     private Vector3 lastPlayerPosition; // tracks the player's last position
-    private string lastScene; // tracks the last scene name 
+    public string lastScene; // tracks the last scene name 
 
     private void Awake()
     {
