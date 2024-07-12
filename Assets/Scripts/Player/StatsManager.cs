@@ -6,8 +6,7 @@ public class StatsManager
 {
     private static StatsManager playerInstance;
     private Dictionary<string, Coroutine> statCoroutines = new Dictionary<string, Coroutine>(); // Coroutine references for stat increases
-    private Dictionary<string, int> increaseDuration = new Dictionary<string, int>(); // duration intervals left
-    private Dictionary<string, float> originalStat = new Dictionary<string, float>(); // original before increase
+    private Dictionary<string, int> boosterCount = new Dictionary<string, int>(); // number of concurrent boosters
 
     // Default Player Stats
     private const float MOVESPEED = 4f;
@@ -24,7 +23,7 @@ public class StatsManager
     private float bulletSpeed;
 
     // Temporary booster duration
-    private float boosterInterval = 100f;
+    private float boosterInterval = 150f;
     private Dictionary<string, Color> statFlashColors = new Dictionary<string, Color>(){
         {"moveSpeed", Color.grey},
         {"maxHealth", Color.black},
@@ -32,7 +31,7 @@ public class StatsManager
         {"bulletLife", Color.yellow},
         {"bulletSpeed", Color.cyan}
     };
-
+    private bool IsFlashing = false;
     private StatsManager(float mvSpd, float maxHp, float atk, float atkSpd, float bulLife, float bulSpd)
     {
         moveSpeed = mvSpd;
@@ -134,7 +133,7 @@ public class StatsManager
         if (healing == -1) {
             currentHealth = maxHealth;
         } else {
-            currentHealth = Mathf.Min(maxHealth, currentHealth + healing);
+            currentHealth = Mathf.Min(maxHealth, Mathf.Max(currentHealth + healing, 1));
         }
         return currentHealth / maxHealth;
     }
@@ -152,49 +151,42 @@ public class StatsManager
     // Increase stat method with coroutine
     public void TemporaryIncreaseStat(string stat, float amount)
     {
-        if (!increaseDuration.ContainsKey(stat)) { increaseDuration.Add(stat, 0); }
-        increaseDuration[stat] += 1;
-        if (increaseDuration[stat] == 1)
-        {
-            Coroutine coroutine = CoroutineManager.Instance.StartCoroutine(IncreaseStatWithDuration(stat, amount));
-        }
+        if (!boosterCount.ContainsKey(stat)) { boosterCount.Add(stat, 0); }
+        boosterCount[stat] += 1;
+        Coroutine coroutine = CoroutineManager.Instance.StartCoroutine(IncreaseStatWithDuration(stat, amount));
     }
 
     private IEnumerator IncreaseStatWithDuration(string stat, float amount)
     {
-        float originalValue = GetStatValue(stat);
-        float newValue = originalValue + amount;
+        AddStatValue(stat, amount);
 
-        SetStatValue(stat, newValue);
-
-        Coroutine coroutine = CoroutineManager.Instance.StartCoroutine(FlashingIndicator(stat));
-        while (increaseDuration[stat] > 0) {
-            yield return new WaitForSeconds(boosterInterval);
-            increaseDuration[stat] -= 1;
-            Debug.Log("One interval complete");
+        if (!IsFlashing) {
+            IsFlashing = true;
+            Coroutine coroutine = CoroutineManager.Instance.StartCoroutine(FlashingIndicator());
         }
-
-        SetStatValue(stat, originalValue);
+        yield return new WaitForSeconds(boosterInterval);
+        boosterCount[stat] -= 1;
+        AddStatValue(stat, -amount);
     }
 
-    private IEnumerator FlashingIndicator(string stat)
+    private IEnumerator FlashingIndicator()
     {
         Renderer playerRenderer = GameObject.FindGameObjectWithTag("Player").GetComponent<Renderer>();
         Color originalColor = playerRenderer.material.color;
-         if (!statFlashColors.TryGetValue(stat, out Color flashColor))
-        {
-            flashColor = Color.white; // Default flash color if not found
-        }
-        Debug.Log($"Flashing {stat} with color {flashColor}");
+        
         float flashDuration = 0.5f; // Duration for each flash
-
-        while (increaseDuration[stat] > 0)
+        bool flashed = true;
+        while (flashed)
         {
-            playerRenderer.material.color = flashColor;
-            yield return new WaitForSeconds(flashDuration);
-            playerRenderer.material.color = originalColor;
-            yield return new WaitForSeconds(flashDuration);
+            flashed = false;
+            foreach (KeyValuePair<string,Color> p in statFlashColors) {
+                bool tmp = boosterCount.ContainsKey(p.Key) ? boosterCount[p.Key] > 0 : false;
+                playerRenderer.material.color = tmp ? p.Value : originalColor;
+                if (tmp) flashed = true;
+                yield return new WaitForSeconds(flashDuration);
+            }
         }
+        IsFlashing = false;
         playerRenderer.material.color = originalColor;
     }
 
@@ -219,24 +211,26 @@ public class StatsManager
         }
     }
 
-    private void SetStatValue(string stat, float value)
+    private void AddStatValue(string stat, float value)
     {
         switch (stat)
         {
             case "moveSpeed":
-                moveSpeed = value;
+                moveSpeed += value;
                 break;
             case "maxHealth":
-                maxHealth = value;
+                maxHealth += value;
+                currentHealth += value;
+                GameObject.Find("Player").GetComponent<PlayerController>().Heal(value);
                 break;
             case "attack":
-                attack = value;
+                attack += value;
                 break;
             case "bulletLife":
-                bulletLife = value;
+                bulletLife += value;
                 break;
             case "bulletSpeed":
-                bulletSpeed = value;
+                bulletSpeed += value;
                 break;
             default:
                 Debug.LogWarning("Stat not recognised: " + stat);

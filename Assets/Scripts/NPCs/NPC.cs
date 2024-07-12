@@ -80,7 +80,7 @@ public class NPC : MonoBehaviour
         // Subscribe to the EnemyDied event, if need tutorial
         if (currName == "Mermaid" && PlayerPrefsManager.GetDialogueBlock(currName) <= 2) {
             EnemyAI starter = GameObject.Find("StarterEnemy").GetComponent<EnemyAI>();
-            starter.SetInit(1.5f, 20f, 2f);
+            starter.SetInit(1.5f, 12f, 2f);
             starter.EnemyDied += EnemyDiedHandler;
             Debug.Log("Subscribed to EnemyDied Event");
         } else if (currName == "Mermaid") {

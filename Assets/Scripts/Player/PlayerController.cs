@@ -204,6 +204,7 @@ public class PlayerController : MonoBehaviour
     /// Apply healing to player
     public void Heal(float healing)
     {
+        maxHealthBarScale = stats.GetMaxHealth() / 50;
         Vector3 healthBarChange = new Vector3(stats.heal(healing) * maxHealthBarScale, 0.1f, 1f);
         healthBar.transform.localScale = healthBarChange;
     }

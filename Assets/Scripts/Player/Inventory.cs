@@ -14,7 +14,7 @@ public static class Inventory
         PlayerPrefs.GetInt("item2", 0), 
         PlayerPrefs.GetInt("item3", 0), 
         PlayerPrefs.GetInt("item4", 0)
-        };
+    };
     private static int[] questItemState = new int[3] {
         PlayerPrefs.GetInt("The Blue Bloodstone", 0),
         PlayerPrefs.GetInt("A Vial of Salty Brine", 0),
@@ -79,7 +79,6 @@ public static class Inventory
                 output = output + idx.Key;
                 questItemState[idx.Value]++;
                 PlayerPrefs.SetInt(idx.Key, 2);
-                Debug.Log(idx.Key);
             }
         }
         PlayerPrefsManager.DecrDialogueBlock("Goldfish");
