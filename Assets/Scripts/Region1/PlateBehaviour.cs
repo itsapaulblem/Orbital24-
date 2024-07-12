@@ -46,6 +46,12 @@ public class PlateBehavior : MonoBehaviour
         }
     }
 
+    void OnDestriy(){
+        // Remove this plate from the static list of plates
+        plates.Remove(this);
+        Debug.Log("Plate removed from list: " + gameObject.name);
+    }
+
     void OnTriggerExit2D(Collider2D other)
     {
         //if (other.CompareTag("Obstacle"))
