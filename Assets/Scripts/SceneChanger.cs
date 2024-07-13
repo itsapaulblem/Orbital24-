@@ -9,6 +9,8 @@ public class SceneChanger : MonoBehaviour
     [SerializeField] private string nextScene;
     [SerializeField] private float xCoord;
     [SerializeField] private float yCoord;
+    [SerializeField] public bool difficultySelector = false;
+    public bool waiting = true;
 
     public void Start()
     {
@@ -27,11 +29,22 @@ public class SceneChanger : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision) {
         PlayerController target = collision.GetComponent<PlayerController>();
-        if (target != null) {
+
+        IEnumerator ChangeSceneWhenReady() {
+            if (difficultySelector) {
+                // TODO: Toggle on difficulty selector menu here
+                // DifficultyMenuManager should set waiting to be false after selection
+                while (waiting) {
+                    yield return null;
+                }
+            }
             GameManager.Instance.lastScene = (nextScene == "Dungeon" ? "Room" : nextScene);
             PlayerPrefsManager.SetLastScene(nextScene == "Dungeon" ? "Room" : nextScene);
-            SceneManager.LoadSceneAsync(nextScene);
             PlayerController.SetCoords(xCoord, yCoord);
+            SceneManager.LoadSceneAsync(nextScene);
+        }
+        if (target != null) {
+            StartCoroutine(ChangeSceneWhenReady());
         }
     }
 }

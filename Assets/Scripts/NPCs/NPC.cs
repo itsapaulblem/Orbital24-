@@ -80,6 +80,7 @@ public class NPC : MonoBehaviour
 
         // Subscribe to the EnemyDied event, if need tutorial
         if (currName == "Mermaid" && PlayerPrefsManager.GetDialogueBlock(currName) <= 2) {
+            Debug.Log(PlayerPrefsManager.GetDialogueBlock(currName));
             EnemyAI starter = GameObject.Find("StarterEnemy").GetComponent<EnemyAI>();
             starter.SetInit(1.5f, 12f, 2f);
             starter.EnemyDied += EnemyDiedHandler;
@@ -99,6 +100,7 @@ public class NPC : MonoBehaviour
     public void EnemyDiedHandler()
     {
         dialogueBlock = 2; // changed dialogue block from 1 to 2 when enemy dies 
+        PlayerPrefsManager.IncrDialogueBlock(currName);
         dialogueShown = false; // Reset dialogueShown when an enemy dies
         Debug.Log("Enemy died, setting dialogueBlock to 2 and resetting dialogueShown");
         state = DialogueState.Next;
@@ -110,6 +112,7 @@ public class NPC : MonoBehaviour
     public void FieldBossDiedHandler()
     {
         dialogueBlock = 2; // set dialogue block to 1 when boss dies 
+        PlayerPrefsManager.IncrDialogueBlock(currName);
         dialogueShown = false; // Reset dialogueShown when an enemy dies
         state = DialogueState.Next;
         waitForPress = true;
@@ -212,6 +215,7 @@ public class NPC : MonoBehaviour
 
     public IEnumerator RunText()
     {
+        Debug.Log("Here" + dialogueBlock);
         SetPanel(true);
         int index = 0;
         // discard previous dialogueBlocks

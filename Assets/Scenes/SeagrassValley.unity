@@ -17465,6 +17465,7 @@ MonoBehaviour:
   nextScene: Town
   xCoord: -25
   yCoord: 13
+  difficultySelector: 0
 --- !u!61 &612353891
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -20057,6 +20058,7 @@ MonoBehaviour:
   nextScene: Town
   xCoord: 0
   yCoord: 0
+  difficultySelector: 0
 --- !u!1 &668712678
 GameObject:
   m_ObjectHideFlags: 0
@@ -20686,11 +20688,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 68574786085466668, guid: c3382ac9c803741aeaebc44feb7e097a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.1
+      value: -51
       objectReference: {fileID: 0}
     - target: {fileID: 68574786085466668, guid: c3382ac9c803741aeaebc44feb7e097a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 108.5
+      value: -109
       objectReference: {fileID: 0}
     - target: {fileID: 68574786085466668, guid: c3382ac9c803741aeaebc44feb7e097a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -47729,11 +47731,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7099115373997084846, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.1017
+      value: -68.2017
       objectReference: {fileID: 0}
     - target: {fileID: 7099115373997084846, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 103.04515
+      value: -114.45485
       objectReference: {fileID: 0}
     - target: {fileID: 7212824224852072538, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
       propertyPath: GameOverMenu
