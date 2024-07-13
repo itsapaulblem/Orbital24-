@@ -319,7 +319,7 @@ public class DungeonManager : MonoBehaviour
             Ritual.SetActive(true);
             // Add listener for Boss defeat
             NPC npc = Dialogue.GetComponent<NPC>();
-            boss.GetComponent<EnemyAI>().EnemyDied += npc.BossDiedHandler;
+            boss.GetComponent<EnemyAI>().EnemyDied += npc.FinalBossDiedHandler;
             IEnumerator AfterDialogue() {
                 while (!npc.dialogueShown) {
                     yield return null;

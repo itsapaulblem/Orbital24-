@@ -41,7 +41,6 @@ public class GameManager : MonoBehaviour
     public bool isSignOutActive = false; // Initialize isSignOutActive to false
     private FirebaseAuth auth; 
 
-    private Vector3 lastPlayerPosition; // tracks the player's last position
     public string lastScene; // tracks the last scene name 
 
     private void Awake()
@@ -275,7 +274,7 @@ public class GameManager : MonoBehaviour
             PlayerPrefsManager.SetCoords(float.PositiveInfinity, float.PositiveInfinity);
         } else {
             PlayerPrefsManager.SetLastScene(lastScene);
-            PlayerPrefsManager.SetCoords(lastPlayerPosition.x, lastPlayerPosition.y);
+            PlayerPrefsManager.SetCoords(GameObject.Find("Player").transform.position.x, GameObject.Find("Player").transform.position.y);
         }
         PlayerPrefsManager.SetKills(kills);
         SceneManager.LoadScene("Start");

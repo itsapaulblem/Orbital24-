@@ -5,7 +5,7 @@ using UnityEngine;
 public class Coin : MonoBehaviour
 {
     // Reference to the AudioManager for playing sounds effects 
-    private AudioManager audioManager;
+    protected AudioManager audioManager;
     // Initialize the audioManager instance at the start 
     void Start(){
         audioManager = AudioManager.Instance;

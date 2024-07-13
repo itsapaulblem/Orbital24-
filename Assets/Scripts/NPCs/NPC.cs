@@ -12,7 +12,7 @@ public class NPC : MonoBehaviour
     private string currName;
     private string path = "Dialogue/";
     private string[] dialogue;
-    private int dialogueBlock = 1;
+    public int dialogueBlock = 1;
 
     // Dialogue Display
     private GameObject dialogueMain;
@@ -23,6 +23,7 @@ public class NPC : MonoBehaviour
 
     // Player Inputs
     public bool waitForPress = false;
+    private bool isTriggering = false;
     private PlayerController player;
 
     // Track if dialogue has been shown
@@ -105,8 +106,18 @@ public class NPC : MonoBehaviour
         StartCoroutine(RunText());
     }
 
+    // Event handler for when fieldboss dies, for SeagrassValley Fieldboss
+    public void FieldBossDiedHandler()
+    {
+        dialogueBlock = 2; // set dialogue block to 1 when boss dies 
+        dialogueShown = false; // Reset dialogueShown when an enemy dies
+        state = DialogueState.Next;
+        waitForPress = true;
+        StartCoroutine(RunText());
+    }
+
     // Event handler for when finalboss dies, for DungeonManager
-    public void BossDiedHandler()
+    public void FinalBossDiedHandler()
     {
         dialogueBlock = 1; // set dialogue block to 1 when boss dies 
         dialogueShown = false; // Reset dialogueShown when an enemy dies
@@ -122,6 +133,7 @@ public class NPC : MonoBehaviour
             GameObject prompt = gameObject.transform.Find("Prompt").gameObject;
             if (prompt != null) { prompt.SetActive(true); }
             waitForPress = true;
+            isTriggering = true;
         }
     }
 
@@ -132,6 +144,7 @@ public class NPC : MonoBehaviour
             GameObject prompt = gameObject.transform.Find("Prompt").gameObject;
             if (prompt != null) { prompt.SetActive(false); }
             waitForPress = false;
+            isTriggering = false;
         }
     }
 
@@ -197,7 +210,7 @@ public class NPC : MonoBehaviour
         panel.transform.Find("Talker").gameObject.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = npcNames[currName];
     }
 
-    IEnumerator RunText()
+    public IEnumerator RunText()
     {
         SetPanel(true);
         int index = 0;
@@ -236,6 +249,7 @@ public class NPC : MonoBehaviour
         state = DialogueState.Idle;
         SetPanel(false);
         dialogueShown = true; // Mark dialogue as shown after it finishes
+        waitForPress = isTriggering;
     }
 
     IEnumerator RunTextForSavedMessage()

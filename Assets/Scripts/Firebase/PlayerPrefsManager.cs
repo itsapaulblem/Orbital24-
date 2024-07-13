@@ -112,4 +112,21 @@ public static class PlayerPrefsManager
     public static bool CheckItem(string key) {
         return PlayerPrefs.GetInt(key, 0) == 0;
     }
+
+    public static void Complete() {
+        PlayerPrefs.SetInt("Game", 1);
+        PlayerPrefs.SetInt("Ezekil", 0);
+    }
+
+    public static bool isComplete() {
+        return PlayerPrefs.GetInt("Game", 0) == 1;
+    }
+
+    public static void EzekilDie() {
+        PlayerPrefs.SetInt("Ezekil", 1);
+    }
+
+    public static bool isEzekilDead() {
+        return PlayerPrefs.GetInt("Ezekil", 0) == 1;
+    }
 }

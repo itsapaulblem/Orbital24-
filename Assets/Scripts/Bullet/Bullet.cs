@@ -54,7 +54,7 @@ public class Bullet : MonoBehaviour
     {  
         if (byPlayer) {
             EnemyAI target = collision.GetComponent<EnemyAI>();
-            if (target != null && (active || persist)) {
+            if (!collision.isTrigger && target != null && (active || persist)) {
                 target.TakeDamage(damage);
                 if (active) { StartCoroutine(End()); }
                 active = false;

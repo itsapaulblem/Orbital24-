@@ -46,8 +46,8 @@ public class EnemyAI : MonoBehaviour
     {
         audioManager = AudioManager.Instance;
         
-        // Initialize to Roam
-        state = State.Roaming;
+        // Initialize to Seeking
+        state = State.Seeking;
 
         // Find Target in Scene
         player = GameObject.Find("Player");
@@ -136,11 +136,9 @@ public class EnemyAI : MonoBehaviour
         if (player != null)
         {
             // tracks player distance and update enemy state
-            State prev = state;
             state = Vector2.Distance(player.transform.position, rb.position) <= sight
                 ? State.Seeking
                 : State.Roaming;
-            if (state != prev && state == State.Seeking) { movement = GetSeekingPosition(); }
 
             // move enemy based on movement position (from movement routine)
             rb.MovePosition(rb.position + movement * stats.GetMoveSpeed() * Time.fixedDeltaTime);

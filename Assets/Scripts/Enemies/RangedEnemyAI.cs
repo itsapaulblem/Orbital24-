@@ -15,6 +15,7 @@ public class RangedEnemyAI : EnemyAI
     {
         SetInit(2f, 20, 10f, 0.9f, 14f, 12f);
         lastFireTime = Time.time - stats.GetAttackSpeed();
+        state = State.Roaming;
     }
 
     /// Roaming behaviour: enemy will attempt to return to origin point

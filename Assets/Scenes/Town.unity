@@ -3501,19 +3501,31 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2565756920491991366, guid: 4761f68143c734874bc0bbb24231df7b, type: 3}
       propertyPath: m_Name
-      value: Sign (1)
+      value: Sign (finlay house)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6005607633157610895, guid: 4761f68143c734874bc0bbb24231df7b, type: 3}
+      propertyPath: m_Size.x
+      value: 1.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 6005607633157610895, guid: 4761f68143c734874bc0bbb24231df7b, type: 3}
+      propertyPath: m_Size.y
+      value: 0.32
       objectReference: {fileID: 0}
     - target: {fileID: 6005607633157610895, guid: 4761f68143c734874bc0bbb24231df7b, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 45fd559d07a870b4e8c479d5c0e71e30, type: 3}
+      objectReference: {fileID: 21300000, guid: 473cc3fa366d34cfdb64e21909515dec, type: 3}
+    - target: {fileID: 6005607633157610895, guid: 4761f68143c734874bc0bbb24231df7b, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6156998757418090178, guid: 4761f68143c734874bc0bbb24231df7b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -14.64
       objectReference: {fileID: 0}
     - target: {fileID: 6156998757418090178, guid: 4761f68143c734874bc0bbb24231df7b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.25
+      value: -0.12
       objectReference: {fileID: 0}
     - target: {fileID: 6156998757418090178, guid: 4761f68143c734874bc0bbb24231df7b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3549,19 +3561,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6714662845411378278, guid: 4761f68143c734874bc0bbb24231df7b, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.39396518
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6714662845411378278, guid: 4761f68143c734874bc0bbb24231df7b, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.33736038
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6714662845411378278, guid: 4761f68143c734874bc0bbb24231df7b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.1655
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6714662845411378278, guid: 4761f68143c734874bc0bbb24231df7b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.3505
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
