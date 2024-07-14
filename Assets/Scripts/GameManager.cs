@@ -66,6 +66,23 @@ public class GameManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        IEnumerator FadeIn() {
+            GameObject fade = GameObject.Find("Main Camera").transform.Find("Fade").gameObject;
+            SpriteRenderer fsr = fade.GetComponent<SpriteRenderer>();
+            float rate = 1f/ 2f;
+            float progress = 0.0f; 
+            Color tmp = fsr.color;
+            fade.SetActive(true);
+
+            while (progress < 1.0f){
+                tmp.a = Mathf.Lerp(1, 0 , progress);
+                fsr.color = tmp;
+                progress += rate * Time.deltaTime;
+                yield return null; 
+            }
+            fade.SetActive(false);
+        }
+        StartCoroutine(FadeIn());
         
         Debug.Log("Scene loaded: " + scene.name);
 

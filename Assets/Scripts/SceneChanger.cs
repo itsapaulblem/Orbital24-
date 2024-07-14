@@ -29,7 +29,7 @@ public class SceneChanger : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision) {
         PlayerController target = collision.GetComponent<PlayerController>();
-
+        
         IEnumerator ChangeSceneWhenReady() {
             if (difficultySelector) {
                 // TODO: Toggle on difficulty selector menu here
@@ -38,6 +38,22 @@ public class SceneChanger : MonoBehaviour
                     yield return null;
                 }
             }
+
+            // FadeOut
+            GameObject fade = GameObject.Find("Main Camera").transform.Find("Fade").gameObject;
+            SpriteRenderer fsr = fade.GetComponent<SpriteRenderer>();
+            float rate = 1f/ 2f;
+            float progress = 0.0f; 
+            Color tmp = fsr.color;
+            fade.SetActive(true);
+
+            while (progress < 1.0f){
+                tmp.a = Mathf.Lerp(0, 1 , progress);
+                fsr.color = tmp;
+                progress += rate * Time.deltaTime;
+                yield return null; 
+            }
+
             GameManager.Instance.lastScene = (nextScene == "Dungeon" ? "Room" : nextScene);
             PlayerPrefsManager.SetLastScene(nextScene == "Dungeon" ? "Room" : nextScene);
             PlayerController.SetCoords(xCoord, yCoord);

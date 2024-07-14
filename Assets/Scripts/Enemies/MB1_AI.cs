@@ -18,7 +18,8 @@ public class MB1_AI : EnemyAI
     protected override Vector2 GetSeekingPosition()
     {
         float timeSinceLastAttack = Time.time - lastAttackTime;
-        if (timeSinceLastAttack >= stats.GetAttackSpeed() && state == State.Seeking)
+        if (timeSinceLastAttack >= stats.GetAttackSpeed() && state == State.Seeking &&
+            Vector2.Distance(player.transform.position, transform.position) <= sight)
         {
             lastAttackTime = Time.time;
             if (audioManager == null) { audioManager = AudioManager.Instance; }

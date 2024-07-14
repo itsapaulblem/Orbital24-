@@ -91,4 +91,11 @@ public static class Inventory
         }
         return true;
     }
+
+    public static bool AllCollected() {
+        foreach (int s in questItemState) {
+            if (s == 0) return false;
+        }
+        return true;
+    }
 }

@@ -47735,7 +47735,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1320195265699661409, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
       propertyPath: m_ChildCameras.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1320195265699661409, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
       propertyPath: m_ChildCameras.Array.data[0]
@@ -47780,6 +47780,14 @@ PrefabInstance:
     - target: {fileID: 2553973854623526517, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3161526173182137182, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
+      propertyPath: m_Name
+      value: Fade
+      objectReference: {fileID: 0}
+    - target: {fileID: 3161526173182137182, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3289064270138888570, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
       propertyPath: orthographic size

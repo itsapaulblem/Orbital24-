@@ -5611,6 +5611,10 @@ PrefabInstance:
       propertyPath: m_BoundingShape2D
       value: 
       objectReference: {fileID: 1108720030}
+    - target: {fileID: 3161526173182137182, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3289064270138888570, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
       propertyPath: m_CullingMask.m_Bits
       value: 63
