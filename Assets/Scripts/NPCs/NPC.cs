@@ -17,8 +17,8 @@ public class NPC : MonoBehaviour
     // Dialogue Display
     private GameObject dialogueMain;
     private bool nextDialogue = false;
-    private enum DialogueState { Run, Next, Idle }
-    private DialogueState state = DialogueState.Run;
+    public enum DialogueState { Run, Next, Idle }
+    public DialogueState state = DialogueState.Run;
     private Dictionary<string, string> npcNames;
 
     // Player Inputs
@@ -214,7 +214,6 @@ public class NPC : MonoBehaviour
 
     public IEnumerator RunText()
     {
-        Debug.Log("Here" + dialogueBlock);
         SetPanel(true);
         int index = 0;
         // discard previous dialogueBlocks

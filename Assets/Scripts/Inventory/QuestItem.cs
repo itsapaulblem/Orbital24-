@@ -15,6 +15,13 @@ public class QuestItem : MonoBehaviour
         if (!PlayerPrefsManager.CheckItem(gameObject.name)) { Destroy(gameObject); }
         audioManager = AudioManager.Instance;
     }
+    public bool sm = false;
+    void Update() {
+        if (sm) {
+            sm = false;
+            StartCoroutine(TransitionToQuest());
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -66,12 +73,23 @@ public class QuestItem : MonoBehaviour
             float progress = 0.0f; 
 
             while (progress < 1.0f) {
-                if (player == null) player = GameObject.Find("Player");
+                if (player == null) { 
+                    player = GameObject.Find("Player");
+                    player.GetComponent<PlayerController>().canMove = false;
+                    player.GetComponent<SpriteRenderer>().flipX = false;
+                    player.GetComponent<Animator>().SetFloat("moveX", 1);
+                }
                 player.transform.position = new Vector2(Mathf.Lerp(5, 10 , progress), 2.5f);
                 progress += rate * Time.deltaTime;
                 yield return null; 
             }
             player.GetComponent<PlayerController>().canMove = true;
+            player.GetComponent<Animator>().SetFloat("moveX", 0);
+
+            NPC goldfish = GameObject.Find("Goldfish").GetComponent<NPC>();
+            goldfish.state = NPC.DialogueState.Next;
+            goldfish.waitForPress = true;
+            goldfish.StartCoroutine(goldfish.RunText());
         }
         CoroutineManager.Instance.StartCoroutine(AnimateMovement());
     }
