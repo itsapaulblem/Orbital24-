@@ -192,6 +192,7 @@ MonoBehaviour:
   bossFinal: {fileID: 8300000, guid: 98ea12eb51830401ba0fcb5bc68adc25, type: 3}
   purchaseClick: {fileID: 8300000, guid: da4a2622abe334cb488e9a1baf0c8349, type: 3}
   enemyDied: {fileID: 8300000, guid: 38db8e57c57fc4128936a857592590e1, type: 3}
+  munch: {fileID: 8300000, guid: 53805675cb4e44d6c9b5ab0a8ffb56c1, type: 3}
 --- !u!1 &9157553889644716388
 GameObject:
   m_ObjectHideFlags: 0

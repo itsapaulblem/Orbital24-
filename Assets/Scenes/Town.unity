@@ -2233,6 +2233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueBlock: 1
+  state: 0
   waitForPress: 0
   dialogueShown: 0
   gameManager: {fileID: 0}
@@ -3358,6 +3359,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueBlock: 1
+  state: 0
   waitForPress: 0
   dialogueShown: 0
   gameManager: {fileID: 0}
@@ -4810,6 +4812,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueBlock: 1
+  state: 0
   waitForPress: 0
   dialogueShown: 0
   gameManager: {fileID: 1705968461}
@@ -5613,7 +5616,7 @@ PrefabInstance:
       objectReference: {fileID: 1108720030}
     - target: {fileID: 3161526173182137182, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3289064270138888570, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
       propertyPath: m_CullingMask.m_Bits

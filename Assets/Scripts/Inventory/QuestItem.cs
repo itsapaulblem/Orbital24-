@@ -63,22 +63,17 @@ public class QuestItem : MonoBehaviour
         GameManager.Instance.lastScene = "Town";
         PlayerPrefsManager.SetLastScene("Town");
         PlayerController.SetCoords(5, 2.5f);
-        SceneManager.LoadSceneAsync("Town");
-
+        var waitAsync = SceneManager.LoadSceneAsync("Town", LoadSceneMode.Single);
+        yield return new WaitUntil(() => waitAsync.isDone);
         IEnumerator AnimateMovement() {
             GameObject player = GameObject.Find("Player");
             player.GetComponent<PlayerController>().canMove = false;
             player.GetComponent<SpriteRenderer>().flipX = false;
+            player.GetComponent<Animator>().SetFloat("moveX", 1);
             float rate = 1f/ 2f;
             float progress = 0.0f; 
 
             while (progress < 1.0f) {
-                if (player == null) { 
-                    player = GameObject.Find("Player");
-                    player.GetComponent<PlayerController>().canMove = false;
-                    player.GetComponent<SpriteRenderer>().flipX = false;
-                    player.GetComponent<Animator>().SetFloat("moveX", 1);
-                }
                 player.transform.position = new Vector2(Mathf.Lerp(5, 10 , progress), 2.5f);
                 progress += rate * Time.deltaTime;
                 yield return null; 

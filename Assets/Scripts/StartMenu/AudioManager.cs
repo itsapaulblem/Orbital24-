@@ -27,6 +27,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip bossFinal; 
     public AudioClip purchaseClick;
     public AudioClip enemyDied;
+    public AudioClip munch;
 
     public static AudioManager Instance;
     private enum MusicState { Start, Game, Dungeon }

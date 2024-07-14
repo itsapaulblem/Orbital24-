@@ -73,6 +73,7 @@ public class GameManager : MonoBehaviour
             float progress = 0.0f; 
             Color tmp = fsr.color;
             fade.SetActive(true);
+            yield return new WaitForSeconds(0.2f);
 
             while (progress < 1.0f){
                 tmp.a = Mathf.Lerp(1, 0 , progress);
