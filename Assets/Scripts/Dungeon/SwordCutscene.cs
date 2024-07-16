@@ -53,14 +53,14 @@ public class SwordCutscene : MonoBehaviour
         fadeprogress = 0f;
 
         while (progress < 0.7f) {
-            player.transform.position = new Vector2(-32.6f, Mathf.Lerp(133.6f, 123.6f, progress));
+            player.transform.position = new Vector2(Mathf.Lerp(-32.6f, -29.6f, progress), Mathf.Lerp(133.6f, 123.6f, progress));
             progress += rate * Time.deltaTime;
             yield return null; 
         }
         // Fade out
         fade.SetActive(true);
         while (fadeprogress < 1.0f){
-            player.transform.position = new Vector2(-32.6f, Mathf.Lerp(133.6f, 123.6f, progress));
+            player.transform.position = new Vector2(Mathf.Lerp(-32.6f, -29.6f, progress), Mathf.Lerp(133.6f, 123.6f, progress));
             tmp.a = Mathf.Lerp(0, 1 , fadeprogress);
             fsr.color = tmp;
             progress += rate * Time.deltaTime;
@@ -152,6 +152,31 @@ public class SwordCutscene : MonoBehaviour
             fadeprogress += faderate * Time.deltaTime;
             yield return null; 
         }
+
+        // Thankyou Fade in/out
+        fade = GameObject.Find("Main Camera").transform.Find("Thankyou").gameObject;
+        fsr = fade.GetComponent<SpriteRenderer>();
+        tmp = fsr.color;
+        tmp.a = 0f;
+        fsr.color = tmp;
+        fadeprogress = 0.0f;
+        fade.SetActive(true);
+
+        while (fadeprogress < 1.0f){
+            tmp.a = Mathf.Lerp(0, 1 , fadeprogress);
+            fsr.color = tmp;
+            fadeprogress += faderate * Time.deltaTime;
+            yield return null; 
+        }
+        yield return new WaitForSeconds(3f);
+        fadeprogress = 0;
+        while (fadeprogress < 1.0f){
+            tmp.a = Mathf.Lerp(1, 0 , fadeprogress);
+            fsr.color = tmp;
+            fadeprogress += faderate * Time.deltaTime;
+            yield return null; 
+        }
+        SceneManager.LoadSceneAsync("Room");
     }
 
     

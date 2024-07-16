@@ -324,14 +324,23 @@ public class DungeonManager : MonoBehaviour
                 while (!npc.dialogueShown) {
                     yield return null;
                 }
+
+                GameObject swordPrefab = Resources.Load<GameObject>("Prefab/Sword");
+                GameObject sword = Instantiate(swordPrefab, boss.transform.position, Quaternion.identity); 
+
+                Debug.Log(sword);
+                SpriteRenderer ssr = sword.GetComponent<SpriteRenderer>();
                 SpriteRenderer bsr = boss.GetComponent<SpriteRenderer>();
                 float rate = 1.0f/ 0.5f;
                 float progress = 0.0f; 
-                Color tmp = bsr.color;
+                Color bc = bsr.color;
+                Color sc = ssr.color;
 
-                while (progress < 2.0f){
-                    tmp.a = Mathf.Lerp(1, 0 , progress);
-                    bsr.color = tmp;
+                while (progress < 1.2f){
+                    bc.a = Mathf.Lerp(1, 0, progress);
+                    sc.a = Mathf.Lerp(0, 1, progress - 0.2f);
+                    bsr.color = bc;
+                    ssr.color = sc;
                     progress += rate * Time.deltaTime;
                     yield return null; 
                 }

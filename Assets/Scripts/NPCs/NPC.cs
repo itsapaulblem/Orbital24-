@@ -164,8 +164,10 @@ public class NPC : MonoBehaviour
         // Handle player input for dialogue interaction
         if (waitForPress && Input.GetKeyDown(KeyCode.E))
         {
-            GameObject prompt = gameObject.transform.Find("Prompt").gameObject;
-            if (prompt != null) { prompt.SetActive(false); }
+            try {
+                GameObject prompt = gameObject.transform.Find("Prompt").gameObject;
+                if (prompt != null) { prompt.SetActive(false); }
+            } catch(Exception) { }
             // Shows dialogue
             // TODO: track story progress for crab marketplace menu
             if (!dialogueShown && state != DialogueState.Next) {
