@@ -22,6 +22,10 @@ public class StatsManager
     private float bulletLife;
     private float bulletSpeed;
 
+    // Difficulty Level
+    public enum Difficulty { Easy, Medium, Hard }
+    public static Difficulty difficulty = Difficulty.Easy;
+
     // Temporary booster duration
     private float boosterInterval = 150f;
     private Dictionary<string, Color> statFlashColors = new Dictionary<string, Color>(){
@@ -45,7 +49,17 @@ public class StatsManager
 
     public static StatsManager of(float mvSpd, float maxHp, float atk, float atkSpd, float bulLife = -1, float bulSpd = -1)
     {
-        return new StatsManager(mvSpd, maxHp, atk, atkSpd, bulLife, bulSpd);
+        float difficultyMod = 1f;
+        switch (difficulty) {
+            case Difficulty.Hard: difficultyMod += 0.5f; break;
+            case Difficulty.Medium: difficultyMod += 0.2f; break;
+        }
+        return new StatsManager(mvSpd * difficultyMod, 
+                                maxHp * difficultyMod, 
+                                atk * difficultyMod, 
+                                atkSpd * difficultyMod, 
+                                bulLife * difficultyMod, 
+                                bulSpd * difficultyMod);
     }
 
     public static StatsManager ofPlayer(float mvSpd = -1, float maxHp = -1, float atk = -1, float atkSpd = 1, float bulLife = -1, float bulSpd = -1)
