@@ -18,10 +18,10 @@ public class DifficultyManager : MonoBehaviour
                 StatsManager.difficulty = StatsManager.Difficulty.Hard;
                 break;
             default:
-                StatsManager.difficulty = StatsManager.Difficulty.Medium;
+                StatsManager.difficulty = StatsManager.Difficulty.Easy;
                 break;
         }
-        difficultyMenu.SetActive(false);
         GameObject.Find("Town Background").GetComponent<SceneChanger>().waiting = false; 
+        GameManager.Instance.ToggleDifficultyMenu();
     }
 }

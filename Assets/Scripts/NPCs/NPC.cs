@@ -110,22 +110,28 @@ public class NPC : MonoBehaviour
     // Event handler for when fieldboss dies, for SeagrassValley Fieldboss
     public void FieldBossDiedHandler()
     {
-        dialogueBlock = 2; // set dialogue block to 1 when boss dies 
-        PlayerPrefsManager.IncrDialogueBlock(currName);
-        dialogueShown = false; // Reset dialogueShown when an enemy dies
-        state = DialogueState.Next;
-        waitForPress = true;
-        StartCoroutine(RunText());
+        if (PlayerPrefsManager.CheckCutscene(2)) {
+            dialogueBlock = 2; // set dialogue block to 1 when boss dies 
+            PlayerPrefsManager.IncrDialogueBlock(currName);
+            dialogueShown = false; // Reset dialogueShown when an enemy dies
+            state = DialogueState.Next;
+            waitForPress = true;
+            StartCoroutine(RunText());
+            PlayerPrefsManager.UpdateCutscene(2);
+        }
     }
 
     // Event handler for when finalboss dies, for DungeonManager
     public void FinalBossDiedHandler()
     {
-        dialogueBlock = 1; // set dialogue block to 1 when boss dies 
-        dialogueShown = false; // Reset dialogueShown when an enemy dies
-        state = DialogueState.Next;
-        waitForPress = true;
-        StartCoroutine(RunText());
+        if (PlayerPrefsManager.CheckCutscene(3)) {
+            dialogueBlock = 1; // set dialogue block to 1 when boss dies 
+            dialogueShown = false; // Reset dialogueShown when an enemy dies
+            state = DialogueState.Next;
+            waitForPress = true;
+            StartCoroutine(RunText());
+            PlayerPrefsManager.UpdateCutscene(3);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)

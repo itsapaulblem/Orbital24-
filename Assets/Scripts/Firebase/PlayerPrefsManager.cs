@@ -24,9 +24,11 @@ public static class PlayerPrefsManager
     /// Sets the current cutscene number.
     /// </summary>
     /// <param name="cutscene">The current cutscene number</param>
-    public static void SetCutscene(int cutscene)
+    public static void UpdateCutscene(int cutscene)
     {
-        PlayerPrefs.SetInt(User + "_cutscene", cutscene);
+        if (PlayerPrefs.GetInt(User + "_cutscene", 0) <= cutscene) {
+            PlayerPrefs.SetInt(User + "_cutscene", cutscene);
+        }
     }
 
     /// <summary>

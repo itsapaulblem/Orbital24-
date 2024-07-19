@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SeagrassValley.unity
     guid: beef02741f071ed40a53a62863662dd3
+  - enabled: 1
+    path: Assets/Scenes/Dungeon.unity
+    guid: c5a09b3836f6043dab2f50f9ff1f87b3
   m_configObjects: {}

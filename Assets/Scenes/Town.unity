@@ -1437,11 +1437,10 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 602059352449914361, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
   m_PrefabInstance: {fileID: 1332797119}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &689480253
+--- !u!114 &689480253 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 4037162412356352930, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
+  m_PrefabInstance: {fileID: 1332797119}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 689480251}
   m_Enabled: 1
@@ -1449,7 +1448,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1913223a20a62014b8210d63a74125ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  difficultyMenu: {fileID: 689480251}
 --- !u!1 &702163107 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6263491298926081320, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
@@ -4854,10 +4852,7 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 6257379401548895139, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 602059352449914361, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 689480253}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
 --- !u!1 &1388589164
 GameObject:

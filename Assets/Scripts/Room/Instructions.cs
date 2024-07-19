@@ -38,6 +38,7 @@ public class Instructions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (controls == null) { controls = GameObject.Find("Controls"); }
         if (controls != null && controlsCanvasGroup == null) { controlsCanvasGroup = controls.GetComponent<CanvasGroup>(); }
         if (controlsCanvasGroup == null) { return; }
 
@@ -46,6 +47,8 @@ public class Instructions : MonoBehaviour
             StartCoroutine(Fade());
         }
     }
+
+    
 
     private IEnumerator Fade(){
         if (controlsCanvasGroup == null) { yield break; }
@@ -61,7 +64,7 @@ public class Instructions : MonoBehaviour
         controlsCanvasGroup.alpha = 0; 
         controls.SetActive(false);
 
-        // TODO: Set increment to disable instructions
+        PlayerPrefsManager.UpdateCutscene(1);
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)

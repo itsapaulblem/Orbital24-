@@ -127,7 +127,7 @@ public class GameManager : MonoBehaviour
         } else {
             marketplaceMenu.SetActive(false); // Ensure MarketplaceMenu is inactive
         }
-
+        if (signoutMenu == null) { signoutMenu = GameObject.Find("SignOutMenu"); }
         if (signoutMenu == null) {
             Debug.LogWarning("SignOutMenu not found in the scene: " + scene.name);
         } else {
@@ -135,6 +135,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("SignOutMenu found and set to inactive");
         }
 
+        if (difficultyMenu == null) { difficultyMenu = GameObject.Find("DifficultyMenu"); }
         if (difficultyMenu == null){
             Debug.LogWarning("Difficulty Menu not found in the scene: " + scene.name);
         } else {
@@ -162,11 +163,6 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I)){
             ToggleInventoryMenu();
         }
-
-        if (Input.GetKeyDown(KeyCode.K)){
-            ToggleDifficultyMenu(); 
-        }
-
     }
 
     public void AddKill()
@@ -228,6 +224,7 @@ public class GameManager : MonoBehaviour
         if (difficultyMenu != null){
             isdifficultyMenuActive = !isdifficultyMenuActive; 
             difficultyMenu.SetActive(isdifficultyMenuActive);
+            Time.timeScale = isdifficultyMenuActive ? 0f : 1f;
         }
         else{
             Debug.LogWarning("Difficulty Menu is missing"); 
