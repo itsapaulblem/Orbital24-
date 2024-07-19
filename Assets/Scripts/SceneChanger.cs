@@ -32,11 +32,14 @@ public class SceneChanger : MonoBehaviour
         
         IEnumerator ChangeSceneWhenReady() {
             if (difficultySelector) {
-                // TODO: Toggle on difficulty selector menu here
+                // Toggle on difficulty selector menu here
+                GameObject difficultyMenu = GameObject.Find("DifficultyMenu");
+                difficultyMenu.SetActive(true);
                 // DifficultyMenuManager should set waiting to be false after selection
                 while (waiting) {
                     yield return null;
                 }
+                difficultyMenu.SetActive(false);
             }
 
             // FadeOut

@@ -4408,6 +4408,10 @@ PrefabInstance:
       propertyPath: marketplaceMenu
       value: 
       objectReference: {fileID: 1685308202}
+    - target: {fileID: 3152985050617624906, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
+      propertyPath: difficultyWindow
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3417837720670610249, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
       propertyPath: m_SizeDelta.x
       value: 100

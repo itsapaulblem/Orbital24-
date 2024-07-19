@@ -42,7 +42,6 @@ public class GameManager : MonoBehaviour
     private FirebaseAuth auth; 
 
     public string lastScene; // tracks the last scene name 
-
     private void Awake()
     {
         // Singleton pattern to ensure only one instance of GameManager exists
@@ -133,7 +132,7 @@ public class GameManager : MonoBehaviour
             signoutMenu.SetActive(false); // Ensure SignOutMenu is inactive
             Debug.Log("SignOutMenu found and set to inactive");
         }
-
+    
         kills = PlayerPrefsManager.LoadKills();
     }
 
@@ -154,6 +153,7 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I)){
             ToggleInventoryMenu();
         }
+
     }
 
     public void AddKill()
@@ -320,9 +320,6 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogWarning("InventoryMenu is missing");
         }
-    }
-   
-
-   
+    } 
 }
 

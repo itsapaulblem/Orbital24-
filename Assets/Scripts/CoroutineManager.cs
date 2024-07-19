@@ -11,11 +11,6 @@ public class CoroutineManager : MonoBehaviour
     /**
      * Gets the instance of the coroutine manager.
      * If the instance is null, it creates a new one.
-     * 
-     * Example:
-     * ```csharp
-     * CoroutineManager manager = CoroutineManager.Instance;
-     * ```
      */
     public static CoroutineManager Instance
     {
