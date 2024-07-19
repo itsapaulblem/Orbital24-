@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour
     public bool isSignOutActive = false; // Initialize isSignOutActive to false
     private FirebaseAuth auth; 
 
+    public GameObject difficultyMenu; 
+    public bool isdifficultyMenuActive = false; 
     public string lastScene; // tracks the last scene name 
     private void Awake()
     {
@@ -132,6 +134,13 @@ public class GameManager : MonoBehaviour
             signoutMenu.SetActive(false); // Ensure SignOutMenu is inactive
             Debug.Log("SignOutMenu found and set to inactive");
         }
+
+        if (difficultyMenu == null){
+            Debug.LogWarning("Difficulty Menu not found in the scene: " + scene.name);
+        } else {
+            difficultyMenu.SetActive(false); // Ensure Difficulty Menu is inactive
+            Debug.Log("Difficulty Menu found and set to inactive");
+        }
     
         kills = PlayerPrefsManager.LoadKills();
     }
@@ -152,6 +161,10 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.I)){
             ToggleInventoryMenu();
+        }
+
+        if (Input.GetKeyDown(KeyCode.K)){
+            ToggleDifficultyMenu(); 
         }
 
     }
@@ -211,6 +224,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void ToggleDifficultyMenu(){
+        if (difficultyMenu != null){
+            isdifficultyMenuActive = !isdifficultyMenuActive; 
+            difficultyMenu.SetActive(isdifficultyMenuActive);
+        }
+        else{
+            Debug.LogWarning("Difficulty Menu is missing"); 
+        }
+    }
+
     private void ToggleMiniMap()
     {
         // Toggle the minimap's visibility
@@ -224,6 +247,7 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("MiniMapWindow is missing.");
         }
     }
+
 
     public void ResumeGame()
     {

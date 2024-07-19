@@ -1432,6 +1432,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &689480251 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 602059352449914361, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
+  m_PrefabInstance: {fileID: 1332797119}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &689480253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 689480251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1913223a20a62014b8210d63a74125ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &702163107 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6263491298926081320, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
@@ -4405,6 +4422,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 609661648}
     - target: {fileID: 3152985050617624906, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
+      propertyPath: difficultyMenu
+      value: 
+      objectReference: {fileID: 689480251}
+    - target: {fileID: 3152985050617624906, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
       propertyPath: marketplaceMenu
       value: 
       objectReference: {fileID: 1685308202}
@@ -4443,6 +4464,26 @@ PrefabInstance:
     - target: {fileID: 3453949121459217854, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3469745861408086949, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3469745861408086949, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 689480253}
+    - target: {fileID: 3469745861408086949, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetDifficulty
+      objectReference: {fileID: 0}
+    - target: {fileID: 3469745861408086949, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: DifficultyManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3469745861408086949, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3491702242457495127, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
       propertyPath: m_SizeDelta.x
@@ -4503,6 +4544,26 @@ PrefabInstance:
     - target: {fileID: 4381753704010630917, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
       propertyPath: itemIndex
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4681284355881012502, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4681284355881012502, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 689480253}
+    - target: {fileID: 4681284355881012502, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetDifficulty
+      objectReference: {fileID: 0}
+    - target: {fileID: 4681284355881012502, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: DifficultyManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4681284355881012502, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4752911673475178976, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
       propertyPath: m_AnchorMax.y
@@ -4579,6 +4640,22 @@ PrefabInstance:
     - target: {fileID: 5877179761686077944, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5923674460450393352, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5923674460450393352, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 689480253}
+    - target: {fileID: 5923674460450393352, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetDifficulty
+      objectReference: {fileID: 0}
+    - target: {fileID: 5923674460450393352, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: DifficultyManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5969221236952222133, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -4776,7 +4853,10 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 6257379401548895139, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 602059352449914361, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 689480253}
   m_SourcePrefab: {fileID: 100100000, guid: 0e676c38a049246e980c7a18ec45ac0d, type: 3}
 --- !u!1 &1388589164
 GameObject:

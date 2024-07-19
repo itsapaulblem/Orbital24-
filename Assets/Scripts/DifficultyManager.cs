@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class DifficultyManager : MonoBehaviour
 {
+    [SerializeField] private GameObject difficultyMenu; 
     public void SetDifficulty(int difficulty){
         switch(difficulty){
             case 0:
@@ -20,6 +21,7 @@ public class DifficultyManager : MonoBehaviour
                 StatsManager.difficulty = StatsManager.Difficulty.Medium;
                 break;
         }
+        difficultyMenu.SetActive(false);
         GameObject.Find("Town Background").GetComponent<SceneChanger>().waiting = false; 
     }
 }
