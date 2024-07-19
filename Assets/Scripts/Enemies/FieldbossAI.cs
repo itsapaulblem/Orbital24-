@@ -5,7 +5,7 @@ using UnityEngine;
 public class FieldbossAI : RangedEnemyAI
 {   
     private NPC npc;
-    private bool triggered = PlayerPrefsManager.CheckCutscene(2);;
+    private bool triggered = false;
     void Start()
     {
         if (PlayerPrefsManager.isEzekilDead()) Destroy(gameObject);
@@ -13,7 +13,7 @@ public class FieldbossAI : RangedEnemyAI
         SetInit(2f, 250f, 13f, 1.1f, 15f, 13f); //250hp
 
         npc = transform.Find("Fieldboss").GetComponent<NPC>();
-        if (!PlayerPrefsManager.isComplete()) {
+        if (PlayerPrefsManager.CheckCutscene(2)) {
             npc.dialogueBlock = 1;
             sight = 0f;
             EnemyDied += npc.FieldBossDiedHandler;
