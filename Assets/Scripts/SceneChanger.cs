@@ -18,6 +18,10 @@ public class SceneChanger : MonoBehaviour
         if (director != null) {
             StartCoroutine(CheckEnd(director));
         }
+
+        if (difficultySelector && !PlayerPrefsManager.isComplete()) {
+            difficultySelector = false;
+        }
     }
 
     public IEnumerator CheckEnd(PlayableDirector director)  
@@ -29,7 +33,7 @@ public class SceneChanger : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision) {
         PlayerController target = collision.GetComponent<PlayerController>();
-        
+
         IEnumerator ChangeSceneWhenReady() {
             if (difficultySelector) {
                 // TODO: Toggle on difficulty selector menu here
