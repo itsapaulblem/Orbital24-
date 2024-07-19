@@ -6805,7 +6805,7 @@ MonoBehaviour:
   marketplaceMenu: {fileID: 7357911394354916701}
   signoutMenu: {fileID: 8876964159405008382}
   isSignOutActive: 0
-  difficultyMenu: {fileID: 0}
+  difficultyMenu: {fileID: 602059352449914361}
   isdifficultyMenuActive: 0
   lastScene: 
 --- !u!1 &6440270199558047316
