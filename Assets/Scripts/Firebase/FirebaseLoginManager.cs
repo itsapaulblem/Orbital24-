@@ -216,6 +216,9 @@ public class FirebaseLoginManager : MonoBehaviour
 
             warningLoginText.text = "";
             confirmLoginText.text = "Logged in";
+            // Store the username in PlayerPrefsManager 
+            string username = _email.Split('@')[0];
+            PlayerPrefsManager.User = username; 
 
             yield return new WaitForSeconds(2);
             confirmLoginText.text = "";
