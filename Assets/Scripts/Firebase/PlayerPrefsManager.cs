@@ -4,6 +4,8 @@ using UnityEngine;
 
 public static class PlayerPrefsManager 
 {
+    public static string User = "base";
+
     /// <summary>
     /// Checks if the player has viewed a cutscene prior to the current one.
     /// Returns true if the saved cutscene is smaller than the current cutscene.
@@ -15,7 +17,7 @@ public static class PlayerPrefsManager
     /// </example>
     public static bool CheckCutscene(int curr)
     {
-        return PlayerPrefs.GetInt("cutscene", 0) < curr;
+        return PlayerPrefs.GetInt(User + "_cutscene", 0) < curr;
     }
 
     /// <summary>
@@ -24,7 +26,7 @@ public static class PlayerPrefsManager
     /// <param name="cutscene">The current cutscene number</param>
     public static void SetCutscene(int cutscene)
     {
-        PlayerPrefs.SetInt("cutscene", cutscene);
+        PlayerPrefs.SetInt(User + "_cutscene", cutscene);
     }
 
     /// <summary>
@@ -33,7 +35,7 @@ public static class PlayerPrefsManager
     /// <returns>The name of the last scene, or "Room" if no scene is saved</returns>
     public static string LoadLastScene()
     {
-        return PlayerPrefs.GetString("lastScene", "Room");
+        return PlayerPrefs.GetString(User + "_lastScene", "Room");
     }
 
     /// <summary>
@@ -42,7 +44,7 @@ public static class PlayerPrefsManager
     /// <param name="scene">The name of the last scene</param>
     public static void SetLastScene(string scene)
     {
-        PlayerPrefs.SetString("lastScene", scene);
+        PlayerPrefs.SetString(User + "_lastScene", scene);
     }
 
     /// <summary>
@@ -50,8 +52,8 @@ public static class PlayerPrefsManager
     /// </summary>
     public static void LoadCoords()
     {
-        float xCoord = PlayerPrefs.GetFloat("xCoord", float.PositiveInfinity);
-        float yCoord = PlayerPrefs.GetFloat("yCoord", float.PositiveInfinity);
+        float xCoord = PlayerPrefs.GetFloat(User + "_xCoord", float.PositiveInfinity);
+        float yCoord = PlayerPrefs.GetFloat(User + "_yCoord", float.PositiveInfinity);
         PlayerController.SetCoords(xCoord, yCoord);
     }
 
@@ -62,8 +64,8 @@ public static class PlayerPrefsManager
     /// <param name="y">The y-coordinate</param>
     public static void SetCoords(float x, float y)
     {
-        PlayerPrefs.SetFloat("xCoord", x);
-        PlayerPrefs.SetFloat("yCoord", y);
+        PlayerPrefs.SetFloat(User + "_xCoord", x);
+        PlayerPrefs.SetFloat(User + "_yCoord", y);
     }
 
     /// <summary>
@@ -72,7 +74,7 @@ public static class PlayerPrefsManager
     /// <returns>The player's kill count, or 0 if no count is saved</returns>
     public static int LoadKills()
     {
-        return PlayerPrefs.GetInt("kills", 0);
+        return PlayerPrefs.GetInt(User + "_kills", 0);
     }
 
     /// <summary>
@@ -81,7 +83,7 @@ public static class PlayerPrefsManager
     /// <param name="kills">The player's kill count</param>
     public static void SetKills(int kills)
     {
-        PlayerPrefs.SetInt("kills", kills);
+        PlayerPrefs.SetInt(User + "_kills", kills);
     }
 
     /// <summary>
@@ -95,38 +97,38 @@ public static class PlayerPrefsManager
     /// </example>
     public static bool CheckProgress(int curr)
     {
-        return PlayerPrefs.GetInt("progress", 0) < curr;
+        return PlayerPrefs.GetInt(User + "_progress", 0) < curr;
     }
 
     public static int GetDialogueBlock(string key) {
-        return PlayerPrefs.GetInt(key, 1);
+        return PlayerPrefs.GetInt(User + "_" + key, 1);
     }
 
     public static void IncrDialogueBlock(string key) {
-        PlayerPrefs.SetInt(key, PlayerPrefs.GetInt(key, 1) + 1);
+        PlayerPrefs.SetInt(User + "_" + key, PlayerPrefs.GetInt(User + "_" + key, 1) + 1);
     }
     public static void DecrDialogueBlock(string key) {
-        PlayerPrefs.SetInt(key, PlayerPrefs.GetInt(key, 1) - 1);
+        PlayerPrefs.SetInt(User + "_" + key, PlayerPrefs.GetInt(User + "_" + key, 1) - 1);
     }
 
     public static bool CheckItem(string key) {
-        return PlayerPrefs.GetInt(key, 0) == 0;
+        return PlayerPrefs.GetInt(User + "_" + key, 0) == 0;
     }
 
     public static void Complete() {
-        PlayerPrefs.SetInt("Game", 1);
-        PlayerPrefs.SetInt("Ezekil", 0);
+        PlayerPrefs.SetInt(User + "_Game", 1);
+        PlayerPrefs.SetInt(User + "_Ezekil", 0);
     }
 
     public static bool isComplete() {
-        return PlayerPrefs.GetInt("Game", 0) == 1;
+        return PlayerPrefs.GetInt(User + "_Game", 0) == 1;
     }
 
     public static void EzekilDie() {
-        PlayerPrefs.SetInt("Ezekil", 1);
+        PlayerPrefs.SetInt(User + "_Ezekil", 1);
     }
 
     public static bool isEzekilDead() {
-        return PlayerPrefs.GetInt("Ezekil", 0) == 1;
+        return PlayerPrefs.GetInt(User + "_Ezekil", 0) == 1;
     }
 }

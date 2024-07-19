@@ -153,7 +153,7 @@ public class NPC : MonoBehaviour
     public bool reset = false;
     void Update()
     {
-        if (reset) { PlayerPrefs.SetInt(currName, 1); reset = false; }
+        if (reset) { PlayerPrefs.SetInt(PlayerPrefsManager.User + "_" + currName, 1); reset = false; }
         // Check if the dialogue block is 2 and display the saved message if it hasn't been shown yet
         //if (dialogueBlock == 2 && !dialogueShown)
         //{
