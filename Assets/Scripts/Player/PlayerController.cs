@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 movement;
     private Rigidbody2D rb;
     public bool canMove = true;
+    public static bool isDashing = false;
 
     // Animation Attributes
     private Animator playerAnimator;
@@ -93,9 +94,18 @@ public class PlayerController : MonoBehaviour
         playerAnimator.SetFloat("moveY", movement.y);
     }
 
+    /// When player triggers dash inputs, OnDash sets temporarily increase
+    /// movement speed.
+    ///   inputValue - player inputs
+    private void OnDash(InputValue inputValue) {
+        if (inputValue.isPressed && !isDashing) {
+            isDashing = true;
+            StartCoroutine(stats.DashModifier());
+        }
+    }
+
     private void Move() 
     {
-        
         rb.MovePosition(rb.position + movement * stats.GetMoveSpeed() * Time.fixedDeltaTime);
     }
 

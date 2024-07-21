@@ -204,6 +204,23 @@ public class StatsManager
         playerRenderer.material.color = originalColor;
     }
 
+    public IEnumerator DashModifier() {
+        float rate = 1.0f/ 0.2f;
+        float progress = 0.0f; 
+        float total = 0f;
+
+        moveSpeed += 20;
+
+        while (progress < 1f){
+            moveSpeed -= Mathf.Lerp(0, 20, progress) - total;
+            total = Mathf.Lerp(0, 20, progress);
+            progress += rate * Time.deltaTime;
+            yield return null; 
+        }
+        yield return new WaitForSeconds(0.5f);
+        PlayerController.isDashing = false;
+    }
+
     // Helper methods
     private float GetStatValue(string stat)
     {
