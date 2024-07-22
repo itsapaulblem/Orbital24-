@@ -583,7 +583,7 @@ PrefabInstance:
       objectReference: {fileID: 1938151998}
     - target: {fileID: 1188419898628119479, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
       propertyPath: m_Lens.OrthographicSize
-      value: 11
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 1320195265699661409, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
       propertyPath: m_ChildCameras.Array.size
@@ -639,7 +639,7 @@ PrefabInstance:
       objectReference: {fileID: 1952538911}
     - target: {fileID: 3289064270138888570, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
       propertyPath: orthographic size
-      value: 11
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 3289064270138888570, guid: d336e17f3c71841a89274f76ec19a3f7, type: 3}
       propertyPath: m_CullingMask.m_Bits
