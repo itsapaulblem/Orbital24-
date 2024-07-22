@@ -313,7 +313,13 @@ public class GameManager : MonoBehaviour
             PlayerPrefsManager.SetCoords(float.PositiveInfinity, float.PositiveInfinity);
         } else {
             PlayerPrefsManager.SetLastScene(lastScene);
-            PlayerPrefsManager.SetCoords(GameObject.Find("Player").transform.position.x, GameObject.Find("Player").transform.position.y);
+            GameObject player = GameObject.Find("Player");
+            if (player != null){
+                PlayerPrefsManager.SetCoords(player.transform.position.x, player.transform.position.y);
+            } else{
+                Debug.LogWarning("Player GameObject not found");
+                PlayerPrefsManager.SetCoords(float.PositiveInfinity, float.PositiveInfinity);
+            }
         }
         PlayerPrefsManager.SetKills(kills);
         SceneManager.LoadScene("Start");
