@@ -315,6 +315,7 @@ public class NPC : MonoBehaviour
         if (marketplaceMenu != null && currName == "Crab")
         {
             marketplaceMenu.SetActive(true);
+            marketplaceMenu.GetComponent<MarketplaceManager>().CheckPurchaseable();
             GameObject.Find("Player").GetComponent<PlayerController>().canMove = false;
             InventoryManager.UpdateCoinUI();
             if (gameManager.killText != null)
